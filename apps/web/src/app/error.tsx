@@ -2,9 +2,9 @@
 import React from "react";
 export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
-    <section className="panel empty-state">
+    <section className="empty-state">
       <h1>This request could not be completed.</h1>
-      <p className="lede">
+      <p className="lede" role="alert">
         Try again. If a ruling was saved, its original permalink will preserve
         it.
       </p>

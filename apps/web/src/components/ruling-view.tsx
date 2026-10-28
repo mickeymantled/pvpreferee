@@ -82,10 +82,10 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
     ),
   ].filter((id) => !snapshots.some((snapshot) => snapshot.id === id || ('reevaluation' in snapshot && (snapshot as DerivedSnapshot).reevaluation.original.id === id)));
   return (
-    <div className="page-stack">
-      <section className={"verdict panel " + (winner ? "winner-panel" : "")}>
+    <div className="page-stack ruling-page">
+      <section className="verdict">
         <div className="section-heading">
-          <p className="eyebrow">Case / {shortCa(ruling.share_slug)}</p>
+          <p>Case / {shortCa(ruling.share_slug)}</p>
           <span className={"tag status-" + ruling.status}>
             {ruling.status.replaceAll("_", " ")}
           </span>
@@ -94,14 +94,14 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
         <p className="lede">{status.description}</p>
         {winner && (
           <div className="winner">
-            <span className="eyebrow">Winning contract</span>
+            <span className="winner-label">Winning contract</span>
             <h2>
               {winner.name} <span className="ticker">${winner.ticker}</span>
             </h2>
             <code>{winner.ca}</code>
           </div>
         )}
-        <p className="muted">
+        <p className="metadata">
           {utcTime(ruling.created_at)} · Rulebook {ruling.rules_version} ·{" "}
           {ruling.coin_cas.length} coins
         </p>
@@ -123,8 +123,7 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
         </p>
       </section>
       <SourceAssumptions meme={meme} defaultPair={config.pair.default_asset} />
-      <section className="panel" aria-labelledby="rank-title">
-        <p className="eyebrow">The comparison</p>
+      <section className="content-section" aria-labelledby="rank-title">
         <h2 id="rank-title">Ranked coins</h2>
         {ruling.status !== "resolved" && (
           <p className="muted">
@@ -183,10 +182,9 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
           })}
         </ol>
       </section>
-      <section className="panel grid-panel" aria-labelledby="grid-title">
+      <section className="content-section" aria-labelledby="grid-title">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Every check, in order</p>
             <h2 id="grid-title">Pass / fail grid</h2>
           </div>
           <span className="muted">Pass · Fail · N/A</span>
@@ -259,8 +257,7 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
           </table>
         </div>
       </section>
-      <section className="panel" aria-labelledby="flags-title">
-        <p className="eyebrow">Context, not verdict</p>
+      <section className="content-section" aria-labelledby="flags-title">
         <h2 id="flags-title">Display-only flags</h2>
         <p className="muted">
           These flags never change the ruling. Unknown values are not treated as
@@ -290,9 +287,9 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
           ))}
         </div>
       </section>
-      <section className="panel" aria-labelledby="snapshots-title">
-        <p className="eyebrow">Frozen at the rival’s first real buy</p>
+      <section className="content-section" aria-labelledby="snapshots-title">
         <h2 id="snapshots-title">Participation evidence</h2>
+        <p className="muted">Frozen at the rival’s first real buy.</p>
         {!snapshots.length && (
           <p className="muted">
             No participation snapshots were recorded. No later market activity
@@ -398,8 +395,7 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
       </section>
       <SourceAudit meme={meme} />
       <ConfigView config={config} hash={ruling.config_hash} frozen />
-      <section className="panel">
-        <p className="eyebrow">Reproducible record</p>
+      <section className="content-section">
         <h2>Frozen facts</h2>
         <div className="hash-block">
           <span>Facts SHA-256</span>

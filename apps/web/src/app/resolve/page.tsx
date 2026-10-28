@@ -13,6 +13,7 @@ import { currentAdmin, protectRequest } from '../../server/security';
 import { RateLimitError } from '../../server/rate-limit';
 import { loadOverrideReview } from '../../server/overrides';
 import { OverrideForm } from '../../components/admin-forms';
+import { CaseSteps } from '../../components/case-steps';
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -58,21 +59,17 @@ export default async function ResolvePage({
   return (
     <div className="page-stack">
       <header className="page-heading">
-        <p className="eyebrow">02 / Confirm the source</p>
-        <h1>
-          Agree on the meme.
-          <br />
-          <span>Then compare the coins.</span>
-        </h1>
+        <h1>Review the source.</h1>
         <p className="lede">
           The ruling depends on the original source’s exact name, ticker, scope,
           and chain context.
         </p>
-        <p className="muted">
+        <p className="metadata">
           Comparing {review.input.cas.length} contracts · Rulebook{" "}
           {review.input.version}
         </p>
       </header>
+      <CaseSteps current="Source" />
       {meme ? (
         <SourceAssumptions
           meme={meme}
@@ -82,7 +79,7 @@ export default async function ResolvePage({
         />
       ) : (
         <div className="assumptions">
-          <p className="eyebrow">Assumptions not yet established</p>
+          <h2>Assumptions not yet established</h2>
           <p>
             Source: <EvidenceLink value={review.input.source_url} /> · Tier:
             unknown · Scope: unknown · Pair: unknown · Home chain: unknown
@@ -112,7 +109,7 @@ export default async function ResolvePage({
       <ReviewForm review={review} />
       {adminReview && <OverrideForm input={review.input} previous={adminReview.previous} fingerprint={adminReview.fingerprint} />}
       {adminReviewError && <p role="alert">Administrator review could not load its current record. Check database access and reload.</p>}
-      <details className="panel raw-data">
+      <details className="content-section raw-data">
         <summary>Contracts in this comparison</summary>
         <ol>
           {review.input.cas.map((ca) => (

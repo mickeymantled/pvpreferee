@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 export const viewport: Viewport = {
-  themeColor: "#101311",
+  themeColor: "#080809",
   colorScheme: "dark",
 };
 
@@ -27,6 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/fonts/inter-latin-400-normal.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/inter-latin-600-normal.woff" as="font" type="font/woff" crossOrigin="anonymous" />
+      </head>
       <body>
         <a className="skip-link" href="#main">
           Skip to content
@@ -37,34 +41,26 @@ export default function RootLayout({
             <img
               className="brand-mark"
               src={REFEREE_LOGO}
-              width={60}
-              height={60}
+              width={48}
+              height={48}
               alt=""
               aria-hidden="true"
             />
             <span>
               PvP <strong>Referee</strong>
-              <small>EVIDENCE OVER NOISE</small>
             </span>
           </a>
           <nav aria-label="Main navigation">
-            <a href="/rulebook">
-              The rulebook <span aria-hidden="true">↗</span>
-            </a>
-            <a className="nav-case" href="/">
-              Open a case
-            </a>
+            <a href="/rulebook">Rulebook</a>
+            <a href="/">Open case</a>
           </nav>
         </header>
-        <main id="main" className="site-main">
+        <main id="main" className="site-main" tabIndex={-1}>
           {children}
         </main>
         <footer className="site-footer">
-          <span>
-            PvP Referee <span className="muted">/ @pvpreferee</span>
-          </span>
-          <span>Rules you can read. Rulings you can replay.</span>
-          <a href="/rulebook">Rulebook v1 ↗</a>
+          <span>PvP Referee / @pvpreferee</span>
+          <span>No price predictions. No trading advice.</span>
         </footer>
       </body>
     </html>
