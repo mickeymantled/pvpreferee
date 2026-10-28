@@ -1,0 +1,17 @@
+{
+  "name": "@pvp/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./v1": "./rulebook.v1.json"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@pvp/shared": "workspace:*"
+  }
+}

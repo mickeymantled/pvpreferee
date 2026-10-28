@@ -1,0 +1,93 @@
+{
+  "version": "v1",
+  "rules": [
+    {
+      "id": 1,
+      "key": "endorsement",
+      "name": "Subject endorsement",
+      "description": "Verified subject endorsement takes precedence; the endorsed coin with the most subject-held supply wins. A lower-supply later endorsement is a conflict."
+    },
+    {
+      "id": 2,
+      "key": "identity",
+      "name": "Identity",
+      "description": "Name and ticker must independently match the canonical source exactly, including typos. A noticeably similar image copied from an earlier alive coin fails."
+    },
+    {
+      "id": 3,
+      "key": "scope",
+      "name": "Meme scope",
+      "description": "A differently named concept derivative is a separate meme and receives no comparative ruling."
+    },
+    {
+      "id": 4,
+      "key": "chain",
+      "name": "Chain fit",
+      "description": "A chain-native meme must use the source home chain. Otherwise chain is not scored."
+    },
+    {
+      "id": 5,
+      "key": "launchpad_pair",
+      "name": "Launchpad and pair",
+      "description": "The correct meme pair beats the wrong pair. A launchpad port is a vamp unless the source points there."
+    },
+    {
+      "id": 6,
+      "key": "beneficiary",
+      "name": "Beneficiary fees",
+      "description": "Claimable fees to the natural beneficiary rank higher only when the public tie predates the rival's first real buy."
+    },
+    {
+      "id": 7,
+      "key": "participation",
+      "name": "Participation snapshot",
+      "description": "Participation is frozen at the rival's first real buy. No post-rival activity or grace window counts."
+    },
+    {
+      "id": 8,
+      "key": "precedence",
+      "name": "Precedence",
+      "description": "Among otherwise equal coins, earliest real participation wins. Deployment time never breaks a tie."
+    }
+  ],
+  "participation": {
+    "min_distinct_buyers": 3,
+    "first_buy_window_seconds": 300,
+    "min_cap_above_launch_usd": 100,
+    "pvp_grace_seconds": 0,
+    "post_rival_window_seconds": 0
+  },
+  "identity": {
+    "hash_bits": 64,
+    "max_image_hamming_distance": 10,
+    "exact_spelling": true,
+    "source_hierarchy": [
+      "subject_post",
+      "official_asset",
+      "site_text",
+      "wiki"
+    ],
+    "press_sources": [
+      "reuters.com",
+      "apnews.com",
+      "bbc.com",
+      "theguardian.com",
+      "cnn.com"
+    ]
+  },
+  "endorsement": {
+    "selection": "most_subject_held_supply",
+    "fixed_minimum_supply_pct": null
+  },
+  "pair": {
+    "default_asset": "SOL",
+    "meme_pairs": {
+      "robotaxi": "TSLA",
+      "litecoin": "LTC"
+    }
+  },
+  "beneficiary": {
+    "require_pre_rival_tie": true,
+    "require_claimable": true
+  }
+}

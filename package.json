@@ -1,0 +1,26 @@
+{
+  "name": "pvp-referee",
+  "private": true,
+  "packageManager": "pnpm@11.3.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "build": "pnpm --filter @pvp/web build",
+    "dev:web": "pnpm --filter @pvp/web dev",
+    "dev:bot": "pnpm --filter @pvp/bot dev",
+    "db:migrate": "pnpm --filter @pvp/ingest db:migrate"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.19.0",
+    "eslint": "^9.39.5",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.7",
+    "tsx": "^4.20.0"
+  }
+}
