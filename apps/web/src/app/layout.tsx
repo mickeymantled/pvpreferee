@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const REFEREE_LOGO = "/brand/referee-logo-v1.jpg";
+
 export const metadata: Metadata = {
   title: {
     default: "PvP Referee — settle the argument",
@@ -9,6 +11,9 @@ export const metadata: Metadata = {
   },
   description:
     "Compare competing memecoin contracts with published rules, frozen participation snapshots, and linked evidence.",
+  icons: {
+    icon: { url: REFEREE_LOGO, type: "image/jpeg", sizes: "1408x1408" },
+  },
 };
 export const viewport: Viewport = {
   themeColor: "#101311",
@@ -28,9 +33,15 @@ export default function RootLayout({
         </a>
         <header className="site-header">
           <a href="/" className="brand" aria-label="PvP Referee home">
-            <span className="brand-mark" aria-hidden="true">
-              ↗
-            </span>
+            {/* The named home link supplies the accessible name for this mark. */}
+            <img
+              className="brand-mark"
+              src={REFEREE_LOGO}
+              width={60}
+              height={60}
+              alt=""
+              aria-hidden="true"
+            />
             <span>
               PvP <strong>Referee</strong>
               <small>EVIDENCE OVER NOISE</small>

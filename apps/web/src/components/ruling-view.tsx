@@ -1,5 +1,6 @@
 import React from "react";
 import type { DisplayFlags, Ruling, RulingStatus } from "@pvp/shared";
+import { cardImageUrl } from "../lib/card-url";
 import {
   displayValue,
   shortCa,
@@ -108,7 +109,7 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
           <ShareButton slug={ruling.share_slug} />
           <a
             className="button secondary"
-            href={"/api/card/" + encodeURIComponent(ruling.share_slug)}
+            href={cardImageUrl(ruling.share_slug)}
           >
             Open ruling image
           </a>

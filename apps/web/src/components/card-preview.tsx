@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { cardImageUrl } from "../lib/card-url";
 
 export function CardPreview({ slug }: { slug: string }) {
   const [failed, setFailed] = useState(false);
@@ -15,7 +16,7 @@ export function CardPreview({ slug }: { slug: string }) {
       ) : (
         <img
           className="ruling-image"
-          src={"/api/card/" + encodeURIComponent(slug)}
+          src={cardImageUrl(slug)}
           alt="PvP Referee ruling summary card; the full accessible verdict appears above"
           width={1200}
           height={675}
