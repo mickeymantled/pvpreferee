@@ -39,6 +39,14 @@ async function inspect(ruling: Ruling) {
     expect(textWidth(line.text, line.size, metrics), line.id).toBeLessThanOrEqual(line.width);
     expect(line.height, line.id).toBeGreaterThanOrEqual(line.size * 1.15);
   }
+  for (let index = 0; index < document.lines.length; index++) {
+    const a = document.lines[index]!;
+    for (const b of document.lines.slice(index + 1)) {
+      const overlap = a.x < b.x + b.width && b.x < a.x + a.width &&
+        a.y < b.y + b.height && b.y < a.y + a.height;
+      expect(overlap, `${a.id} overlaps ${b.id}`).toBe(false);
+    }
+  }
   expect(svg).toContain('width="1200" height="675"');
   expect(svg).not.toMatch(/<text\b/); // Font outlines only, no renderer/system fallback.
   const images = svg.match(/<image\b[^>]*>/g) ?? [];
@@ -49,8 +57,8 @@ async function inspect(ruling: Ruling) {
   const badge = nodes.find(node => node.props['data-card-id'] === 'brand-mark')!;
   const brandText = nodes.find(node => node.props['data-card-id'] === 'brand')!;
   const headerLine = nodes.find(node => node.props['data-card-id'] === 'header-line')!;
-  expect([logo.left, logo.top, logo.width, logo.height]).toEqual([48, 20, 58, 58]);
-  expect([badge.left, badge.top, badge.width, badge.height]).toEqual([48, 20, 58, 58]);
+  expect([logo.left, logo.top, logo.width, logo.height]).toEqual([56, 24, 44, 44]);
+  expect([badge.left, badge.top, badge.width, badge.height]).toEqual([56, 24, 44, 44]);
   expect(logo.props.style).toMatchObject({ objectFit: 'contain' });
   expect(badge.props.style).toMatchObject({ backgroundColor: '#000000' });
   expect(logo.width / logo.height).toBe(brand.width / brand.height);
@@ -69,6 +77,7 @@ async function inspect(ruling: Ruling) {
     snapshot: nodes.filter(node => node.textContent || ['brand-mark', 'brand-logo'].includes(String(node.props['data-card-id']))).map(node => ({
       id: node.props['data-card-id'], text: node.textContent,
       box: [node.left, node.top, node.width, node.height].map(value => Math.round(value * 100) / 100),
+      ...(node.textContent ? { color: node.props.style?.color, size: node.props.style?.fontSize, weight: node.props.style?.fontWeight } : {}),
       ...(node.props['data-card-id'] === 'brand-logo' ? { asset: brand.sha256 } : {}),
     })),
   };
@@ -93,9 +102,17 @@ describe('public rule fixtures', () => {
       const winner = document.lines.find(line => line.id === 'winner-ca');
       expect(winner?.text ?? null).toBe(ruling.winner_ca);
       expect(document.content.rows).toHaveLength(ruling.coin_cas.length - Number(ruling.winner_ca !== null));
-      for (const row of document.content.rows) {
+      for (const [index, row] of document.content.rows.entries()) {
         const eliminatedBy = fixture.expected.eliminated_by[row.ca];
-        if (eliminatedBy !== null) expect(row.detail).toMatch(new RegExp(`^R${eliminatedBy} `));
+        if (eliminatedBy !== null) {
+          const definition = ruling.facts.config.rules.find(rule => rule.id === eliminatedBy)!;
+          const prefix = `R${eliminatedBy} ${definition.name}: `;
+          const reason = ruling.grid.find(grid => grid.coin === row.ca)!.rules[eliminatedBy!].reason;
+          expect(row.detail).toBe(prefix + reason);
+          const visible = document.lines.find(line => line.id === `row-${index}-detail`)!.text;
+          expect(visible.startsWith(prefix)).toBe(true);
+          expect(visible.length).toBeGreaterThan(prefix.length + 10);
+        }
         expect(row.state).toBe(eliminatedBy !== null ? 'FAIL' : 'N/A');
       }
       expectPng(await renderRulingCard(ruling));
@@ -115,6 +132,22 @@ describe('capacity and status cards', () => {
       const visibleAddresses = document.lines.filter(line => /^row-\d+-ca$/.test(line.id)).map(line => line.text);
       expect(new Set(visibleAddresses).size).toBe(visibleAddresses.length);
       expect(document.lines.some(line => line.id === 'winner-ca')).toBe(status === 'resolved');
+      if (status === 'resolved') {
+        expect(document.lines.find(line => line.id === 'winner-ca')?.text).toBe(ruling.winner_ca);
+      } else {
+        expect(document.lines.find(line => line.id === 'status')?.text).toBe({
+          unresolved: 'Unresolved', separate_memes: 'Separate memes', no_winner: 'No winner',
+        }[status]);
+      }
+      for (const [index, row] of document.content.rows.entries()) {
+        expect(document.lines.find(line => line.id === `row-${index}-state`)?.text).toBe(row.state);
+        const detail = document.lines.find(line => line.id === `row-${index}-detail`)!.text;
+        if (row.state === 'FAIL') {
+          const eliminatingRule = ruling.grid.find(grid => grid.coin === row.ca)!.eliminated_by;
+          const name = ruling.facts.config.rules.find(rule => rule.id === eliminatingRule)!.name;
+          expect(detail.startsWith(`R${eliminatingRule} ${name}: `)).toBe(true);
+        } else expect(detail).not.toMatch(/^R\d /);
+      }
       expectPng(await renderRulingCard(ruling));
     });
   }
@@ -132,6 +165,44 @@ describe('capacity and status cards', () => {
     for (let count = 2; count <= 10; count++) {
       const { document } = await inspect(scenario('no_winner', count));
       expect(document.content.rows).toHaveLength(count);
+    }
+  });
+  it('keeps even a 64-character wide winner address intact and readable', async () => {
+    const ruling = scenario('resolved');
+    const previous = ruling.winner_ca!;
+    const ca = 'W'.repeat(64);
+    ruling.winner_ca = ca;
+    ruling.coin_cas = ruling.coin_cas.map(value => value === previous ? ca : value);
+    ruling.ranked_cas = ruling.ranked_cas.map(value => value === previous ? ca : value);
+    ruling.facts.coins.find(coin => coin.ca === previous)!.ca = ca;
+    ruling.grid.find(row => row.coin === previous)!.coin = ca;
+    const { document } = await inspect(ruling);
+    const address = document.lines.find(line => line.id === 'winner-ca')!;
+    expect(address.text).toBe(ca);
+    expect(address.size).toBeGreaterThanOrEqual(16);
+  });
+  it('uses neutral unboxed sections with color reserved for explicit result labels', async () => {
+    for (const status of ['resolved', 'unresolved', 'separate_memes', 'no_winner'] as const) {
+      const document = createDocument(scenario(status), await loadFonts());
+      expect(document.element.props.style.backgroundColor).toBe('#080809');
+      if (document.element.type !== 'div') throw new Error('Expected card container');
+      const children = document.element.props.children;
+      if (!Array.isArray(children)) throw new Error('Expected card elements');
+      for (const child of children) {
+        if (child.type === 'img' || child.key === 'brand-mark' || typeof child.props.children === 'string') continue;
+        expect(child.props.style.height).toBe(1);
+        expect(child.props.style.backgroundColor).toBe(colors.border);
+      }
+      for (const line of document.lines) {
+        if (![colors.text, colors.muted].includes(line.color)) {
+          expect(line.id).toMatch(/^(winner-label|status-label|row-\d+-state)$/);
+        }
+        if (/^row-\d+-detail$/.test(line.id)) expect(line.color).toBe(colors.text);
+        if (/^(version|footer)$/.test(line.id)) {
+          expect(line.size).toBeGreaterThanOrEqual(13);
+          expect(line.text).not.toMatch(/\.\.\.$/);
+        }
+      }
     }
   });
 });
@@ -195,7 +266,7 @@ describe('determinism, safety and server boundary', () => {
       return channels[0]! * 0.2126 + channels[1]! * 0.7152 + channels[2]! * 0.0722;
     };
     for (const foreground of [colors.text, colors.muted, colors.green, colors.red, colors.amber]) {
-      for (const background of [colors.background, colors.panel, colors.greenPanel]) {
+      for (const background of [colors.background, '#111113']) {
         expect((luminance(foreground) + 0.05) / (luminance(background) + 0.05)).toBeGreaterThanOrEqual(4.5);
       }
     }
