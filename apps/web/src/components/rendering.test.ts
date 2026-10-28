@@ -12,7 +12,7 @@ vi.mock("../app/actions", () => ({
 }));
 import { RulingView } from "./ruling-view";
 import { EvidenceLink } from "./evidence";
-import { ReviewForm } from "./forms";
+import { ComparisonForm, ReviewForm } from "./forms";
 import HomePage from "../app/page";
 import RulebookPage from "../app/rulebook/page";
 
@@ -107,23 +107,40 @@ describe("honest status and evidence rendering", () => {
     expect(html).toMatch(/<button[^>]*disabled=""/);
     expect(html).toContain('name="canonical_name"');
     expect(html).not.toContain('name="meme"');
+    expect(html).toMatch(/<input\b[^>]*type="hidden"[^>]*name="cas"/);
+    expect(html).toMatch(/<input\b[^>]*type="hidden"[^>]*name="source_url"/);
+    expect(html).not.toContain('name="ca"');
   });
   it("renders home and rulebook without any configured runtime or fake demo", () => {
     const home = render(React.createElement(HomePage)),
       rulebook = render(React.createElement(RulebookPage));
-    expect(home).toContain("Review the source");
+    expect(home).toContain("Find the meme origin");
     expect(home).toContain("Same meme. One ruling.");
     expect(home.match(/<h1>/g)).toHaveLength(1);
-    expect(home.match(/<button\b/g)).toHaveLength(1);
+    expect(home.match(/<button\b[^>]*type="submit"/g)).toHaveLength(1);
+    expect(home.match(/<input\b[^>]*name="ca"/g)).toHaveLength(2);
     expect(home).toContain('aria-current="step"');
-    expect(home).toContain('aria-describedby="cas-help"');
-    expect(home).toContain('aria-describedby="source-help"');
-    expect(home).toContain('id="cas-help"');
-    expect(home).toContain('id="source-help"');
-    expect(home).toContain('name="cas"');
-    expect(home).toContain('name="source_url"');
+    expect(home).toContain("Contract address 1");
+    expect(home).toContain("Contract address 2");
+    expect(home).toContain('aria-describedby="origin-help"');
+    expect(home).toContain('id="origin-help"');
+    expect(home).toContain("looks up token-linked sources");
+    expect(home).toContain("origin cannot be verified, we stop");
+    expect(home).not.toContain('name="cas"');
+    expect(home).not.toContain('name="source_url"');
+    expect(home).not.toContain("<textarea");
+    expect(home).not.toContain("Original meme source");
+    expect(home).not.toContain("https://x.com/");
+    expect(home).not.toContain("source.example");
     expect(home).not.toContain("synthetic-ruling");
     expect(rulebook).toContain("Config SHA-256");
     expect(rulebook).toContain("reuters.com");
+  });
+  it("keeps the published rulebook selector and selected version link on the home form", () => {
+    const html = render(React.createElement(ComparisonForm, { versions: ["v2", "v1"] }));
+    expect(html).toContain('name="version"');
+    expect(html).toContain('<option selected="">v2</option>');
+    expect(html).toContain('<option>v1</option>');
+    expect(html).toContain('href="/rulebook/v2"');
   });
 });
