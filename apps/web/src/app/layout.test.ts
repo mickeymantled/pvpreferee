@@ -33,8 +33,8 @@ describe("original referee branding", () => {
     const mark = html.match(/<img\b[^>]*class="brand-mark"[^>]*>/)?.[0];
     expect(mark).toBeDefined();
     expect(mark).toContain(`src="${logoPath}"`);
-    expect(mark).toContain('width="60"');
-    expect(mark).toContain('height="60"');
+    expect(mark).toContain('width="48"');
+    expect(mark).toContain('height="48"');
     expect(mark).not.toContain("srcSet=");
     expect(html).not.toContain("/_next/image");
   });
@@ -46,10 +46,10 @@ describe("original referee branding", () => {
     expect(brand).toContain('aria-label="PvP Referee home"');
     expect(brand).toMatch(/<img\b[^>]*alt=""[^>]*aria-hidden="true"/);
     expect(brand).toContain("PvP <strong>Referee</strong>");
-    expect(brand).toContain("EVIDENCE OVER NOISE");
     expect(brand).not.toContain("↗");
     expect(html).toContain('href="#main"');
     expect(html).toContain('id="main"');
+    expect(html).toContain('tabindex="-1"');
     expect(html).toContain('aria-label="Main navigation"');
     expect(html).toContain('href="/rulebook"');
   });
@@ -59,5 +59,20 @@ describe("original referee branding", () => {
       icon: { url: logoPath, type: "image/jpeg", sizes: "1408x1408" },
     });
     expect(renderLayout()).toContain(`src="${logoPath}"`);
+  });
+});
+
+describe("bundled web typography", () => {
+  it.each([400, 600])("serves the licensed Inter %s face locally", async (weight) => {
+    const name = `inter-latin-${weight}-normal.woff`;
+    const [bundled, original, license] = await Promise.all([
+      readFile(new URL(`../../public/fonts/${name}`, import.meta.url)),
+      readFile(new URL(`../../../../packages/card/assets/${name}`, import.meta.url)),
+      readFile(new URL("../../public/fonts/OFL.txt", import.meta.url), "utf8"),
+    ]);
+    expect(bundled.equals(original)).toBe(true);
+    expect(bundled.subarray(0, 4).toString()).toBe("wOFF");
+    expect(license).toContain("SIL OPEN FONT LICENSE Version 1.1");
+    expect(renderLayout()).toContain(`href="/fonts/${name}"`);
   });
 });

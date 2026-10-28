@@ -5,8 +5,7 @@ import { cardImageUrl } from "../lib/card-url";
 export function CardPreview({ slug }: { slug: string }) {
   const [failed, setFailed] = useState(false);
   return (
-    <section className="panel">
-      <p className="eyebrow">Take the ruling with you</p>
+    <section className="content-section">
       <h2>Share card</h2>
       {failed ? (
         <p className="notice">

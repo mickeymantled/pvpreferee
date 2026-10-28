@@ -12,25 +12,23 @@ export function SourceAssumptions({
 }) {
   return (
     <div className="assumptions">
-      <p className="eyebrow">Assumptions used for this comparison</p>
-      <p>
-        Source: <EvidenceLink value={meme.source_url} /> · Tier:{" "}
-        <strong>{meme.source_tier.replaceAll("_", " ")}</strong> · Scope:{" "}
-        <strong>{meme.scope}</strong> · Pair:{" "}
-        <strong>
-          {meme.implied_pair ?? `${defaultPair} (rulebook default)`}
-        </strong>{" "}
-        · Home chain:{" "}
-        <strong>{meme.home_chain ?? "Not specified — chain not scored"}</strong>
+      <h2>Comparison assumptions</h2>
+      <p className="assumption-source">
+        Source: <EvidenceLink value={meme.source_url} />
       </p>
+      <dl className="assumption-fields">
+        <div><dt>Source tier</dt><dd>{meme.source_tier.replaceAll("_", " ")}</dd></div>
+        <div><dt>Scope</dt><dd>{meme.scope}</dd></div>
+        <div><dt>Pair</dt><dd>{meme.implied_pair ?? `${defaultPair} (rulebook default)`}</dd></div>
+        <div><dt>Home chain</dt><dd>{meme.home_chain ?? "Not specified — chain not scored"}</dd></div>
+      </dl>
     </div>
   );
 }
 
 export function SourceAudit({ meme }: { meme: MemeRecord }) {
   return (
-    <section className="panel" id="source-audit" aria-labelledby="source-title">
-      <p className="eyebrow">Evidence trail</p>
+    <section className="content-section" id="source-audit" aria-labelledby="source-title">
       <h2 id="source-title">Source &amp; review history</h2>
       <dl className="facts-list">
         <div>

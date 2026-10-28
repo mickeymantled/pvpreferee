@@ -9,20 +9,15 @@ export default function RulebookPage() {
   return (
     <div className="page-stack">
       <header className="page-heading">
-        <p className="eyebrow">The rules are public</p>
-        <h1>
-          One rulebook.
-          <br />
-          <span>Every coin gets the same checks.</span>
-        </h1>
+        <h1>The rulebook.</h1>
         <p className="lede">
-          Precedence, not a popularity contest. Each ruling stores the exact
+          Eight checks, in order. Each ruling stores the exact
           version, thresholds, and evidence used to reach its verdict.
         </p>
       </header>
-      <nav aria-label="Published rulebooks">{listRulebooks().map(version => <a key={version} href={'/rulebook/' + version}>{version} </a>)}</nav>
+      <nav className="version-nav" aria-label="Published rulebooks"><span>Published versions</span>{listRulebooks().map(version => <a key={version} href={'/rulebook/' + version}>{version}</a>)}</nav>
       <ConfigView config={config} hash={hash} />
-      <section className="notice">
+      <section className="content-section">
         <h2>What never changes the verdict</h2>
         <p>
           Top-holder concentration, creator launch count, developer sales, CTO

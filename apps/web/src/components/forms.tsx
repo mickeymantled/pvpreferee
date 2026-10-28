@@ -24,22 +24,15 @@ export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
   const [version, setVersion] = useState(versions[0] ?? 'v1');
   return (
     <form action={action} className="comparison-form" aria-busy={pending}>
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">01 / Open a case</p>
-          <h2>Which coin is the original?</h2>
-        </div>
-        <span className="tag">2–10 coins</span>
-      </div>
       <label htmlFor="cas">Contract addresses</label>
       <textarea
         id="cas"
         name="cas"
         value={cas}
         onChange={event => setCas(event.target.value)}
-        placeholder="Paste one Solana contract address per line"
+        placeholder="Paste 2–10 Solana contract addresses"
         required
-        rows={5}
+        rows={4}
         maxLength={1024}
         spellCheck={false}
         autoCapitalize="none"
@@ -47,8 +40,7 @@ export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
         aria-describedby="cas-help"
       />
       <p id="cas-help" className="field-help">
-        Separate with a new line, space, or comma. Duplicate addresses count
-        once.
+        Add 2–10 addresses, separated by a new line, space, or comma. Duplicates count once.
       </p>
       <label htmlFor="source_url">Original meme source</label>
       <input
@@ -59,7 +51,7 @@ export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
         type="url"
         required
         maxLength={2048}
-        placeholder="https://x.com/… or the original source page"
+        placeholder="https://x.com/… or a source page"
         autoCapitalize="none"
         spellCheck={false}
         aria-describedby="source-help"
@@ -68,15 +60,18 @@ export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
         A subject post, official asset, video, or source page. You’ll review its
         assumptions next.
       </p>
-      <label htmlFor="comparison-version">Rulebook version</label>
-      <select id="comparison-version" name="version" value={version} onChange={event => setVersion(event.target.value)}>{versions.map(item => <option key={item}>{item}</option>)}</select>
+      <div className="version-control">
+        <label htmlFor="comparison-version">Rulebook</label>
+        <select id="comparison-version" name="version" value={version} onChange={event => setVersion(event.target.value)}>{versions.map(item => <option key={item}>{item}</option>)}</select>
+        <a className="text-link" href={'/rulebook/' + version}>View rules</a>
+      </div>
       <FormNotice state={state} />
       <button type="submit" disabled={pending} className="button primary">
         {pending ? "Opening source review…" : "Review the source"}{" "}
-        <span aria-hidden="true">↗</span>
+        <span aria-hidden="true">→</span>
       </button>
       <p className="form-footnote">
-        Published rules. Linked evidence. No single score.
+        Missing evidence stays unknown. No single score.
       </p>
     </form>
   );
@@ -97,7 +92,7 @@ export function SourceFields({ meme, editable = false }: { meme: MemeRecord | nu
     ["source_image_hash", "Source image hash (64-bit hex)"],
   ];
   return (
-    <fieldset disabled={!editable} aria-describedby={editable ? undefined : 'override-lock'}>
+    <fieldset className="source-fields" disabled={!editable} aria-describedby={editable ? undefined : 'override-lock'}>
       <legend>Canonical fields</legend>
       <div className="field-grid">
         {fields.map(([field, label]) => (
@@ -144,7 +139,7 @@ export function SourceFields({ meme, editable = false }: { meme: MemeRecord | nu
 export function ReviewForm({ review }: { review: Review }) {
   const [state, action, pending] = useActionState(issueRuling, INITIAL);
   return (
-    <form action={action} className="panel review-form" aria-busy={pending}>
+    <form action={action} className="content-section review-form" aria-busy={pending}>
       <SourceFields meme={review.resolution.meme} />
       <p className="notice subtle" id="override-lock">
         Source edits are locked for public comparisons. These fields show the inferred facts or an existing audited review. <a href="/admin/login">Administrator sign-in</a>

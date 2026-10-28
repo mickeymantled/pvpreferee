@@ -52,13 +52,12 @@ export function ConfigView({
     ["Beneficiary must be able to claim", config.beneficiary.require_claimable],
   ];
   return (
-    <section className="panel" aria-labelledby="config-title">
+    <section className="content-section" aria-labelledby="config-title">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Published parameters</p>
           <h2 id="config-title">
             {frozen ? "Frozen rulebook" : "Rulebook"}{" "}
-            <span className="tag">{config.version}</span>
+            <span className="muted">{config.version}</span>
           </h2>
         </div>
       </div>

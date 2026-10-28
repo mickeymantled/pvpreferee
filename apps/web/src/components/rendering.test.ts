@@ -102,7 +102,7 @@ describe("honest status and evidence rendering", () => {
       ready: false,
     };
     const html = render(React.createElement(ReviewForm, { review }));
-    expect(html).toContain('<fieldset disabled=""');
+    expect(html).toMatch(/<fieldset\b[^>]*disabled=""/);
     expect(html).toContain("Source edits are locked");
     expect(html).toMatch(/<button[^>]*disabled=""/);
     expect(html).toContain('name="canonical_name"');
@@ -112,6 +112,14 @@ describe("honest status and evidence rendering", () => {
     const home = render(React.createElement(HomePage)),
       rulebook = render(React.createElement(RulebookPage));
     expect(home).toContain("Review the source");
+    expect(home).toContain("Same meme. One ruling.");
+    expect(home.match(/<h1>/g)).toHaveLength(1);
+    expect(home.match(/<button\b/g)).toHaveLength(1);
+    expect(home).toContain('aria-current="step"');
+    expect(home).toContain('aria-describedby="cas-help"');
+    expect(home).toContain('aria-describedby="source-help"');
+    expect(home).toContain('id="cas-help"');
+    expect(home).toContain('id="source-help"');
     expect(home).toContain('name="cas"');
     expect(home).toContain('name="source_url"');
     expect(home).not.toContain("synthetic-ruling");

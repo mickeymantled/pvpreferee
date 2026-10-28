@@ -9,7 +9,7 @@ import { RulingView } from "./ruling-view";
 describe("versioned card image URLs", () => {
   it("encodes the slug separately from the fixed renderer revision", () => {
     expect(cardImageUrl("case /?#&name")).toBe(
-      "/api/card/case%20%2F%3F%23%26name?v=referee-logo-v1",
+      "/api/card/case%20%2F%3F%23%26name?v=sleek-v1",
     );
   });
 
@@ -19,7 +19,7 @@ describe("versioned card image URLs", () => {
     );
     const preview = html.match(/<img\b[^>]*>/)?.[0];
     expect(preview).toContain(
-      'src="/api/card/synthetic-ruling?v=referee-logo-v1"',
+      'src="/api/card/synthetic-ruling?v=sleek-v1"',
     );
     expect(preview).toContain('width="1200"');
     expect(preview).toContain('height="675"');
@@ -34,10 +34,10 @@ describe("versioned card image URLs", () => {
       React.createElement(RulingView, { ruling: saved }),
     );
     expect(html).toMatch(
-      /<a\b[^>]*href="\/api\/card\/synthetic-ruling\?v=referee-logo-v1"[^>]*>Open ruling image<\/a>/,
+      /<a\b[^>]*href="\/api\/card\/synthetic-ruling\?v=sleek-v1"[^>]*>Open ruling image<\/a>/,
     );
     expect(html).toMatch(
-      /<img\b[^>]*src="\/api\/card\/synthetic-ruling\?v=referee-logo-v1"/,
+      /<img\b[^>]*src="\/api\/card\/synthetic-ruling\?v=sleek-v1"/,
     );
     expect(html).not.toContain('"/api/card/synthetic-ruling"');
     expect(JSON.stringify(saved)).toBe(before);
