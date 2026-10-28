@@ -61,6 +61,14 @@ export function createPipeline(deps: PipelineDependencies) {
       if (coin.ca !== ca) throw new Error('Coin provider returned a mismatched CA.');
       coin.meme_id ??= meme.id;
       coin.endorsements.push(...structuredClone((input.endorsements ?? []).filter(e => e.coin_ca === ca)));
+      if (coin.subject_held_supply_pct === null) {
+        const measurements = coin.endorsements.filter(e => e.verified_by && (e.evidence_tx || e.evidence_url) &&
+          e.subject_held_supply_pct !== null && Number.isFinite(e.subject_held_supply_pct) &&
+          e.subject_held_supply_pct >= 0 && e.subject_held_supply_pct <= 100 && Date.parse(e.at) <= Date.parse(coin.observed_at));
+        const latestAt = Math.max(...measurements.map(e => Date.parse(e.at)));
+        const latest = [...new Set(measurements.filter(e => Date.parse(e.at) === latestAt).map(e => e.subject_held_supply_pct!))];
+        if (latest.length === 1) coin.subject_held_supply_pct = latest[0]!;
+      }
       return coin;
     });
     const tasks = coins.flatMap(coin => [...new Set(coins.filter(rival => rival.ca !== coin.ca)

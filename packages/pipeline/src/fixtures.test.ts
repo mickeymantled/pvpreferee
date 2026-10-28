@@ -26,4 +26,20 @@ describe('synthetic disputes through the shared pipeline', () => {
     expect(result.coin_cas).toEqual(result.facts.coins.map(c => c.ca));
     expect(saved).toEqual([result]);
   });
+  it('uses verified source supply measurements when ingest has no subject label', async () => {
+    const fixture = structuredClone(fixtures.find(f => f.name === 'kimchi_qr')!);
+    const endorsements = fixture.coins.flatMap(c => c.endorsements);
+    fixture.coins.forEach(c => { c.endorsements = []; c.subject_held_supply_pct = null; });
+    const pipeline = createPipeline({
+      ingest: {
+        coinFacts: async ca => fixture.coins.find(c => c.ca === ca)!,
+        snapshotAt: async (ca, at) => ({ id:'synthetic-unavailable',coin_ca:ca,at,mcap_usd:null,holders:null,distinct_buyers_lifetime:null,last_trade_at:null,source:'synthetic missing checkpoint',complete:false,evidence:[] }),
+      },
+      source: { resolve: async () => ({ meme:fixture.meme,endorsements,needs_review:false,reasons:[] }) },
+      repository: { save:async()=>{},findBySlug:async()=>null }, judge:rule,
+    });
+    const result = await pipeline.run({cas:fixture.coins.map(c=>c.ca),source_url:fixture.meme.source_url});
+    expect(result.winner_ca).toBe(fixture.expected.winner_ca);
+    expect(result.facts.coins.find(c=>c.ca===fixture.expected.winner_ca)!.subject_held_supply_pct).toBe(75);
+  });
 });
