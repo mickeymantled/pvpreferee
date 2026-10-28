@@ -2,6 +2,8 @@
 
 Verified locally on 2026-10-28 with Node 22.22.3, pnpm 11.3.0 and Postgres 16.14. This is an implemented, tested **pre-production release**, not a claim of verified live historical rulings. The missing production adapters and live acceptance gates below are material.
 
+Post-release presentation update: the approved robotic referee and subsequent [sleek monochrome redesign](DESIGN.md) are integrated on main. The updated suite has **448 passing tests and four skipped live tests**. The original v0.1 verification below is retained as release history; no rulebook, data contract, stored ruling or production limitation changed.
+
 ## Implemented
 
 - Phase 0: strict TypeScript pnpm workspace, shared ESLint/tsconfig/Vitest/CI, frozen `@pvp/shared` contracts, typed and hashed eight-rule config, CONTRIBUTING and `phase-0` tag. `AGENTS.md`, shared contracts and the v1 JSON have not changed since that tag.

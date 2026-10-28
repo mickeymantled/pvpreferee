@@ -12,7 +12,7 @@ For a local database, run `docker compose up -d postgres` and use `postgres://pv
 
 See [docs/STATUS.md](docs/STATUS.md) for implemented features, external integration limitations, environment variables, and exact run commands. See [docs/runbook.md](docs/runbook.md) for operations and [docs/DECISIONS.md](docs/DECISIONS.md) for implementation choices omitted from the brief.
 
-The approved robotic-referee logo and its presentation-only integration are documented in [docs/BRANDING.md](docs/BRANDING.md).
+The approved robotic-referee logo and its presentation-only integration are documented in [docs/BRANDING.md](docs/BRANDING.md). The monochrome interface and card design are described in [docs/DESIGN.md](docs/DESIGN.md).
 
 ## Workspace
 
