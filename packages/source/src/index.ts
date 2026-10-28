@@ -1,1 +1,13 @@
-export {};
+export { createSourceFromEnv, createSourceProvider, resolveSource, resolveSources } from './provider.js';
+export type { SourceOptions, SourceResolver, VerifiedChainEvidence } from './provider.js';
+export { hashImage, hashImageFromUrl, imageDistance } from './image.js';
+export type { HashImageUrlOptions } from './image.js';
+export { createPublicTransport, isPublicAddress, publicUrl, SourceError } from './transport.js';
+export type { SourceTransport, TransportResponse, FetchOptions, PublicTransportOptions, PublicAddress, ExchangeRequest } from './transport.js';
+export { parseSiteHtml, parseXPost, parseYouTubeVideo, SOURCE_HIERARCHY } from './parse.js';
+export type { SourceAuthority, SourceObservation, SourceReference } from './parse.js';
+export { canonicalArticleUrl, countPressCandidates } from './press.js';
+export type { PressResult } from './press.js';
+export { createManualOverrideService, createManualOverrideServiceFromEnv } from './overrides.js';
+export type { ManualOverrideService, ManualOverrideServiceOptions, ManualOverridePatch, OverrideRequest, OverrideCommit, CallerAuthContext } from './overrides.js';
+export type { SourceProvider, SourceResolution } from '@pvp/shared';

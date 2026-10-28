@@ -1,0 +1,12 @@
+{
+  "_fixture": { "synthetic": true, "description": "Invented DACITY identity example. Not a captured X post or proof of a real endorsement. Typo/case are deliberate." },
+  "data": {
+    "id": "1001", "author_id": "501", "created_at": "2026-10-20T12:00:00.000Z",
+    "text": "Name: Da Ctiy\nTicker: DACITY\nScope: artifact\nCA: 11111111111111111111111111111111",
+    "attachments": { "media_keys": ["3_synthetic_dacity"] }
+  },
+  "includes": {
+    "users": [{ "id": "501", "username": "synthetic_subject", "verified": false }],
+    "media": [{ "media_key": "3_synthetic_dacity", "type": "photo", "url": "https://images.example.com/dacity.png" }]
+  }
+}

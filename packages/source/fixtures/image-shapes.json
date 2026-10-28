@@ -1,0 +1,12 @@
+{
+  "synthetic": true,
+  "description": "Invented raster test scene. Generated in memory by tests; never fetched or presented as source evidence.",
+  "width": 128,
+  "height": 128,
+  "background": [235, 225, 210],
+  "rectangles": [
+    { "x": 20, "y": 25, "width": 32, "height": 76, "color": [45, 55, 60] },
+    { "x": 68, "y": 20, "width": 42, "height": 34, "color": [95, 80, 70] },
+    { "x": 72, "y": 73, "width": 24, "height": 30, "color": [20, 30, 40] }
+  ]
+}
