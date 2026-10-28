@@ -7,10 +7,29 @@
     ".": "./src/index.ts"
   },
   "scripts": {
+    "dev": "node --env-file-if-exists=../../.env node_modules/next/dist/bin/next dev",
+    "build": "node --env-file-if-exists=../../.env node_modules/next/dist/bin/next build",
+    "start": "node --env-file-if-exists=../../.env node_modules/next/dist/bin/next start",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --root ../.. apps/web",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@pvp/shared": "workspace:*"
+    "@pvp/shared": "workspace:*",
+    "@pvp/config": "workspace:*",
+    "@pvp/pipeline": "workspace:*",
+    "@pvp/source": "workspace:*",
+    "@pvp/ingest": "workspace:*",
+    "@pvp/card": "workspace:*",
+    "next": "15.5.28",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "@resvg/resvg-js": "2.6.2",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0"
   }
 }
