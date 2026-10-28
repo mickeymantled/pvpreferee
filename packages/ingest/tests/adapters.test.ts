@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { PublicKey } from '@solana/web3.js';
+import { getAddressEncoder } from '@solana/addresses';
 import fixture from '../fixtures/providers.synthetic.json';
 import type { HttpRequest, Transport } from '../src/contracts';
 import { HeliusAdapter } from '../src/helius';
@@ -15,7 +15,7 @@ class SyntheticTransport implements Transport {
   async request(r: HttpRequest) { this.requests.push(r); return { status: this.status, body: this.handler(r) }; }
 }
 function syntheticCurve() {
-  const b = Buffer.alloc(150); Buffer.from([23, 183, 248, 55, 96, 216, 172, 96]).copy(b); new PublicKey(CREATOR).toBuffer().copy(b, 49); return b;
+  const b = Buffer.alloc(150); Buffer.from([23, 183, 248, 55, 96, 216, 172, 96]).copy(b); Buffer.from(getAddressEncoder().encode(CREATOR)).copy(b, 49); return b;
 }
 function syntheticRpc(r: HttpRequest) {
   const body = r.body as { method: string; params: unknown };
@@ -49,7 +49,7 @@ describe('synthetic provider transports, never live default requests', () => {
     expect(launch.raw[1]!.payload).toMatchObject({ created_timestamp: fixture.pump.created_timestamp });
   });
   it('does not assume custom quotes are SOL and does not infer fee beneficiary when redirected', () => {
-    const b = syntheticCurve(); new PublicKey(CA).toBuffer().copy(b, 83); b[124] = 1;
+    const b = syntheticCurve(); Buffer.from(getAddressEncoder().encode(CA)).copy(b, 83); b[124] = 1;
     expect(decodePumpCurve(b)).toMatchObject({ quote_mint: CA, fee_redirected: true });
     expect(() => decodePumpCurve(b.subarray(0, 90))).toThrow('Truncated');
   });

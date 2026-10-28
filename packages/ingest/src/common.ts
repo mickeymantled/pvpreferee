@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { canonicalJson } from '@pvp/shared';
-import { PublicKey } from '@solana/web3.js';
+import { isAddress } from '@solana/addresses';
 import type { Json } from './contracts';
 
 export type IngestErrorCode = 'INVALID_INPUT' | 'PROVIDER_ERROR' | 'INVALID_RESPONSE' | 'HISTORY_UNAVAILABLE' | 'INCOMPLETE_HISTORY' | 'PRICE_UNAVAILABLE' | 'IMMUTABLE_CONFLICT';
@@ -17,7 +17,7 @@ export function timestamp(value: string): string {
   return canonical;
 }
 export function mintAddress(ca: string): string {
-  try { if (new PublicKey(ca).toBase58() === ca) return ca; } catch { /* report without echoing input */ }
+  if (isAddress(ca)) return ca;
   throw new IngestError('INVALID_INPUT', 'Expected a canonical Solana mint public key');
 }
 export function object(value: unknown, label: string): Record<string, unknown> {

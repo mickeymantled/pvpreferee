@@ -1,4 +1,4 @@
-import { PublicKey } from '@solana/web3.js';
+import { getAddressDecoder } from '@solana/addresses';
 import type { MemeRecord, Ruling, Rulebook } from '@pvp/shared';
 import configJson from '../../../config/rulebook.v1.json';
 import fixture from '../fixtures/ledger.synthetic.json';
@@ -6,8 +6,8 @@ import type { HistoricalLedger, HistoricalPriceProvider, LedgerEvent, LedgerPage
 import { hash, json } from '../src/common';
 import { IngestService } from '../src/provider';
 
-export const CA = new PublicKey(new Uint8Array(32).fill(7)).toBase58();
-export const CREATOR = new PublicKey(new Uint8Array(32).fill(9)).toBase58();
+export const CA = getAddressDecoder().decode(new Uint8Array(32).fill(7));
+export const CREATOR = getAddressDecoder().decode(new Uint8Array(32).fill(9));
 export const config = configJson as Rulebook;
 export const at = (second: number) => new Date(Date.parse('2026-10-28T00:00:00.000Z') + second * 1000).toISOString();
 export const events: LedgerEvent[] = fixture.transactions.flatMap((tx, transaction_index) => tx.events.map((event, event_index) => ({ ...event,

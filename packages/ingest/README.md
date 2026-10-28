@@ -106,7 +106,7 @@ Both lookup methods return the stored raw `MemeRecord` (including its entire aud
 | `RUN_INTEGRATION` | Exactly `1` enables live tests. |
 | `FIXTURE_KIMCHI_CA`, `FIXTURE_SOLCAT_CA`, `FIXTURE_ROBOTAXI_CA` | Must be supplied explicitly for integration. Intentionally no defaults or similarly named substitutes. |
 
-Default `pnpm test`, `pnpm typecheck`, `pnpm lint` cover saved synthetic ledger/API transports and offline PGlite PostgreSQL semantics, including real SQL migration/triggers, frozen raw round trips, separate memes, audit concurrency and exact cache behavior. Local PostgreSQL daemon verification is separately expected during parent integration. PGlite is dev-only. The Solana dependency's optional `bufferutil`/`utf-8-validate` native accelerators are unnecessary for these read-only adapters; where pnpm 11 blocks their unapproved builds, use `pnpm --config.strict-dep-builds=false install --ignore-scripts` without granting new build permissions. Parent regenerates the root lockfile; only this package is committed.
+Default `pnpm test`, `pnpm typecheck`, `pnpm lint` cover saved synthetic ledger/API transports and offline PGlite PostgreSQL semantics, including real SQL migration/triggers, frozen raw round trips, separate memes, audit concurrency and exact cache behavior. Local PostgreSQL daemon verification is separately exercised by `pnpm --filter @pvp/pipeline verify:db`. PGlite is dev-only. Address validation, decoding and PDA derivation use the official `@solana/addresses` package; no legacy RPC/WebSocket client is loaded. Parent regenerates the root lockfile.
 
 ## Official provider references checked 2026-10-28
 

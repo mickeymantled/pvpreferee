@@ -1,4 +1,4 @@
-import { PublicKey } from '@solana/web3.js';
+import { address, getAddressDecoder, getAddressEncoder, getProgramDerivedAddress } from '@solana/addresses';
 import type { LaunchFacts, LaunchProvider, Transport } from './contracts';
 import { IngestError, json, mintAddress, nullableString, object, timestamp } from './common';
 import { FetchTransport, JsonRpcClient } from './transport';
@@ -13,14 +13,14 @@ export function decodePumpCurve(data: Buffer): { complete: boolean; creator: str
   // Older layouts lack whole appended fields; partially present fields are corruption.
   if ((data.length > 49 && data.length < 81) || (data.length > 83 && data.length < 115)) throw new IngestError('INVALID_RESPONSE', 'Truncated Pump bonding curve');
   for (const offset of [48, 81, 82, 123, 124]) if (offset < data.length && data[offset] !== 0 && data[offset] !== 1) throw new IngestError('INVALID_RESPONSE', 'Invalid Pump boolean');
-  const creator = data.length >= 81 ? new PublicKey(data.subarray(49, 81)).toBase58() : null;
-  return { complete: data[48] === 1, creator: creator === ZERO ? null : creator, quote_mint: data.length >= 115 ? new PublicKey(data.subarray(83, 115)).toBase58() : ZERO, fee_redirected: data[82] === 1 || data[124] === 1 };
+  const creator = data.length >= 81 ? getAddressDecoder().decode(data.subarray(49, 81)) : null;
+  return { complete: data[48] === 1, creator: creator === ZERO ? null : creator, quote_mint: data.length >= 115 ? getAddressDecoder().decode(data.subarray(83, 115)) : ZERO, fee_redirected: data[82] === 1 || data[124] === 1 };
 }
 export class PumpFunAdapter implements LaunchProvider {
   constructor(private readonly rpc: JsonRpcClient, private readonly transport: Transport = new FetchTransport(), private readonly baseUrl = 'https://frontend-api-v3.pump.fun', private readonly now = () => new Date().toISOString(), private readonly verifiedQuoteAssets: Readonly<Record<string, string>> = {}) {}
   async launch(ca: string): Promise<LaunchFacts> {
     mintAddress(ca);
-    const curve = PublicKey.findProgramAddressSync([Buffer.from('bonding-curve'), new PublicKey(ca).toBuffer()], new PublicKey(PUMP_PROGRAM))[0].toBase58();
+    const [curve] = await getProgramDerivedAddress({ programAddress: address(PUMP_PROGRAM), seeds: [Buffer.from('bonding-curve'), getAddressEncoder().encode(address(ca))] });
     const rpcRaw = await this.rpc.call('getAccountInfo', [curve, { encoding: 'base64', commitment: 'finalized' }]);
     const value = object(rpcRaw, 'Pump account response').value;
     const fetched_at = timestamp(this.now());

@@ -18,3 +18,4 @@ These choices fill gaps in the supplied plan; they do not amend the rule order o
 - 2026-10-28: Press counts use cited, allowlisted, deduplicated articles and retain meaningful query parameters; no complete press census is claimed.
 - 2026-10-28: Keep the production mint-wide historical ledger and chain endorsement verification behind injectable interfaces, because the available address-history APIs do not establish complete mint-wide coverage and no verified fixture CAs or credentials were supplied.
 - 2026-10-28: Store manual source review independently of a ruling, including creation when no canonical meme could be resolved, so missing ingest does not block the admin workflow.
+- 2026-10-28: Use patched Drizzle 0.45.4 and sharp 0.35.5, and the address-only official Solana package instead of the legacy Web3 RPC stack; the production dependency audit identified vulnerabilities in the initial versions.
