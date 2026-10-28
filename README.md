@@ -4,7 +4,7 @@ A published, versioned referee for competing memecoin contracts. Every ruling in
 
 ## Development
 
-Requires Node.js 22+, pnpm 11.3.0, and Postgres. Install with `pnpm install`. Run `pnpm test`, `pnpm typecheck`, and `pnpm lint` for offline verification. Live integrations are opt-in and require credentials and actual fixture addresses.
+Requires Node.js 22.13+, pnpm 11.3.0, and Postgres. Install with `pnpm install`. Run `pnpm test`, `pnpm typecheck`, and `pnpm lint` for offline verification. Live integrations are opt-in and require credentials and actual fixture addresses.
 
 For a local database, run `docker compose up -d postgres` and use `postgres://pvp:pvp-local-only@localhost:5432/pvpreferee` as DATABASE_URL. Copy `.env.example` to `.env` and fill the required values. Never use the local database password in a hosted environment.
 
