@@ -43,7 +43,7 @@ await migrateIngest(databaseUrl);
 | Birdeye `historical_price_unix` | Uses `updateUnixTime`, `value`, raw unit mode and Solana headers. Missing data, nearby/future prices, scaled UI tokens and subsecond requests fail closed. A matching historical checkpoint is usable. |
 | Complete mint history | **Not supplied by the built-in APIs.** Inject a complete `HistoricalLedger` indexer. Default `first_real_buy_at` and historical cap stay null; `snapshotAt` returns `complete: false` and null historical fields with a diagnostic. |
 
-No production complete-ledger provider is implemented, and the integration tests do not pretend to prove historical reconstruction. No real acceptance CAs or credentials were supplied. Pump HTTP creation timestamp is retained without guessing its unit; deployment and bonding timestamps require historical events. A currently complete curve does not establish *when* it completed. Migrated-pool verification, fee-sharing beneficiaries/claimability, source ties/endorsements, image hashing, display flags and non-Solana ingest are not implemented here. Source-dependent fields stay null/empty. A custom pair is not classified by an unverified ticker. No current holder count, price, supply or later market cap is substituted for history.
+No production complete-ledger provider is implemented, and the integration tests do not pretend to prove historical reconstruction. No real acceptance CAs or credentials were supplied. Pump HTTP creation timestamp is retained without guessing its unit; deployment and bonding timestamps require historical events. A currently complete curve does not establish *when* it completed; its former quote is not used as the current pair, which remains null until a migrated pool is verified. Migrated-pool verification, fee-sharing beneficiaries/claimability, source ties/endorsements, image hashing, display flags and non-Solana ingest are not implemented here. Source-dependent fields stay null/empty. A custom pair is not classified by an unverified ticker. No current holder count, price, supply or later market cap is substituted for history.
 
 ## Historical ledger contract and replay
 
@@ -104,7 +104,7 @@ Both lookup methods return the stored raw `MemeRecord` (including its entire aud
 | `PUMP_API_BASE_URL` | Optional server endpoint override; default `https://frontend-api-v3.pump.fun`. |
 | `BIRDEYE_API_BASE_URL` | Optional override; default `https://public-api.birdeye.so`. |
 | `RUN_INTEGRATION` | Exactly `1` enables live tests. |
-| `FIXTURE_KIMCHI_CA`, `FIXTURE_SOLCAT_CA`, `FIXTURE_ROBOTAXI_CA` | Must be supplied explicitly for integration. Intentionally no defaults or similarly named substitutes. |
+| `FIXTURE_KIMCHI_CA`, `FIXTURE_INVISIBLE_CAT_CA`, `FIXTURE_SOLCAT_CA`, `FIXTURE_ROBOTAXI_CA` | Must be supplied explicitly for integration. Intentionally no defaults or similarly named substitutes. |
 
 Default `pnpm test`, `pnpm typecheck`, `pnpm lint` cover saved synthetic ledger/API transports and offline PGlite PostgreSQL semantics, including real SQL migration/triggers, frozen raw round trips, separate memes, audit concurrency and exact cache behavior. Local PostgreSQL daemon verification is separately exercised by `pnpm --filter @pvp/pipeline verify:db`. PGlite is dev-only. Address validation, decoding and PDA derivation use the official `@solana/addresses` package; no legacy RPC/WebSocket client is loaded. Parent regenerates the root lockfile.
 
