@@ -9,3 +9,12 @@ These choices fill gaps in the supplied plan; they do not amend the rule order o
 - 2026-10-28: Unknown evidence stays null/unresolved and adapters fail explicitly on incomplete historical coverage; never silently substitute current prices for historical prices.
 - 2026-10-28: No real fixture contract addresses are provided; offline fixtures use explicit synthetic identifiers and live verification requires user-supplied CAs in environment variables.
 - 2026-10-28: Store frozen raw facts, override audit, and config payloads in JSON columns on the specified five tables rather than add tables, preserving the data model while making replay and audit possible.
+- 2026-10-28: Represent immutable observations using `(ca,facts_hash)` coin versions and `(coin_ca,at,config_hash)` snapshot keys inside the same five domain tables, so config changes and later observations cannot overwrite past evidence.
+- 2026-10-28: Define first_real_buy_at at the threshold-crossing buy in the trailing inclusive buyer window; this avoids backdating participation using future buyers.
+- 2026-10-28: Compare separate meme assignments before issuing any comparative verdict; separate memes have no winner or elimination ranking.
+- 2026-10-28: A sole verified subject endorsement needs no supply percentage; multiple endorsed coins require known comparable holdings. Unspecified ties remain unresolved.
+- 2026-10-28: Process participation chronologically so an eliminated vamp cannot eliminate a later entrant; later activity cannot revive a previously eliminated coin.
+- 2026-10-28: Require reviewed source-authority bindings and explicit supported metadata for automatic resolution; unknown identities and unsupported natural-language extraction go to the admin review path.
+- 2026-10-28: Press counts use cited, allowlisted, deduplicated articles and retain meaningful query parameters; no complete press census is claimed.
+- 2026-10-28: Keep the production mint-wide historical ledger and chain endorsement verification behind injectable interfaces, because the available address-history APIs do not establish complete mint-wide coverage and no verified fixture CAs or credentials were supplied.
+- 2026-10-28: Store manual source review independently of a ruling, including creation when no canonical meme could be resolved, so missing ingest does not block the admin workflow.

@@ -21,8 +21,8 @@ describe('shared pipeline', () => {
   it('freezes exact rival-time snapshots and does not mutate cached facts', async () => {
     const {pipeline, originals, snapshotAt, save, judge} = setup();
     const result = await pipeline.run({cas,source_url:meme.source_url});
-    expect(snapshotAt).toHaveBeenCalledTimes(4);
-    expect(judge.mock.calls[0]![0][0].snapshots.map((s:Snapshot)=>s.at).sort()).toEqual([t0,t1]);
+    expect(snapshotAt).toHaveBeenCalledTimes(2);
+    expect(judge.mock.calls[0]![0][0].snapshots.map((s:Snapshot)=>s.at)).toEqual([t1]);
     expect(originals[0]!.snapshots).toEqual([]);
     expect(result.id).toBe('persisted-run');
     expect(result.facts_hash).toMatch(/^[a-f0-9]{64}$/);

@@ -63,8 +63,8 @@ export function createPipeline(deps: PipelineDependencies) {
       coin.endorsements.push(...structuredClone((input.endorsements ?? []).filter(e => e.coin_ca === ca)));
       return coin;
     });
-    const times = [...new Set(coins.flatMap(coin => coin.first_real_buy_at ? [coin.first_real_buy_at] : []))];
-    const tasks = coins.flatMap(coin => times.map(at => ({ coin, at })));
+    const tasks = coins.flatMap(coin => [...new Set(coins.filter(rival => rival.ca !== coin.ca)
+      .flatMap(rival => rival.first_real_buy_at ? [rival.first_real_buy_at] : []))].map(at => ({ coin, at })));
     await parallelMap(tasks, 6, async ({ coin, at }) => {
       const snapshot = await deps.ingest.snapshotAt(coin.ca, at, config);
       if (snapshot.coin_ca !== coin.ca || snapshot.at !== at) throw new Error('Snapshot provider returned a mismatched CA or timestamp.');
@@ -76,6 +76,8 @@ export function createPipeline(deps: PipelineDependencies) {
         catch { coin.flags.warnings = [...(coin.flags.warnings ?? []), 'Image comparison unavailable.']; }
       }
     });
+    coins.sort((a, b) => a.ca < b.ca ? -1 : a.ca > b.ca ? 1 : 0);
+    for (const coin of coins) coin.snapshots.sort((a, b) => a.at.localeCompare(b.at) || a.id.localeCompare(b.id));
     const computed = deps.judge(coins, meme, config);
     if (computed.config_hash !== hash) throw new Error('Rules returned a different config hash.');
     const id = (deps.newId ?? randomUUID)();

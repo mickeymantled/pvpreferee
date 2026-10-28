@@ -4,14 +4,23 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./runtime": "./src/runtime.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run --root ../.. packages/pipeline",
+    "verify:db": "tsx src/verify-postgres.ts"
   },
   "dependencies": {
     "@pvp/shared": "workspace:*",
-    "@pvp/config": "workspace:*"
+    "@pvp/config": "workspace:*",
+    "@pvp/rules": "workspace:*",
+    "@pvp/ingest": "workspace:*",
+    "@pvp/source": "workspace:*"
+  },
+  "devDependencies": {
+    "pg": "^8.16.3",
+    "@types/pg": "^8.15.5"
   }
 }
