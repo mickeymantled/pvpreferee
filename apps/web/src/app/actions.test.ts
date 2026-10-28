@@ -6,7 +6,9 @@ const mocks = vi.hoisted(() => ({
   resolve: vi.fn(),
   run: vi.fn(),
   redirect: vi.fn(),
+  protect: vi.fn(),
 }));
+vi.mock('../server/security', () => ({ protectRequest: mocks.protect }));
 vi.mock("../server/services", () => ({
   webServices: { resolve: mocks.resolve, run: mocks.run },
 }));
@@ -53,5 +55,11 @@ describe("server action orchestration", () => {
     });
     expect(mocks.run).not.toHaveBeenCalled();
     expect(mocks.redirect).not.toHaveBeenCalled();
+  });
+  it('blocks expensive work when request protection fails', async () => {
+    mocks.protect.mockRejectedValue(new Error('backend failed'));
+    expect(await issueRuling({ status: 'idle' }, form())).toMatchObject({ status: 'error' });
+    expect(mocks.resolve).not.toHaveBeenCalled();
+    expect(mocks.run).not.toHaveBeenCalled();
   });
 });

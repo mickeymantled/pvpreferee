@@ -11,6 +11,7 @@ import { EvidenceList } from "./evidence";
 import { SourceAssumptions, SourceAudit } from "./source-audit";
 import { ShareButton } from "./share";
 import { CardPreview } from "./card-preview";
+import type { DerivedSnapshot } from '../server/rerun';
 
 const STATUS_TEXT: Record<
   RulingStatus,
@@ -78,7 +79,7 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
         .filter((ref) => ref.startsWith("snapshot:"))
         .map((ref) => ref.slice(9)),
     ),
-  ].filter((id) => !snapshots.some((snapshot) => snapshot.id === id));
+  ].filter((id) => !snapshots.some((snapshot) => snapshot.id === id || ('reevaluation' in snapshot && (snapshot as DerivedSnapshot).reevaluation.original.id === id)));
   return (
     <div className="page-stack">
       <section className={"verdict panel " + (winner ? "winner-panel" : "")}>
@@ -340,6 +341,11 @@ export function RulingView({ ruling }: { ruling: Ruling }) {
                 </div>
               </dl>
               <EvidenceList values={snapshot.evidence} />
+              {'reevaluation' in snapshot && <div className="notice">
+                <p>Historical re-evaluation, with no new observation. <a href={'/ruling/' + (snapshot as DerivedSnapshot).reevaluation.from_ruling}>View the original ruling</a>.</p>
+                <p id={snapshotAnchor((snapshot as DerivedSnapshot).reevaluation.original.id)}>Original snapshot: <code>{(snapshot as DerivedSnapshot).reevaluation.original.id}</code> · Config: <code>{(snapshot as DerivedSnapshot).reevaluation.original.config_hash ?? 'Not stamped in original'}</code></p>
+                <details><summary>Exact original snapshot envelope</summary><pre>{JSON.stringify((snapshot as DerivedSnapshot).reevaluation.original, null, 2)}</pre></details>
+              </div>}
             </article>
           ))}
         </div>

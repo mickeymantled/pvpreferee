@@ -9,6 +9,10 @@ import { ReviewForm } from "../../components/forms";
 import { SourceAssumptions, SourceAudit } from "../../components/source-audit";
 import { ServiceNotice } from "../../components/service-notice";
 import { EvidenceLink } from "../../components/evidence";
+import { currentAdmin, protectRequest } from '../../server/security';
+import { RateLimitError } from '../../server/rate-limit';
+import { loadOverrideReview } from '../../server/overrides';
+import { OverrideForm } from '../../components/admin-forms';
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -23,6 +27,7 @@ export default async function ResolvePage({
 }) {
   let review: Review;
   try {
+    await protectRequest('source');
     review = await reviewComparison(
       parseComparison(queryForm(await searchParams)),
       webServices,
@@ -31,12 +36,12 @@ export default async function ResolvePage({
     return (
       <ServiceNotice
         title={
-          error instanceof InvalidInputError
+          error instanceof InvalidInputError || error instanceof RateLimitError
             ? "Check the comparison."
             : "Source review is unavailable."
         }
         message={
-          error instanceof InvalidInputError
+          error instanceof InvalidInputError || error instanceof RateLimitError
             ? error.message
             : "We could not load the source and any saved reviews. Check source-provider and database access, then retry. No coin data has been fetched."
         }
@@ -44,6 +49,12 @@ export default async function ResolvePage({
     );
   }
   const { meme, reasons } = review.resolution;
+  let adminReview: Awaited<ReturnType<typeof loadOverrideReview>> | null = null;
+  let adminReviewError = false;
+  if (await currentAdmin()) {
+    try { adminReview = await loadOverrideReview(review.input); }
+    catch { adminReviewError = true; }
+  }
   return (
     <div className="page-stack">
       <header className="page-heading">
@@ -99,6 +110,8 @@ export default async function ResolvePage({
         )}
       </section>
       <ReviewForm review={review} />
+      {adminReview && <OverrideForm input={review.input} previous={adminReview.previous} fingerprint={adminReview.fingerprint} />}
+      {adminReviewError && <p role="alert">Administrator review could not load its current record. Check database access and reload.</p>}
       <details className="panel raw-data">
         <summary>Contracts in this comparison</summary>
         <ol>
