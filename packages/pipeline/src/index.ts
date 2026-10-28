@@ -59,6 +59,7 @@ export function createPipeline(deps: PipelineDependencies) {
     const coins = await parallelMap(cas, 5, async ca => {
       const coin = structuredClone(await deps.ingest.coinFacts(ca, config));
       if (coin.ca !== ca) throw new Error('Coin provider returned a mismatched CA.');
+      coin.meme_id ??= meme.id;
       coin.endorsements.push(...structuredClone((input.endorsements ?? []).filter(e => e.coin_ca === ca)));
       return coin;
     });
