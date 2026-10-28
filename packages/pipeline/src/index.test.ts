@@ -47,4 +47,24 @@ describe('shared pipeline', () => {
     expect(()=>validateCas(['z'.repeat(44),cas[0]!])).toThrow();
     expect(()=>parseCas('0x123 garbage')).toThrow();
   });
+  it('drains in-flight providers on failure before allowing runtime cleanup', async () => {
+    const { deps } = setup();
+    let release!: () => void;
+    let entered!: () => void;
+    const pending = new Promise<void>(resolve => { release = resolve; });
+    const started = new Promise<void>(resolve => { entered = resolve; });
+    deps.ingest.coinFacts.mockImplementation(async ca => {
+      if (ca === cas[0]) throw new Error('Synthetic provider failure');
+      entered(); await pending; return coin(ca);
+    });
+    let settled = false;
+    const work = createPipeline(deps).runResolved({ cas, meme });
+    void work.then(() => { settled = true; }, () => { settled = true; });
+    const rejected = expect(work).rejects.toThrow('Synthetic provider failure');
+    await started; await Promise.resolve(); await Promise.resolve();
+    expect(settled).toBe(false);
+    release(); await rejected;
+    expect(deps.judge).not.toHaveBeenCalled();
+    expect(deps.repository.save).not.toHaveBeenCalled();
+  });
 });

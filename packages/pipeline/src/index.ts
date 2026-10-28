@@ -39,9 +39,16 @@ export function validateSourceUrl(input: string): string {
 async function parallelMap<T, R>(values: T[], limit: number, fn: (value: T) => Promise<R>): Promise<R[]> {
   const results = new Array<R>(values.length);
   let cursor = 0;
+  let failure: { error: unknown } | undefined;
   await Promise.all(Array.from({ length: Math.min(limit, values.length) }, async () => {
-    while (cursor < values.length) { const index = cursor++; results[index] = await fn(values[index]!); }
+    while (cursor < values.length && !failure) {
+      const index = cursor++;
+      try { results[index] = await fn(values[index]!); }
+      catch (error) { failure ??= { error }; }
+    }
   }));
+  // Drain already-started provider calls before callers close runtime/DB resources.
+  if (failure) throw failure.error;
   return results;
 }
 export function createPipeline(deps: PipelineDependencies) {
