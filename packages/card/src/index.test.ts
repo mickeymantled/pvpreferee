@@ -44,6 +44,7 @@ async function inspect(ruling: Ruling) {
   const images = svg.match(/<image\b[^>]*>/g) ?? [];
   expect(images).toHaveLength(1);
   expect(images[0]).toContain(`href="data:${brand.mimeType};base64,${brand.base64}"`);
+  expect(images[0]).not.toMatch(/image-rendering="(?:optimizeSpeed|pixelated|crisp-edges)"/);
   const logo = nodes.find(node => node.props['data-card-id'] === 'brand-logo')!;
   const badge = nodes.find(node => node.props['data-card-id'] === 'brand-mark')!;
   const brandText = nodes.find(node => node.props['data-card-id'] === 'brand')!;
@@ -136,6 +137,16 @@ describe('capacity and status cards', () => {
 });
 
 describe('determinism, safety and server boundary', () => {
+  it('renders the original logo with quality image scaling, not speed scaling', async () => {
+    const ruling = scenario('resolved');
+    const svg = await renderSvg(ruling);
+    const quality = new Resvg(svg, { font: { loadSystemFonts: false }, imageRendering: 0 }).render().asPng();
+    const speed = new Resvg(svg, { font: { loadSystemFonts: false }, imageRendering: 1 }).render().asPng();
+    const png = await renderRulingCard(ruling);
+    // Compare rendering modes in this environment, without platform-specific golden hashes.
+    expect(png.equals(quality)).toBe(true);
+    expect(png.equals(speed)).toBe(false);
+  });
   it('renders identical bytes for concurrent repeated requests with no clock or network dependence', async () => {
     const ruling = scenario('resolved');
     const [a, b, c] = await Promise.all([renderRulingCard(ruling), renderRulingCard(ruling), renderRulingCard(ruling)]);

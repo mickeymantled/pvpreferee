@@ -35,7 +35,7 @@ The offline packaging test traces the actual conditional export, both embedded J
 ## Presentation and limits
 
 - Brand, canonical meme name, full winner CA, winner chain, every other candidate's eliminating rule and reason, rulebook version, and a 12-character config-hash prefix are displayed.
-- The supplied robotic referee fills a 58x58 black badge at the top left. The square image uses `objectFit: contain` to preserve the full artwork and proportions; only display scaling is applied. The adjacent brand text moves right within the existing header; the divider and all verdict, candidate and footer geometry stay fixed.
+- The supplied robotic referee fills a 58x58 black badge at the top left. The square image uses `objectFit: contain` to preserve the full artwork and proportions; only display scaling is applied. resvg explicitly uses `imageRendering: 0` (`optimizeQuality`), matching its existing default. Satori emits no pixelated/speed image-rendering override; tests compare quality and speed renders in the same environment. The adjacent brand text moves right within the existing header; the divider and all verdict, candidate and footer geometry stay fixed.
 - All 2–10 candidates fit. Nine or ten rows use 16px reason text in 26px/24px rows. Smaller sets use 18px reason text with more space. Every text color passes 4.5:1 contrast on the used backgrounds; explicit WINNER/FAIL/OPEN/N/A labels supplement the colors.
 - Names, tickers and reasons are measured with the bundled font and ellipsized to one line. The rule number and name lead each failure. The full winner address is never ellipsized. Other addresses show six leading and trailing characters; colliding abbreviations receive their 1-based position in `ruling.coin_cas` (`#1`, `#2`, etc.). Long abbreviated labels can be shortened further to fit, keeping the distinguishing index visible.
 - `unresolved`, `separate_memes`, and `no_winner` have distinct status panels. Unresolved survivors stay OPEN; existing eliminations stay FAIL. Separate memes are N/A with no winner or invented ranking.
@@ -59,7 +59,7 @@ Samples are generated in ignored `packages/card/.artifacts/`. All sample data is
 
 ## Brand asset provenance
 
-Brian supplied `/Users/brianbaldocchi/Desktop/ref.jpg` on 2026-10-28 as the approved PvP Referee artwork: a black-and-white robotic referee on black, 1408x1408 JPEG. [assets/ref.jpg](assets/ref.jpg) is a byte-for-byte copy. The image has not been generated, repainted, cropped, recompressed, recolored or had its background removed. It is user-supplied project artwork; no separate third-party license was supplied or inferred.
+The user provided `ref.jpg` on 2026-10-28 as the approved PvP Referee artwork: a black-and-white robotic referee on black, 1408x1408 JPEG. [assets/ref.jpg](assets/ref.jpg) is a byte-for-byte copy. The image has not been generated, repainted, cropped, recompressed, recolored or had its background removed. It is user-supplied project artwork; no separate third-party license was supplied or inferred.
 
 ```text
 SHA-256: 49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1
