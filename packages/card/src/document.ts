@@ -6,9 +6,9 @@ import brand from '../assets/brand.json';
 export const CARD_WIDTH = 1200;
 export const CARD_HEIGHT = 675;
 export const colors = {
-  background: '#0c1015', panel: '#141b23', border: '#303d4b',
-  text: '#f1f5f9', muted: '#aebbc9', green: '#82efbb', greenPanel: '#142b24',
-  red: '#ffaaa9', amber: '#f4d48a',
+  background: '#080809', border: '#27272c',
+  text: '#f3f3f4', muted: '#a0a0a8',
+  green: '#9cbaaa', red: '#d69b9b', amber: '#c7b48b',
 };
 
 interface ElementStyle { style: Record<string, string | number>; 'data-card-id': string }
@@ -134,51 +134,51 @@ export function createDocument(ruling: Ruling, fonts: CardFonts): CardDocument {
         fontSize: size, fontWeight: weight, color, whiteSpace: 'pre', lineHeight: 1.15 } } });
   };
 
-  box('brand-mark', 48, 20, 58, 58, { backgroundColor: '#000000' });
+  box('brand-mark', 56, 24, 44, 44, { backgroundColor: '#000000' });
   elements.push({ type: 'img', key: 'brand-logo', props: {
     'data-card-id': 'brand-logo', src: `data:${brand.mimeType};base64,${brand.base64}`,
     alt: 'PvP Referee robotic referee', width: brand.width, height: brand.height,
-    style: { position: 'absolute', left: 48, top: 20, width: 58, height: 58, objectFit: 'contain' },
+    style: { position: 'absolute', left: 56, top: 24, width: 44, height: 44, objectFit: 'contain' },
   } });
-  text('brand', 'PvP Referee', 122, 29, 400, 40, 28, colors.text, 600);
-  text('edition', `ON THE RECORD  /  ${content.coinCount} COINS`, 839, 35, 313, 28, 15, colors.muted);
-  box('header-line', 48, 88, 1104, 1, { backgroundColor: colors.border });
-  text('meme', content.meme, 48, 107, 1104, 63, 45, colors.text, 600, true);
+  text('brand', 'PvP Referee', 116, 30, 400, 32, 22, colors.text, 600);
+  text('edition', `RULING RECORD  /  ${content.coinCount} COINS`, 891, 34, 253, 24, 13, colors.muted);
+  box('header-line', 56, 88, 1088, 1, { backgroundColor: colors.border });
+  text('meme', content.meme, 56, 108, 1088, 62, 48, colors.text, 600, true);
 
   const resolved = content.winner !== null;
-  const accent = resolved ? colors.green : content.status === 'no_winner' ? colors.red : colors.amber;
-  box('verdict-panel', 48, 187, 1104, 135, { backgroundColor: resolved ? colors.greenPanel : colors.panel, borderRadius: 12 });
-  box('verdict-stripe', 48, 203, 4, 103, { backgroundColor: accent, borderRadius: 2 });
   if (content.winner) {
-    text('winner-label', `WINNER  /  ${content.winner.chain.toUpperCase()}`, 72, 201, 1056, 25, 14, accent, 600);
-    text('winner-name', content.winner.name || content.meme, 72, 228, 1056, 39, 28, colors.text, 600);
-    let caSize = 21;
-    while (textWidth(content.winner.ca, caSize, fonts.regular) > 1056) caSize--;
-    text('winner-ca', content.winner.ca, 72, 275, 1056, 29, caSize, colors.green);
+    text('winner-label', `WINNER  /  ${content.winner.chain.toUpperCase()}`, 56, 185, 1088, 22, 13, colors.green, 600);
+    text('winner-name', content.winner.name || content.meme, 56, 215, 1088, 38, 28, colors.text, 600);
+    let caSize = 20;
+    while (textWidth(content.winner.ca, caSize, fonts.regular) > 1088) caSize--;
+    text('winner-ca', content.winner.ca, 56, 262, 1088, 28, caSize, colors.text);
   } else {
-    text('status-label', 'RULING STATUS', 72, 201, 1056, 25, 14, colors.muted, 600);
-    text('status', statusCopy[content.status].title, 72, 230, 1056, 39, 30, accent, 600);
-    text('status-explanation', statusCopy[content.status].explanation, 72, 278, 1056, 26, 18, colors.text);
+    const state = content.status === 'no_winner' ? 'FAIL' : content.status === 'unresolved' ? 'OPEN' : 'N/A';
+    const accent = state === 'FAIL' ? colors.red : state === 'OPEN' ? colors.amber : colors.muted;
+    text('status-label', `RULING STATUS  /  ${state}`, 56, 185, 1088, 22, 13, accent, 600);
+    text('status', statusCopy[content.status].title, 56, 215, 1088, 38, 30, colors.text, 600);
+    text('status-explanation', statusCopy[content.status].explanation, 56, 262, 1088, 28, 18, colors.muted);
   }
 
-  text('list-label', resolved ? 'OTHER CANDIDATES' : 'CANDIDATES', 48, 338, 400, 25, 13, colors.muted, 600);
-  text('list-note', 'RULE / REASON', 496, 338, 656, 25, 13, colors.muted, 600);
-  const rowHeight = Math.min(57, Math.floor(240 / content.rows.length));
+  box('verdict-line', 56, 309, 1088, 1, { backgroundColor: colors.border });
+  text('list-label', resolved ? 'OTHER CANDIDATES' : 'CANDIDATES', 56, 324, 388, 22, 12, colors.muted, 600);
+  text('list-note', 'RULE / REASON', 464, 324, 680, 22, 12, colors.muted, 600);
+  const rowHeight = Math.min(64, Math.floor(252 / content.rows.length));
   const size = content.rows.length >= 7 ? 16 : 18;
   content.rows.forEach((row, index) => {
-    const y = 370 + rowHeight * index;
-    const color = row.state === 'FAIL' ? colors.red : colors.muted;
-    if (content.rows.length < 7) box(`row-${index}-line`, 48, y + rowHeight - 1, 1104, 1, { backgroundColor: colors.border });
-    text(`row-${index}-state`, row.state, 48, y, 56, rowHeight, 12, color, 600);
-    text(`row-${index}-ticker`, row.ticker, 120, y, 148, rowHeight, size, colors.text, 600);
-    text(`row-${index}-ca`, row.address, 286, y, 194, rowHeight, size - 1, colors.muted);
-    text(`row-${index}-detail`, row.detail, 496, y, 656, rowHeight, size, color);
+    const y = 354 + rowHeight * index;
+    const color = row.state === 'FAIL' ? colors.red : row.state === 'OPEN' ? colors.amber : colors.muted;
+    if (content.rows.length < 7) box(`row-${index}-line`, 56, y + rowHeight - 1, 1088, 1, { backgroundColor: colors.border });
+    text(`row-${index}-state`, row.state, 56, y, 44, rowHeight, 12, color, 600);
+    text(`row-${index}-ticker`, row.ticker, 116, y, 130, rowHeight, size, colors.text, 600);
+    text(`row-${index}-ca`, row.address, 262, y, 186, rowHeight, size - 1, colors.muted);
+    text(`row-${index}-detail`, row.detail, 464, y, 680, rowHeight, size, colors.text);
   });
 
-  box('footer-line', 48, 624, 1104, 1, { backgroundColor: colors.border });
-  text('version', `RULEBOOK ${content.version}  /  ${content.configHash}`, 48, 637, 440, 22, 13, colors.muted, 600);
+  box('footer-line', 56, 624, 1088, 1, { backgroundColor: colors.border });
+  text('version', `RULEBOOK ${content.version}  /  ${content.configHash}`, 56, 637, 440, 22, 13, colors.muted, 600);
   text('footer', hasUnsupportedText ? 'Unsupported glyphs shown as ?; full text in ruling' : 'Frozen facts. Published rules. Full evidence in ruling.',
-    644, 637, 508, 22, 13, colors.muted);
+    644, 637, 500, 22, 13, colors.muted);
   return {
     content, lines,
     element: { type: 'div', key: 'card', props: { 'data-card-id': 'card', children: elements,
