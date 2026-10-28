@@ -6,6 +6,7 @@ import type { ComparisonInput } from '../lib/input';
 import { withRepository } from "./services";
 import { requireAdmin } from './security';
 import { commitReviewedOverride, overrideFingerprint } from './override-review';
+import { validateSourceUrl } from '@pvp/pipeline';
 
 /** Server-validated session + fixed admin check.
  * Never accept actor/authenticated from FormData, JSON, query parameters or headers.
@@ -30,6 +31,7 @@ export async function applyReviewedOverride(
 }
 
 async function loadPrevious(input: ComparisonInput, repository: IngestRulingRepository) {
+  validateSourceUrl(input.source_url);
   const stored = await repository.findMemeBySourceUrl(input.source_url);
   if (stored) return stored;
   const { createSourceFromEnv } = await import('@pvp/source');

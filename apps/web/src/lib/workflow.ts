@@ -7,6 +7,7 @@ import {
   type SourceResolution,
 } from "@pvp/shared";
 import { InvalidInputError, NeedsResolutionError } from "@pvp/pipeline";
+import type { OriginDiscoveryResult } from "@pvp/source";
 import {
   parseComparison,
   reviewUrl,
@@ -20,12 +21,16 @@ export const SERVICE_MESSAGE =
 export const OVERRIDE_MESSAGE =
   "Source edits are locked until administrator sign-in is available. Only verified source facts or an existing audited review can be used.";
 export interface WebServices {
-  resolve(input: ComparisonInput): Promise<SourceResolution>;
+  resolve(input: ComparisonInput): Promise<WebResolution>;
   run(
     input: ComparisonInput,
     meme: MemeRecord,
     endorsements: Endorsement[],
   ): Promise<Ruling>;
+}
+/** Research is presentation metadata, not a change to the frozen shared domain contract. */
+export interface WebResolution extends SourceResolution {
+  discovery?: Omit<OriginDiscoveryResult, "resolution">;
 }
 export interface ActionState {
   status: "idle" | "error" | "review";
@@ -35,7 +40,7 @@ export interface ActionState {
 export type Submission = ActionState | { status: "success"; slug: string };
 export interface Review {
   input: ComparisonInput;
-  resolution: SourceResolution;
+  resolution: WebResolution;
   fingerprint: string;
   ready: boolean;
 }
@@ -65,13 +70,13 @@ export async function reviewComparison(
   };
 }
 
-/** Only addresses, a source URL and a review digest cross the browser boundary. */
+/** Only addresses, an optional source hint and a review digest cross the browser boundary. */
 export async function submitComparison(
   form: FormValues,
   services: WebServices,
 ): Promise<Submission> {
   try {
-    const allowed = new Set(["cas", "source_url", "version", "review_hash"]);
+    const allowed = new Set(["ca", "cas", "source_url", "version", "review_hash"]);
     if (
       [...form.keys()].some(
         (key) => !allowed.has(key) && !key.startsWith("$ACTION_"),

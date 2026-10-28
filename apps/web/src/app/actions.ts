@@ -23,7 +23,7 @@ export async function beginReview(
       message:
         error instanceof InvalidInputError || error instanceof AccessError || error instanceof RateLimitError
           ? error.message
-          : "Check the contract addresses and source URL.",
+          : "Check the contract addresses and try again.",
     };
   }
   redirect(url);

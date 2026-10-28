@@ -21,27 +21,28 @@ export async function withRepository<T>(
 
 export const webServices: WebServices = {
   async resolve(input) {
-    // Source review does not construct the ingest runtime or require Helius credentials.
-    const { createSourceFromEnv } = await import("@pvp/source");
-    const resolution = await createSourceFromEnv().resolve(
-      input.source_url,
-      loadRulebook(input.version).config,
-    );
-    if (!process.env.DATABASE_URL) return resolution;
-    // A configured but inaccessible repository is an error: never silently discard an audited override.
-    const reviewed = await withRepository((repository) =>
-      repository.findMemeBySourceUrl(input.source_url),
-    );
-    if (!reviewed?.overrides.length) return resolution;
-    return {
-      meme: reviewed,
-      endorsements: resolution.endorsements,
-      needs_review: reviewed.resolved !== true,
-      reasons:
-        reviewed.resolved === true
-          ? []
-          : ["The stored source review is not confirmed."],
+    // Discovery needs public token links, not full historical ingest or Helius credentials.
+    const { createSourceFromEnv, createPublicTransport, discoverOrigin } = await import("@pvp/source");
+    const source = input.source_url ? createSourceFromEnv() : createSourceFromEnv(process.env, {
+      transport: createPublicTransport({ timeoutMs: 4_000, maxBytes: 1024 * 1024 }),
+    });
+    const config = loadRulebook(input.version).config;
+    const resolveOne = async (url: string) => {
+      const resolution = await source.resolve(url, config);
+      if (!process.env.DATABASE_URL) return resolution;
+      // A configured but inaccessible repository must never silently discard an audited override.
+      const reviewed = await withRepository(repository => repository.findMemeBySourceUrl(url));
+      if (!reviewed?.overrides.length) return resolution;
+      return {
+        meme: reviewed,
+        endorsements: resolution.endorsements,
+        needs_review: reviewed.resolved !== true,
+        reasons: reviewed.resolved === true ? [] : ["The stored source review is not confirmed."],
+      };
     };
+    if (input.source_url) return resolveOne(input.source_url);
+    const { resolution, ...discovery } = await discoverOrigin(input.cas, config, { resolve: resolveOne });
+    return { ...resolution, discovery };
   },
   async run(input, meme, endorsements) {
     const { createRuntime } = await import("@pvp/pipeline/runtime");

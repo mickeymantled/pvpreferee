@@ -10,6 +10,8 @@ const mocks = vi.hoisted(() => ({
   closeRepo: vi.fn(),
   createRepo: vi.fn(),
   createSource: vi.fn(),
+  createTransport: vi.fn(),
+  discover: vi.fn(),
   createRuntime: vi.fn(),
   run: vi.fn(),
   closeRuntime: vi.fn(),
@@ -17,6 +19,8 @@ const mocks = vi.hoisted(() => ({
 }));
 vi.mock("@pvp/source", () => ({
   createSourceFromEnv: mocks.createSource,
+  createPublicTransport: mocks.createTransport,
+  discoverOrigin: mocks.discover,
   createManualOverrideServiceFromEnv: mocks.overrideService,
 }));
 vi.mock("@pvp/ingest", () => ({ createRulingRepository: mocks.createRepo }));
@@ -34,6 +38,7 @@ beforeEach(() => {
   mocks.findMeme.mockResolvedValue(null);
   mocks.find.mockResolvedValue(ruling());
   mocks.createSource.mockReturnValue({ resolve: mocks.resolve });
+  mocks.discover.mockResolvedValue({ resolution: resolution(), candidates: [], notes: [] });
   mocks.createRepo.mockReturnValue({
     findMemeBySourceUrl: mocks.findMeme,
     findBySlug: mocks.find,
@@ -48,6 +53,28 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("lazy service adapters", () => {
+  it("automatically looks up the supplied CAs when no source hint is provided", async () => {
+    const result = await webServices.resolve({ ...INPUT, source_url: "" });
+    expect(result).toEqual({ ...resolution(), discovery: { candidates: [], notes: [] } });
+    expect(mocks.discover).toHaveBeenCalledWith(INPUT.cas, expect.objectContaining({ version: "v1" }), { resolve: expect.any(Function) });
+    expect(mocks.createRuntime).not.toHaveBeenCalled();
+    expect(mocks.createRepo).not.toHaveBeenCalled();
+  });
+  it("routes discovered candidates through the same audited-source trust boundary", async () => {
+    vi.stubEnv("DATABASE_URL", "synthetic-db");
+    const reviewed = { ...MEME, canonical_name: "Reviewed origin", overrides: [{ field: "canonical_name", previous: "Old", value: "Reviewed origin", actor: "synthetic-admin", at: "2026-10-01T00:00:00Z", reason: "Cited synthetic proof" }] };
+    mocks.findMeme.mockResolvedValue(reviewed);
+    mocks.discover.mockImplementation(async (_cas, config, options) => ({ resolution: await options.resolve(INPUT.source_url, config), candidates: [], notes: [] }));
+    const found = await webServices.resolve({ ...INPUT, source_url: "" });
+    expect(found.meme).toEqual(reviewed);
+    expect(found.endorsements).toEqual(resolution().endorsements);
+    expect(mocks.findMeme).toHaveBeenCalledWith(INPUT.source_url);
+    expect(mocks.closeRepo).toHaveBeenCalledOnce();
+  });
+  it("preserves explicit source links from existing bot and review URLs without discovery", async () => {
+    expect(await webServices.resolve(INPUT)).toEqual(resolution());
+    expect(mocks.discover).not.toHaveBeenCalled();
+  });
   it("reviews sources with neither database nor Helius configured", async () => {
     expect(await webServices.resolve(INPUT)).toEqual(resolution());
     expect(mocks.createRuntime).not.toHaveBeenCalled();

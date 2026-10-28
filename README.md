@@ -14,6 +14,8 @@ See [docs/STATUS.md](docs/STATUS.md) for implemented features, external integrat
 
 The approved robotic-referee logo and its presentation-only integration are documented in [docs/BRANDING.md](docs/BRANDING.md). The monochrome interface and card design are described in [docs/DESIGN.md](docs/DESIGN.md).
 
+Start a comparison with one contract address per box (2–10). The app researches token-linked meme sources automatically; an original-source URL is no longer required from the checker. Source links and token claims still need independent verification, and incomplete research never becomes a guessed verdict. See [the web flow](apps/web/README.md) for discovery limits and optional recovery.
+
 ## Workspace
 
 - `packages/shared`: frozen TypeScript data contracts.

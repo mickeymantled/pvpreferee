@@ -22,6 +22,38 @@ function confirmedForm() {
 }
 
 describe("comparison inputs", () => {
+  it("accepts one CA per field without asking for an origin URL", () => {
+    const data = new FormData();
+    CAS.forEach(ca => data.append("ca", ca));
+    expect(parseComparison(data)).toEqual({ cas: CAS, source_url: "", version: "v1" });
+    const url = new URL(reviewUrl(parseComparison(data)), "https://app.example");
+    expect(url.searchParams.has("source_url")).toBe(false);
+    expect(parseComparison(queryForm(Object.fromEntries(url.searchParams)))).toEqual(parseComparison(data));
+  });
+  it("rejects mixed legacy/new fields, blank rows, multi-address rows, files and too many boxes", () => {
+    const mixed = form();
+    mixed.append("ca", CAS[0]!);
+    expect(() => parseComparison(mixed)).toThrow("not both");
+    for (const value of ["", CAS.join(" "), CAS.join(","), "x".repeat(45), new Blob(["CA"])]) {
+      const data = new FormData();
+      data.append("ca", value);
+      data.append("ca", CAS[1]!);
+      expect(() => parseComparison(data)).toThrow();
+    }
+    const tooMany = new FormData();
+    for (let index = 0; index < 11; index++) tooMany.append("ca", CAS[0]!);
+    expect(() => parseComparison(tooMany)).toThrow("2 to 10");
+  });
+  it("deduplicates boxes but still requires two distinct addresses", () => {
+    const data = new FormData();
+    CAS.forEach(ca => data.append("ca", ca));
+    data.append("ca", CAS[0]!);
+    expect(parseComparison(data).cas).toEqual(CAS);
+    data.delete("ca");
+    data.append("ca", CAS[0]!);
+    data.append("ca", CAS[0]!);
+    expect(() => parseComparison(data)).toThrow("distinct");
+  });
   it("accepts comma/space/newline-separated keys and deduplicates", () => {
     expect(
       parseComparison(form({ cas: `${CAS[0]}, ${CAS[1]};\n${CAS[0]}` })).cas,
@@ -87,6 +119,36 @@ describe("comparison inputs", () => {
 });
 
 describe("source review trust boundary", () => {
+  it("discovers and rechecks an automatic origin without a client source URL", async () => {
+    const deps = services();
+    const automatic = { ...INPUT, source_url: "" };
+    const review = await reviewComparison(automatic, deps);
+    expect(review.ready).toBe(true);
+    expect(review.input.source_url).toBe("");
+    const data = form({ source_url: "", review_hash: review.fingerprint });
+    expect((await submitComparison(data, deps)).status).toBe("success");
+    expect(deps.resolve).toHaveBeenNthCalledWith(2, automatic);
+    expect(deps.run).toHaveBeenCalledWith(automatic, resolution().meme, resolution().endorsements);
+  });
+  it("never issues a ruling when automatic origin lookup is empty or conflicting", async () => {
+    const deps = services();
+    vi.mocked(deps.resolve).mockResolvedValue({ meme: null, endorsements: [], needs_review: true, reasons: ["No verified shared origin."], discovery: { candidates: [], notes: [] } });
+    const automatic = { ...INPUT, source_url: "" };
+    const review = await reviewComparison(automatic, deps);
+    expect(review.ready).toBe(false);
+    expect((await submitComparison(form({ source_url: "", review_hash: review.fingerprint }), deps)).status).toBe("review");
+    expect(deps.run).not.toHaveBeenCalled();
+  });
+  it("rechecks origin facts when automatic discovery changes after review", async () => {
+    const deps = services();
+    const automatic = { ...INPUT, source_url: "" };
+    const before = await reviewComparison(automatic, deps);
+    const changed = resolution();
+    changed.meme!.source_url = "https://different.example/origin";
+    vi.mocked(deps.resolve).mockResolvedValue(changed);
+    expect(await submitComparison(form({ source_url: "", review_hash: before.fingerprint }), deps)).toMatchObject({ status: "review", message: expect.stringContaining("changed") });
+    expect(deps.run).not.toHaveBeenCalled();
+  });
   it("reviews without invoking ingestion or persistence", async () => {
     const deps = services();
     const review = await reviewComparison(INPUT, deps);

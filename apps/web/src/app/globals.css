@@ -335,6 +335,9 @@ input:disabled, select:disabled, textarea:disabled {
 }
 .raw-data > ol { padding-left: 24px; }
 .raw-data > ol li { line-height: 2; overflow-wrap: anywhere; }
+.origin-research { overflow-wrap: anywhere; }
+.origin-recovery form { display: grid; gap: 12px; margin-top: 20px; }
+.origin-recovery form .button { justify-self: start; }
 .audit-list { padding-left: 20px; }
 .audit-list li { padding-block: 16px; border-bottom: 1px solid var(--line); font-size: 0.8125rem; overflow-wrap: anywhere; }
 .audit-list p { margin-bottom: 8px; }

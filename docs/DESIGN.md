@@ -26,3 +26,7 @@ The separately scoped web and card branches were reviewed and merged. Browser ch
 HTTP checks returned the exact approved logo bytes, both local Inter fonts and a 1200 × 675 PNG from the revised card URL. All ten dispute fixtures and the ten-candidate card samples render offline. These are synthetic test cases, not new on-chain verification. The full suite passes with 448 tests and the same four opt-in live tests skipped.
 
 Frozen-lockfile installation, workspace typechecking, ESLint, Next production build and the full dependency audit also passed; no known vulnerabilities were reported. No new package dependencies or network-loaded fonts were added.
+
+## Follow-up: CA-first comparison
+
+Brian subsequently requested one CA per box and origin research by the app. The home form now starts with two individually labeled address inputs, supports adding/removing up to ten, and has no source-URL field. Automatic research is a functional follow-up, not part of the presentation-only changes above. Preserve the same monochrome visual language; keep research provenance in readable disclosures and optional source hints only as recovery. Never imply that a discovered token link proves the original meme or that unverified research produced a ruling.

@@ -6,6 +6,12 @@ import { commitReviewedOverride, overrideFingerprint } from './override-review';
 
 const env = { NODE_ENV: 'test' as const, SOURCE_ADMIN_ACTOR: 'synthetic-brian' }, auth = { authenticated: true as const, actor: env.SOURCE_ADMIN_ACTOR };
 describe('audited administrator overrides (synthetic evidence)', () => {
+  it('requires a concrete source URL before creating an administrator override', async () => {
+    const automatic = { ...INPUT, source_url: '' }, load = vi.fn(), persist = vi.fn();
+    await expect(commitReviewedOverride(automatic, overrideFingerprint(automatic, null), { patch: {}, reason: 'test' }, auth, { load, persist }, env)).rejects.toThrow('valid source URL');
+    expect(load).not.toHaveBeenCalled();
+    expect(persist).not.toHaveBeenCalled();
+  });
   it('freshly loads previous, preserves history and appends exact field audit', async () => {
     const previous: MemeRecord = { ...structuredClone(MEME), overrides: [{ field: 'canonical_name', previous: 'Earlier', value: MEME.canonical_name, actor: 'prior-admin', at: '2026-01-01T00:00:00Z', reason: 'Prior synthetic proof' }] };
     const original = structuredClone(previous), persist = vi.fn(), load = vi.fn(async () => previous);
