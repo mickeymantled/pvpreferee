@@ -1,6 +1,7 @@
 import type { CoinGrid, Ruling, RulingStatus } from '@pvp/shared';
 import type { Font as Metrics } from 'opentype.js';
 import { fitText, textWidth, type CardFonts } from './fonts';
+import brand from '../assets/brand.json';
 
 export const CARD_WIDTH = 1200;
 export const CARD_HEIGHT = 675;
@@ -10,10 +11,14 @@ export const colors = {
   red: '#ffaaa9', amber: '#f4d48a',
 };
 
-interface Element {
+interface ElementStyle { style: Record<string, string | number>; 'data-card-id': string }
+type Element = {
   type: 'div'; key: string;
-  props: { children: Element[] | string; style: Record<string, string | number>; 'data-card-id': string };
-}
+  props: ElementStyle & { children: Element[] | string };
+} | {
+  type: 'img'; key: string;
+  props: ElementStyle & { src: string; alt: string; width: number; height: number };
+};
 interface TextLine { id: string; text: string; x: number; y: number; width: number; height: number; size: number; weight: 400 | 600; color: string }
 export interface CardRow { ca: string; address: string; ticker: string; state: 'FAIL' | 'OPEN' | 'N/A'; detail: string }
 export interface CardContent {
@@ -129,8 +134,13 @@ export function createDocument(ruling: Ruling, fonts: CardFonts): CardDocument {
         fontSize: size, fontWeight: weight, color, whiteSpace: 'pre', lineHeight: 1.15 } } });
   };
 
-  box('brand-mark', 48, 35, 6, 26, { backgroundColor: colors.green, borderRadius: 3 });
-  text('brand', 'PvP Referee', 68, 29, 400, 40, 28, colors.text, 600);
+  box('brand-mark', 48, 20, 58, 58, { backgroundColor: '#000000' });
+  elements.push({ type: 'img', key: 'brand-logo', props: {
+    'data-card-id': 'brand-logo', src: `data:${brand.mimeType};base64,${brand.base64}`,
+    alt: 'PvP Referee robotic referee', width: brand.width, height: brand.height,
+    style: { position: 'absolute', left: 48, top: 20, width: 58, height: 58, objectFit: 'contain' },
+  } });
+  text('brand', 'PvP Referee', 122, 29, 400, 40, 28, colors.text, 600);
   text('edition', `ON THE RECORD  /  ${content.coinCount} COINS`, 839, 35, 313, 28, 15, colors.muted);
   box('header-line', 48, 88, 1104, 1, { backgroundColor: colors.border });
   text('meme', content.meme, 48, 107, 1104, 63, 45, colors.text, 600, true);

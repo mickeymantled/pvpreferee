@@ -5,6 +5,7 @@ import { nodeFileTrace } from '@vercel/nft';
 import ts from 'typescript';
 import { expect, it } from 'vitest';
 import encoded from '../assets/fonts.json';
+import brand from '../assets/brand.json';
 
 const base = fileURLToPath(new URL('../../../', import.meta.url));
 const entry = fileURLToPath(new URL('../test/entry.ts', import.meta.url));
@@ -30,10 +31,13 @@ async function trace(conditions: string[]) {
   });
 }
 
-it('traces embedded fonts and the installed native renderer through the server export', async () => {
+it('traces embedded fonts, the brand image and native renderer through the server export', async () => {
   const result = await trace(['node', 'import']);
   expect(result.fileList.has('packages/card/src/index.ts')).toBe(true);
   expect(result.fileList.has('packages/card/assets/fonts.json')).toBe(true);
+  expect(result.fileList.has('packages/card/assets/brand.json')).toBe(true);
+  expect(result.fileList.has('packages/card/assets/ref.jpg')).toBe(false);
+  expect([...result.fileList].filter(path => path.startsWith('packages/card/scripts/'))).toEqual([]);
   expect([...result.fileList].some(path => path.endsWith('.node') && path.includes('resvg'))).toBe(true);
   expect(result.fileList.has('packages/card/src/browser.ts')).toBe(false);
   // resvg's optional binaries for other OS/architectures need not be installed here.
@@ -42,12 +46,21 @@ it('traces embedded fonts and the installed native renderer through the server e
   expect(ownErrors).toEqual([]);
 }, 15_000);
 
-it('the browser conditional export does not pull in renderer, font or filesystem code', async () => {
+it('the browser conditional export does not pull in renderer, assets or filesystem code', async () => {
   const result = await trace(['browser', 'import']);
   expect(result.fileList.has('packages/card/src/browser.ts')).toBe(true);
-  expect([...result.fileList].filter(path => /satori|resvg|opentype|fonts\.json/.test(path))).toEqual([]);
+  expect([...result.fileList].filter(path => /satori|resvg|opentype|packages\/card\/assets\//.test(path))).toEqual([]);
   expect(result.fileList.has('packages/card/src/index.ts')).toBe(false);
   expect([...result.warnings]).toEqual([]);
+});
+
+it('embedded brand data preserves the approved JPEG bytes and reproducible encoding', async () => {
+  const original = await readFile(new URL('../assets/ref.jpg', import.meta.url));
+  const hash = '49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1';
+  expect(createHash('sha256').update(original).digest('hex')).toBe(hash);
+  expect(brand).toEqual({ mimeType: 'image/jpeg', width: 1408, height: 1408, sha256: hash, base64: original.toString('base64') });
+  expect(Buffer.from(brand.base64, 'base64').equals(original)).toBe(true);
+  expect(await readFile(new URL('../assets/brand.json', import.meta.url), 'utf8')).toBe(JSON.stringify(brand) + '\n');
 });
 
 it('embedded font data exactly matches the licensed, pinned original assets', async () => {

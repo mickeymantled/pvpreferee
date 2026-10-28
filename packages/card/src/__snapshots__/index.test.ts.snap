@@ -4,7 +4,28 @@ exports[`capacity and status cards > fits long strings and unsupported glyphs wi
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -469,7 +490,28 @@ exports[`capacity and status cards > fits ten coins for no_winner without clippi
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -974,7 +1016,28 @@ exports[`capacity and status cards > fits ten coins for resolved without clippin
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -1439,7 +1502,28 @@ exports[`capacity and status cards > fits ten coins for separate_memes without c
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -1944,7 +2028,28 @@ exports[`capacity and status cards > fits ten coins for unresolved without clipp
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -2449,7 +2554,28 @@ exports[`public rule fixtures > renders and snapshots cz_bnb 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -2594,7 +2720,28 @@ exports[`public rule fixtures > renders and snapshots invisible_cat 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -2739,7 +2886,28 @@ exports[`public rule fixtures > renders and snapshots kimchi 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -2884,7 +3052,28 @@ exports[`public rule fixtures > renders and snapshots kimchi_qr 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -3069,7 +3258,28 @@ exports[`public rule fixtures > renders and snapshots kiongozi 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -3214,7 +3424,28 @@ exports[`public rule fixtures > renders and snapshots robotaxi 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -3359,7 +3590,28 @@ exports[`public rule fixtures > renders and snapshots robotaxi_tsla 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -3504,7 +3756,28 @@ exports[`public rule fixtures > renders and snapshots solcat 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -3649,7 +3922,28 @@ exports[`public rule fixtures > renders and snapshots tilcayo 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
@@ -3834,7 +4128,28 @@ exports[`public rule fixtures > renders and snapshots tilcayo_same_meme 1`] = `
 [
   {
     "box": [
-      68,
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-mark",
+    "text": undefined,
+  },
+  {
+    "asset": "49bca3cde17a8bc4d5c94ddfec127dc4e7063db27dad5138b946952d21327fb1",
+    "box": [
+      48,
+      20,
+      58,
+      58,
+    ],
+    "id": "brand-logo",
+    "text": undefined,
+  },
+  {
+    "box": [
+      122,
       29,
       400,
       40,
