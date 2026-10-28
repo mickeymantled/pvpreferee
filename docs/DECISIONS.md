@@ -20,3 +20,4 @@ These choices fill gaps in the supplied plan; they do not amend the rule order o
 - 2026-10-28: Store manual source review independently of a ruling, including creation when no canonical meme could be resolved, so missing ingest does not block the admin workflow.
 - 2026-10-28: Use patched Drizzle 0.45.4 and sharp 0.35.5, and the address-only official Solana package instead of the legacy Web3 RPC stack; the production dependency audit identified vulnerabilities in the initial versions.
 - 2026-10-28: Bundle licensed Inter font data locally for deterministic offline cards; unsupported glyphs are visibly marked and full original text remains in the ruling. Override vulnerable transitive fflate and PostCSS versions to patched compatible releases.
+- 2026-10-28: Upgrade the test runner to patched Vitest 4.1.12 after the full development-dependency audit identified worker and mock-server advisories; retain the same offline tests and snapshots, which pass unchanged.
