@@ -9,3 +9,4 @@ allowBuilds:
   utf-8-validate: false
 overrides:
   'fflate@0.7.3': 0.7.5
+  'postcss@<8.5.23': 8.5.23
