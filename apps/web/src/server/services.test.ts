@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { INPUT, MEME, resolution, ruling } from "../test/fixtures";
 
 vi.mock("server-only", () => ({}));
+vi.mock('./security', () => ({ requireAdmin: async () => { throw new Error('Administrator sign-in is required.'); } }));
 const mocks = vi.hoisted(() => ({
   resolve: vi.fn(),
   findMeme: vi.fn(),
@@ -119,15 +120,15 @@ describe("lazy service adapters", () => {
     );
     expect(mocks.closeRuntime).toHaveBeenCalledTimes(2);
   });
-  it("keeps the Wave3 override gate closed even when an actor is configured", async () => {
+  it("keeps the override gate closed without an authenticated session", async () => {
     vi.stubEnv("SOURCE_ADMIN_ACTOR", "synthetic-admin");
-    await expect(requireAdminForOverride()).rejects.toThrow("locked");
+    await expect(requireAdminForOverride()).rejects.toThrow("sign-in");
     await expect(
-      applyReviewedOverride(null, {
+      applyReviewedOverride(INPUT, 'forged', {
         patch: { canonical_name: "forged" },
         reason: "forged",
       }),
-    ).rejects.toThrow("locked");
+    ).rejects.toThrow("sign-in");
     expect(mocks.overrideService).not.toHaveBeenCalled();
     expect(mocks.createRepo).not.toHaveBeenCalled();
   });

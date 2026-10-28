@@ -1,5 +1,6 @@
 import React from "react";
 import { ComparisonForm } from "../components/forms";
+import { listRulebooks } from '@pvp/config';
 
 export default function HomePage() {
   return (
@@ -33,7 +34,7 @@ export default function HomePage() {
           </a>
         </section>
         <div className="panel case-panel">
-          <ComparisonForm />
+          <ComparisonForm versions={listRulebooks()} />
         </div>
       </div>
       <section className="principles" aria-label="How rulings work">

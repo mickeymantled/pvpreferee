@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState } from "react";
+import React, { useActionState, useState } from "react";
 import type { MemeRecord } from "@pvp/shared";
 import { beginReview, issueRuling } from "../app/actions";
 import type { ActionState, Review } from "../lib/workflow";
@@ -17,8 +17,11 @@ function FormNotice({ state }: { state: ActionState }) {
   );
 }
 
-export function ComparisonForm() {
+export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
   const [state, action, pending] = useActionState(beginReview, INITIAL);
+  const [cas, setCas] = useState('');
+  const [sourceUrl, setSourceUrl] = useState('');
+  const [version, setVersion] = useState(versions[0] ?? 'v1');
   return (
     <form action={action} className="comparison-form" aria-busy={pending}>
       <div className="section-heading">
@@ -32,6 +35,8 @@ export function ComparisonForm() {
       <textarea
         id="cas"
         name="cas"
+        value={cas}
+        onChange={event => setCas(event.target.value)}
         placeholder="Paste one Solana contract address per line"
         required
         rows={5}
@@ -49,6 +54,8 @@ export function ComparisonForm() {
       <input
         id="source_url"
         name="source_url"
+        value={sourceUrl}
+        onChange={event => setSourceUrl(event.target.value)}
         type="url"
         required
         maxLength={2048}
@@ -61,7 +68,8 @@ export function ComparisonForm() {
         A subject post, official asset, video, or source page. You’ll review its
         assumptions next.
       </p>
-      <input type="hidden" name="version" value="v1" />
+      <label htmlFor="comparison-version">Rulebook version</label>
+      <select id="comparison-version" name="version" value={version} onChange={event => setVersion(event.target.value)}>{versions.map(item => <option key={item}>{item}</option>)}</select>
       <FormNotice state={state} />
       <button type="submit" disabled={pending} className="button primary">
         {pending ? "Opening source review…" : "Review the source"}{" "}
@@ -74,7 +82,8 @@ export function ComparisonForm() {
   );
 }
 
-function SourceFields({ meme }: { meme: MemeRecord | null }) {
+export function SourceFields({ meme, editable = false }: { meme: MemeRecord | null; editable?: boolean }) {
+  const prefix = editable ? 'edit-' : '';
   const fields: [keyof MemeRecord, string][] = [
     ["canonical_name", "Canonical name"],
     ["canonical_ticker", "Canonical ticker"],
@@ -84,17 +93,20 @@ function SourceFields({ meme }: { meme: MemeRecord | null }) {
     ["source_launchpad", "Source launchpad"],
     ["beneficiary_wallet", "Beneficiary wallet"],
     ["beneficiary_tie_at", "Beneficiary tie timestamp"],
+    ["source_image_url", "Source image URL"],
+    ["source_image_hash", "Source image hash (64-bit hex)"],
   ];
   return (
-    <fieldset disabled aria-describedby="override-lock">
+    <fieldset disabled={!editable} aria-describedby={editable ? undefined : 'override-lock'}>
       <legend>Canonical fields</legend>
       <div className="field-grid">
         {fields.map(([field, label]) => (
           <div key={field}>
-            <label htmlFor={field}>{label}</label>
+            <label htmlFor={prefix + field}>{label}</label>
             <input
-              id={field}
+              id={prefix + field}
               name={field}
+              maxLength={field === 'source_image_url' ? 2048 : 256}
               defaultValue={
                 typeof meme?.[field] === "string" ? (meme[field] as string) : ""
               }
@@ -103,17 +115,17 @@ function SourceFields({ meme }: { meme: MemeRecord | null }) {
           </div>
         ))}
         <div>
-          <label htmlFor="scope">Meme scope</label>
-          <select id="scope" name="scope" defaultValue={meme?.scope ?? ""}>
+          <label htmlFor={prefix + 'scope'}>Meme scope</label>
+          <select id={prefix + 'scope'} name="scope" defaultValue={meme?.scope ?? ""}>
             <option value="">Unknown</option>
             <option value="artifact">Specific artifact</option>
             <option value="concept">General concept</option>
           </select>
         </div>
         <div>
-          <label htmlFor="source_tier">Source tier</label>
+          <label htmlFor={prefix + 'source_tier'}>Source tier</label>
           <select
-            id="source_tier"
+            id={prefix + 'source_tier'}
             name="source_tier"
             defaultValue={meme?.source_tier ?? ""}
           >
@@ -135,8 +147,7 @@ export function ReviewForm({ review }: { review: Review }) {
     <form action={action} className="panel review-form" aria-busy={pending}>
       <SourceFields meme={review.resolution.meme} />
       <p className="notice subtle" id="override-lock">
-        Source edits are locked until administrator sign-in is available. These
-        fields show the inferred facts or an existing audited review.
+        Source edits are locked for public comparisons. These fields show the inferred facts or an existing audited review. <a href="/admin/login">Administrator sign-in</a>
       </p>
       <input type="hidden" name="cas" value={review.input.cas.join("\n")} />
       <input type="hidden" name="source_url" value={review.input.source_url} />

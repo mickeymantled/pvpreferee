@@ -4,6 +4,13 @@ import { fileURLToPath, URL } from "node:url";
 const config = {
   poweredByHeader: false,
   output: "standalone",
+  async headers() {
+    return [{ source: '/:path*', headers: [
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      { key: 'Content-Security-Policy', value: "frame-ancestors 'none'; form-action 'self'; base-uri 'self'" },
+    ] }];
+  },
   outputFileTracingRoot: fileURLToPath(new URL("../..", import.meta.url)),
   transpilePackages: [
     "@pvp/shared",

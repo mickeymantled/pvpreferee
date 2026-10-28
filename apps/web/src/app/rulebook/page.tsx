@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import { loadRulebook } from "@pvp/config";
+import { loadRulebook, listRulebooks } from "@pvp/config";
 import { ConfigView } from "../../components/config-view";
 
 export const metadata: Metadata = { title: "The rulebook" };
@@ -20,6 +20,7 @@ export default function RulebookPage() {
           version, thresholds, and evidence used to reach its verdict.
         </p>
       </header>
+      <nav aria-label="Published rulebooks">{listRulebooks().map(version => <a key={version} href={'/rulebook/' + version}>{version} </a>)}</nav>
       <ConfigView config={config} hash={hash} />
       <section className="notice">
         <h2>What never changes the verdict</h2>

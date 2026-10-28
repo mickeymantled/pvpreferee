@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "node --env-file-if-exists=../../.env node_modules/next/dist/bin/next dev",
     "build": "node --env-file-if-exists=../../.env node_modules/next/dist/bin/next build",
-    "start": "node --env-file-if-exists=../../.env node_modules/next/dist/bin/next start",
+    "start": "node --env-file-if-exists=../../.env scripts/start.mjs",
+    "admin:hash": "node --env-file-if-exists=../../.env --import tsx src/cli/hash-password.ts",
+    "cache:warm": "node --env-file-if-exists=../../.env --import tsx src/cli/warm.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run --root ../.. apps/web",
     "lint": "eslint ."
@@ -21,6 +23,8 @@
     "@pvp/source": "workspace:*",
     "@pvp/ingest": "workspace:*",
     "@pvp/card": "workspace:*",
+    "@pvp/rules": "workspace:*",
+    "@solana/addresses": "^8.5.0",
     "next": "15.5.28",
     "react": "19.3.1",
     "react-dom": "19.3.1",

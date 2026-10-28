@@ -1,28 +1,45 @@
 import "server-only";
-import type { MemeRecord } from "@pvp/shared";
+import { loadRulebook } from '@pvp/config';
 import type { CallerAuthContext, OverrideRequest } from "@pvp/source";
-import { OVERRIDE_MESSAGE } from "../lib/workflow";
+import type { IngestRulingRepository } from '@pvp/ingest';
+import type { ComparisonInput } from '../lib/input';
 import { withRepository } from "./services";
+import { requireAdmin } from './security';
+import { commitReviewedOverride, overrideFingerprint } from './override-review';
 
-/** HARDEN seam: replace the body with a server-validated session + fixed admin check.
+/** Server-validated session + fixed admin check.
  * Never accept actor/authenticated from FormData, JSON, query parameters or headers.
  */
 export async function requireAdminForOverride(): Promise<CallerAuthContext> {
-  throw new Error(OVERRIDE_MESSAGE);
+  return requireAdmin();
 }
 
-/** Not a public server action. Wave3 must add authenticated, CSRF-protected UI wiring.
- * `previous` must be freshly loaded by the server, never deserialized from a client.
- */
+/** Called only by the authenticated, origin-checked server action. */
 export async function applyReviewedOverride(
-  previous: MemeRecord | null,
+  input: ComparisonInput,
+  fingerprint: string,
   request: OverrideRequest,
-): Promise<MemeRecord> {
+) {
   const auth = await requireAdminForOverride();
-  const { createManualOverrideServiceFromEnv } = await import("@pvp/source");
   return withRepository((repository) =>
-    createManualOverrideServiceFromEnv((commit) =>
-      repository.applyMemeOverride(commit.previous, commit.current),
-    ).apply(previous, request, auth),
+    commitReviewedOverride(input, fingerprint, request, auth, {
+      load: () => loadPrevious(input, repository),
+      persist: (previous, current) => repository.applyMemeOverride(previous, current),
+    }),
   );
+}
+
+async function loadPrevious(input: ComparisonInput, repository: IngestRulingRepository) {
+  const stored = await repository.findMemeBySourceUrl(input.source_url);
+  if (stored) return stored;
+  const { createSourceFromEnv } = await import('@pvp/source');
+  const resolution = await createSourceFromEnv().resolve(input.source_url, loadRulebook(input.version).config);
+  return resolution.meme;
+}
+export async function loadOverrideReview(input: ComparisonInput) {
+  await requireAdminForOverride();
+  return withRepository(async repository => {
+    const previous = await loadPrevious(input, repository);
+    return { previous, fingerprint: overrideFingerprint(input, previous) };
+  });
 }

@@ -27,9 +27,30 @@ export function hashRulebook(config: Rulebook): string {
   return createHash('sha256').update(canonicalJson(config)).digest('hex');
 }
 export function loadRulebook(version = 'v1'): LoadedRulebook {
-  if (version !== 'v1') throw new Error('Unknown rulebook version: ' + version);
-  const config: unknown = structuredClone(v1);
-  validateRulebook(config);
-  return { config, hash: hashRulebook(config) };
+  return registry.load(version);
 }
-export function listRulebooks(): string[] { return ['v1']; }
+export function listRulebooks(): string[] { return registry.versions(); }
+
+/** Static imports keep every historical version available in a Next server bundle.
+ * Entries are copied once and never exposed by reference. Duplicate versions fail,
+ * even if their values agree: publication is append-only, never last-write-wins.
+ */
+export function createRulebookRegistry(entries: readonly unknown[]) {
+  const configs = new Map<string, Rulebook>();
+  for (const entry of entries) {
+    validateRulebook(entry);
+    if (configs.has(entry.version)) throw new Error('Duplicate rulebook version: ' + entry.version);
+    configs.set(entry.version, structuredClone(entry));
+  }
+  return {
+    versions: () => [...configs.keys()].sort((a, b) => Number(a.slice(1)) - Number(b.slice(1))),
+    load(version: string): LoadedRulebook {
+      const stored = configs.get(version);
+      if (!stored) throw new Error('Unknown rulebook version: ' + version);
+      const config = structuredClone(stored);
+      return { config, hash: hashRulebook(config) };
+    },
+  };
+}
+// Add a new committed JSON import here; never edit or replace a published entry.
+const registry = createRulebookRegistry([v1]);
