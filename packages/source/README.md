@@ -23,6 +23,88 @@ The example's nullable inputs must be checked by the calling pipeline. Image fai
 
 `resolveSource(url, config, options)` and `resolveSources(urls, config, options)` are convenience wrappers. `SourceOptions.relatedSources` maps an exact primary URL to additional URLs for the same meme; otherwise a single `resolve` inspects only the supplied URL. There is no link crawler. At most ten sources are accepted. `pressArticleUrls` supplies up to fifty scoped articles for a canonical-name dispute. There is no automatic search or promise that those articles represent all press coverage.
 
+## Automatic origin discovery from contract addresses
+
+```ts
+import { createPublicTransport, createSourceFromEnv, discoverOrigin } from '@pvp/source';
+
+const transport = createPublicTransport({ timeoutMs: 4_000, maxBytes: 1024 * 1024 });
+const verifier = createSourceFromEnv(process.env, { transport });
+const discovery = await discoverOrigin(cas, config, {
+  transport,
+  resolve: (url, rulebook) => verifier.resolve(url, rulebook),
+});
+// Parent applications can route resolve through their existing audited override
+// lookup as well. Do not construct authority bindings from discovered listings.
+// Gate rulings on !resolution.needs_review && resolution.meme?.resolved === true.
+```
+
+The frozen exports are `OriginCandidate { url, coin_cas, discovered_via, status, reasons }`,
+`OriginDiscoveryResult { resolution, candidates, notes }`, and
+`OriginDiscoveryOptions { transport?, resolve }`. Candidate status is `unverified` (not checked),
+`confirmed` (independently verified by the supplied resolver), or `needs_review`.
+`discovered_via` contains **only actual public provenance URLs**: the requested API URL,
+listing-linked HTML page, and any observed final redirect page. CA-specific paths and
+explanations are in `reasons`; listing evidence is never appended to canonical meme evidence.
+Candidates are sorted by URL, and CA/provenance/reason/note arrays are deduplicated and sorted.
+Discovery adds no timestamps, random identifiers or timing measurements to the result.
+The chosen resolver's original immutable facts and endorsements retain their own timestamps.
+
+Discovery validates 2–10 supplied, case-sensitive base58 addresses decoding to exactly 32
+bytes, then deduplicates (at least two distinct keys are required). It requests only the
+official `https://api.dexscreener.com/tokens/v1/solana/{comma-separated-CAs}` endpoint.
+It accepts only pairs with `chainId === 'solana'` and an exact requested `baseToken.address`.
+Quote-token matches, unrelated chains/mints, pair URLs, names, symbols and images supply
+no source attribution. The [official reference](https://docs.dexscreener.com/api/reference)
+and its linked OpenAPI specification document an array response, `info.websites[].url`,
+and `info.socials[]` entries with `platform`/`handle`. Some live responses instead expose
+social entries with `type`/`url`; this implementation tolerates an actual `url` field only.
+It never constructs a URL from a handle or probes guessed provider endpoints. The saved
+fixtures are explicitly synthetic; they are not captured live results or real meme evidence.
+
+Supported X post and YouTube video URLs go to the existing verifier. X/YouTube profiles,
+known unsupported social hosts, and token listing/profile hosts are excluded with notes.
+Direct website URLs are read as HTML using the same safe DNS/redirect transport. Only
+explicit `Origin`, `Source`, `Original source`, `Meme source`, `Inspiration`, `Inspired by`,
+`Original post/video` link labels (or equivalent title/ARIA labels/rel tokens) are followed.
+A short containing element with a single anchor can label it, e.g. `Source: <a>watch</a>`.
+Relative links use the observed final page URL. Page-supplied base/canonical tags, scripts,
+templates, quoted links, instructions and arbitrary navigation are ignored. Referenced
+pages are not expanded again. If another CA lists the intermediate page directly, that
+does not extend the first CA's path to two hops. These links are leads, not semantic proof
+that a page describes the meme's historical origin.
+
+Limits are three concurrent operations per phase, four seconds per metadata/link request
+(including DNS, redirects and body), a 1 MiB response cap, three redirects in the default
+discovery transport, 100 provider pairs, 20 entries per website/social field per pair,
+500 inspected anchors per HTML page, ten HTML roots, ten candidate resolutions, nine
+seconds per resolver call, and **28 seconds for discovery overall**. Truncation or skipped
+work blocks automatic readiness even if a common verified source has already been found.
+HTTP errors, invalid/partial responses, unsafe redirects/DNS, and callback failures preserve
+partial candidates and sanitized reasons. Timed-out calls stop further work from launching;
+no hidden retries run. The callback interface cannot cancel an injected promise already in
+flight: trusted injected transports/resolvers must enforce their own network deadlines and
+SSRF policy, as in the example. The default public transport aborts timed-out sockets.
+
+Automatic readiness requires a complete checked search within these bounds, at least one
+independently verified source URL supported by **every supplied CA**, and agreement across
+**all** independently verified candidates on identity and rule inputs. Equal names on
+different pages do not pool CA support. Observed redirect aliases may converge on the same
+source URL; a resolver that changes to an unobserved source cannot transfer provenance.
+An unverified HTML page can serve as an intermediary only when successfully inspected and
+all its explicit source targets were independently verified. Otherwise an unresolved
+candidate leaves the search incomplete. Unsupported listing fields/profiles are excluded
+leads, not competing source documents. Only the chosen verified resolution's endorsements
+survive; blocked results return `meme: null`, `endorsements: []`, and `needs_review: true`.
+
+This does not prove historical originality, exhaust all internet sources, or infer natural
+language source relationships. Tokens without usable listing links, unlabeled references,
+sources lacking authority bindings/required metadata, unavailable credentials/providers,
+conflicting evidence and exhausted budgets require review. Keep the existing authenticated
+override flow for those cases. Offline tests inject every I/O boundary and cover literal
+URL provenance, exact mint matching, malicious HTML, one-hop attribution, all limits,
+deterministic results, partial failures and authority isolation.
+
 ## Verification and environment
 
 | Variable | Purpose |
@@ -126,7 +208,7 @@ Injecting `SourceTransport`, DNS lookup, socket exchange, image hashing or on-ch
 
 Run `pnpm test`, `pnpm typecheck`, and `pnpm lint` from the repository root, or `pnpm --filter @pvp/source test`. All default source tests use saved synthetic HTML/JSON, generated synthetic image pixels, or injected transport/DNS responses. Tests include DACITY spelling, Tilcayo/Tigrino press wins and ties, conflicting scope, trusted chain/pair fields, configured pair mapping, unauthorized third-party endorsements, override audit persistence, SSRF, deadlines, image tolerance/failure cases, and lazy native imports.
 
-No live provider validation was performed. X/YouTube require access credentials and supported labeled metadata. This implementation has no natural-language/vision model, OCR/QR recognition, video transcripts, JavaScript page rendering, paywall access, source discovery, chain reconstruction, independent wallet ownership proof, broad press search, or persistent source/override database. Those gaps produce review or require the documented upstream adapters. The DACITY and Tilcayo/Tigrino cases prove behavior for synthetic records, not resolution of real posts that were not supplied.
+No live meme-origin acceptance test was performed. X/YouTube require access credentials and supported labeled metadata. This implementation has no natural-language/vision model, OCR/QR recognition, video transcripts, JavaScript page rendering, paywall access, broad source search, chain reconstruction, independent wallet ownership proof, broad press search, or persistent source/override database. Those gaps produce review or require the documented upstream adapters. The DACITY and Tilcayo/Tigrino cases prove behavior for synthetic records, not resolution of real posts that were not supplied.
 
 Official references checked during implementation:
 
