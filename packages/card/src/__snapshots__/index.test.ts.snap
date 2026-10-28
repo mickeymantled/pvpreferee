@@ -1,0 +1,3976 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`capacity and status cards > fits long strings and unsupported glyphs without altering the winner CA 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  10 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "WIDE MEME NAME WIDE MEME NAME WIDE MEME NAME WIDE MEME NA...",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "WIDE MEME NAME WIDE MEME NAME WIDE MEME NAME WIDE MEME...",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "WWWWWWWWWWWWWWWWWWWW11WWWWWWWWWWWWWWWWWWWWWW",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      26,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      26,
+    ],
+    "id": "row-0-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      26,
+    ],
+    "id": "row-0-ca",
+    "text": "#1 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      26,
+    ],
+    "id": "row-0-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      396,
+      56,
+      26,
+    ],
+    "id": "row-1-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      396,
+      148,
+      26,
+    ],
+    "id": "row-1-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      396,
+      194,
+      26,
+    ],
+    "id": "row-1-ca",
+    "text": "#3 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      396,
+      656,
+      26,
+    ],
+    "id": "row-1-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      422,
+      56,
+      26,
+    ],
+    "id": "row-2-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      422,
+      148,
+      26,
+    ],
+    "id": "row-2-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      422,
+      194,
+      26,
+    ],
+    "id": "row-2-ca",
+    "text": "#4 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      422,
+      656,
+      26,
+    ],
+    "id": "row-2-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      448,
+      56,
+      26,
+    ],
+    "id": "row-3-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      448,
+      148,
+      26,
+    ],
+    "id": "row-3-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      448,
+      194,
+      26,
+    ],
+    "id": "row-3-ca",
+    "text": "#5 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      448,
+      656,
+      26,
+    ],
+    "id": "row-3-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      474,
+      56,
+      26,
+    ],
+    "id": "row-4-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      474,
+      148,
+      26,
+    ],
+    "id": "row-4-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      474,
+      194,
+      26,
+    ],
+    "id": "row-4-ca",
+    "text": "#6 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      474,
+      656,
+      26,
+    ],
+    "id": "row-4-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      500,
+      56,
+      26,
+    ],
+    "id": "row-5-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      500,
+      148,
+      26,
+    ],
+    "id": "row-5-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      500,
+      194,
+      26,
+    ],
+    "id": "row-5-ca",
+    "text": "#7 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      500,
+      656,
+      26,
+    ],
+    "id": "row-5-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      526,
+      56,
+      26,
+    ],
+    "id": "row-6-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      526,
+      148,
+      26,
+    ],
+    "id": "row-6-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      526,
+      194,
+      26,
+    ],
+    "id": "row-6-ca",
+    "text": "#8 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      526,
+      656,
+      26,
+    ],
+    "id": "row-6-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      552,
+      56,
+      26,
+    ],
+    "id": "row-7-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      552,
+      148,
+      26,
+    ],
+    "id": "row-7-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      552,
+      194,
+      26,
+    ],
+    "id": "row-7-ca",
+    "text": "#9 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      552,
+      656,
+      26,
+    ],
+    "id": "row-7-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      578,
+      56,
+      26,
+    ],
+    "id": "row-8-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      578,
+      148,
+      26,
+    ],
+    "id": "row-8-ticker",
+    "text": "WRONGWWW...",
+  },
+  {
+    "box": [
+      286,
+      578,
+      194,
+      26,
+    ],
+    "id": "row-8-ca",
+    "text": "#10 WWWWWW...WW...",
+  },
+  {
+    "box": [
+      496,
+      578,
+      656,
+      26,
+    ],
+    "id": "row-8-detail",
+    "text": "R2 Identity: Ticker "WRONGWWWWWWWWWWWWWWWWWWWWWWWWW...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Unsupported glyphs shown as ?; full text in ruling",
+  },
+]
+`;
+
+exports[`capacity and status cards > fits ten coins for no_winner without clipping or losing candidates 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  10 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "status-label",
+    "text": "RULING STATUS",
+  },
+  {
+    "box": [
+      72,
+      230,
+      1056,
+      39,
+    ],
+    "id": "status",
+    "text": "No winner",
+  },
+  {
+    "box": [
+      72,
+      278,
+      1056,
+      26,
+    ],
+    "id": "status-explanation",
+    "text": "Every candidate was eliminated by the rulebook.",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      24,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      24,
+    ],
+    "id": "row-0-ticker",
+    "text": "WRONG9",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      24,
+    ],
+    "id": "row-0-ca",
+    "text": "#1 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      24,
+    ],
+    "id": "row-0-detail",
+    "text": "R2 Identity: Ticker "WRONG9" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      394,
+      56,
+      24,
+    ],
+    "id": "row-1-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      394,
+      148,
+      24,
+    ],
+    "id": "row-1-ticker",
+    "text": "WRONG0",
+  },
+  {
+    "box": [
+      286,
+      394,
+      194,
+      24,
+    ],
+    "id": "row-1-ca",
+    "text": "#2 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      394,
+      656,
+      24,
+    ],
+    "id": "row-1-detail",
+    "text": "R2 Identity: Ticker "WRONG0" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      418,
+      56,
+      24,
+    ],
+    "id": "row-2-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      418,
+      148,
+      24,
+    ],
+    "id": "row-2-ticker",
+    "text": "WRONG1",
+  },
+  {
+    "box": [
+      286,
+      418,
+      194,
+      24,
+    ],
+    "id": "row-2-ca",
+    "text": "#3 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      418,
+      656,
+      24,
+    ],
+    "id": "row-2-detail",
+    "text": "R2 Identity: Ticker "WRONG1" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      442,
+      56,
+      24,
+    ],
+    "id": "row-3-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      442,
+      148,
+      24,
+    ],
+    "id": "row-3-ticker",
+    "text": "WRONG2",
+  },
+  {
+    "box": [
+      286,
+      442,
+      194,
+      24,
+    ],
+    "id": "row-3-ca",
+    "text": "#4 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      442,
+      656,
+      24,
+    ],
+    "id": "row-3-detail",
+    "text": "R2 Identity: Ticker "WRONG2" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      466,
+      56,
+      24,
+    ],
+    "id": "row-4-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      466,
+      148,
+      24,
+    ],
+    "id": "row-4-ticker",
+    "text": "WRONG3",
+  },
+  {
+    "box": [
+      286,
+      466,
+      194,
+      24,
+    ],
+    "id": "row-4-ca",
+    "text": "#5 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      466,
+      656,
+      24,
+    ],
+    "id": "row-4-detail",
+    "text": "R2 Identity: Ticker "WRONG3" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      490,
+      56,
+      24,
+    ],
+    "id": "row-5-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      490,
+      148,
+      24,
+    ],
+    "id": "row-5-ticker",
+    "text": "WRONG4",
+  },
+  {
+    "box": [
+      286,
+      490,
+      194,
+      24,
+    ],
+    "id": "row-5-ca",
+    "text": "#6 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      490,
+      656,
+      24,
+    ],
+    "id": "row-5-detail",
+    "text": "R2 Identity: Ticker "WRONG4" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      514,
+      56,
+      24,
+    ],
+    "id": "row-6-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      514,
+      148,
+      24,
+    ],
+    "id": "row-6-ticker",
+    "text": "WRONG5",
+  },
+  {
+    "box": [
+      286,
+      514,
+      194,
+      24,
+    ],
+    "id": "row-6-ca",
+    "text": "#7 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      514,
+      656,
+      24,
+    ],
+    "id": "row-6-detail",
+    "text": "R2 Identity: Ticker "WRONG5" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      538,
+      56,
+      24,
+    ],
+    "id": "row-7-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      538,
+      148,
+      24,
+    ],
+    "id": "row-7-ticker",
+    "text": "WRONG6",
+  },
+  {
+    "box": [
+      286,
+      538,
+      194,
+      24,
+    ],
+    "id": "row-7-ca",
+    "text": "#8 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      538,
+      656,
+      24,
+    ],
+    "id": "row-7-detail",
+    "text": "R2 Identity: Ticker "WRONG6" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      562,
+      56,
+      24,
+    ],
+    "id": "row-8-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      562,
+      148,
+      24,
+    ],
+    "id": "row-8-ticker",
+    "text": "WRONG7",
+  },
+  {
+    "box": [
+      286,
+      562,
+      194,
+      24,
+    ],
+    "id": "row-8-ca",
+    "text": "#9 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      562,
+      656,
+      24,
+    ],
+    "id": "row-8-detail",
+    "text": "R2 Identity: Ticker "WRONG7" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      586,
+      56,
+      24,
+    ],
+    "id": "row-9-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      586,
+      148,
+      24,
+    ],
+    "id": "row-9-ticker",
+    "text": "WRONG8",
+  },
+  {
+    "box": [
+      286,
+      586,
+      194,
+      24,
+    ],
+    "id": "row-9-ca",
+    "text": "#10 WWWWWW...WW...",
+  },
+  {
+    "box": [
+      496,
+      586,
+      656,
+      24,
+    ],
+    "id": "row-9-detail",
+    "text": "R2 Identity: Ticker "WRONG8" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`capacity and status cards > fits ten coins for resolved without clipping or losing candidates 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  10 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "WWWWWWWWWWWWWWWWWWWW11WWWWWWWWWWWWWWWWWWWWWW",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      26,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      26,
+    ],
+    "id": "row-0-ticker",
+    "text": "WRONG9",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      26,
+    ],
+    "id": "row-0-ca",
+    "text": "#1 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      26,
+    ],
+    "id": "row-0-detail",
+    "text": "R2 Identity: Ticker "WRONG9" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      396,
+      56,
+      26,
+    ],
+    "id": "row-1-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      396,
+      148,
+      26,
+    ],
+    "id": "row-1-ticker",
+    "text": "WRONG1",
+  },
+  {
+    "box": [
+      286,
+      396,
+      194,
+      26,
+    ],
+    "id": "row-1-ca",
+    "text": "#3 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      396,
+      656,
+      26,
+    ],
+    "id": "row-1-detail",
+    "text": "R2 Identity: Ticker "WRONG1" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      422,
+      56,
+      26,
+    ],
+    "id": "row-2-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      422,
+      148,
+      26,
+    ],
+    "id": "row-2-ticker",
+    "text": "WRONG2",
+  },
+  {
+    "box": [
+      286,
+      422,
+      194,
+      26,
+    ],
+    "id": "row-2-ca",
+    "text": "#4 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      422,
+      656,
+      26,
+    ],
+    "id": "row-2-detail",
+    "text": "R2 Identity: Ticker "WRONG2" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      448,
+      56,
+      26,
+    ],
+    "id": "row-3-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      448,
+      148,
+      26,
+    ],
+    "id": "row-3-ticker",
+    "text": "WRONG3",
+  },
+  {
+    "box": [
+      286,
+      448,
+      194,
+      26,
+    ],
+    "id": "row-3-ca",
+    "text": "#5 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      448,
+      656,
+      26,
+    ],
+    "id": "row-3-detail",
+    "text": "R2 Identity: Ticker "WRONG3" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      474,
+      56,
+      26,
+    ],
+    "id": "row-4-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      474,
+      148,
+      26,
+    ],
+    "id": "row-4-ticker",
+    "text": "WRONG4",
+  },
+  {
+    "box": [
+      286,
+      474,
+      194,
+      26,
+    ],
+    "id": "row-4-ca",
+    "text": "#6 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      474,
+      656,
+      26,
+    ],
+    "id": "row-4-detail",
+    "text": "R2 Identity: Ticker "WRONG4" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      500,
+      56,
+      26,
+    ],
+    "id": "row-5-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      500,
+      148,
+      26,
+    ],
+    "id": "row-5-ticker",
+    "text": "WRONG5",
+  },
+  {
+    "box": [
+      286,
+      500,
+      194,
+      26,
+    ],
+    "id": "row-5-ca",
+    "text": "#7 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      500,
+      656,
+      26,
+    ],
+    "id": "row-5-detail",
+    "text": "R2 Identity: Ticker "WRONG5" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      526,
+      56,
+      26,
+    ],
+    "id": "row-6-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      526,
+      148,
+      26,
+    ],
+    "id": "row-6-ticker",
+    "text": "WRONG6",
+  },
+  {
+    "box": [
+      286,
+      526,
+      194,
+      26,
+    ],
+    "id": "row-6-ca",
+    "text": "#8 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      526,
+      656,
+      26,
+    ],
+    "id": "row-6-detail",
+    "text": "R2 Identity: Ticker "WRONG6" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      552,
+      56,
+      26,
+    ],
+    "id": "row-7-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      552,
+      148,
+      26,
+    ],
+    "id": "row-7-ticker",
+    "text": "WRONG7",
+  },
+  {
+    "box": [
+      286,
+      552,
+      194,
+      26,
+    ],
+    "id": "row-7-ca",
+    "text": "#9 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      552,
+      656,
+      26,
+    ],
+    "id": "row-7-detail",
+    "text": "R2 Identity: Ticker "WRONG7" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      578,
+      56,
+      26,
+    ],
+    "id": "row-8-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      578,
+      148,
+      26,
+    ],
+    "id": "row-8-ticker",
+    "text": "WRONG8",
+  },
+  {
+    "box": [
+      286,
+      578,
+      194,
+      26,
+    ],
+    "id": "row-8-ca",
+    "text": "#10 WWWWWW...WW...",
+  },
+  {
+    "box": [
+      496,
+      578,
+      656,
+      26,
+    ],
+    "id": "row-8-detail",
+    "text": "R2 Identity: Ticker "WRONG8" does not match canonical "ROBOTAXI" from subje...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`capacity and status cards > fits ten coins for separate_memes without clipping or losing candidates 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  10 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "status-label",
+    "text": "RULING STATUS",
+  },
+  {
+    "box": [
+      72,
+      230,
+      1056,
+      39,
+    ],
+    "id": "status",
+    "text": "Separate memes",
+  },
+  {
+    "box": [
+      72,
+      278,
+      1056,
+      26,
+    ],
+    "id": "status-explanation",
+    "text": "These coins represent different memes. No comparative ruling applies.",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      24,
+    ],
+    "id": "row-0-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      24,
+    ],
+    "id": "row-0-ticker",
+    "text": "WRONG9",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      24,
+    ],
+    "id": "row-0-ca",
+    "text": "#1 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      24,
+    ],
+    "id": "row-0-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      394,
+      56,
+      24,
+    ],
+    "id": "row-1-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      394,
+      148,
+      24,
+    ],
+    "id": "row-1-ticker",
+    "text": "ROBOTAXI",
+  },
+  {
+    "box": [
+      286,
+      394,
+      194,
+      24,
+    ],
+    "id": "row-1-ca",
+    "text": "#2 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      394,
+      656,
+      24,
+    ],
+    "id": "row-1-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      418,
+      56,
+      24,
+    ],
+    "id": "row-2-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      418,
+      148,
+      24,
+    ],
+    "id": "row-2-ticker",
+    "text": "WRONG1",
+  },
+  {
+    "box": [
+      286,
+      418,
+      194,
+      24,
+    ],
+    "id": "row-2-ca",
+    "text": "#3 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      418,
+      656,
+      24,
+    ],
+    "id": "row-2-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      442,
+      56,
+      24,
+    ],
+    "id": "row-3-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      442,
+      148,
+      24,
+    ],
+    "id": "row-3-ticker",
+    "text": "WRONG2",
+  },
+  {
+    "box": [
+      286,
+      442,
+      194,
+      24,
+    ],
+    "id": "row-3-ca",
+    "text": "#4 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      442,
+      656,
+      24,
+    ],
+    "id": "row-3-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      466,
+      56,
+      24,
+    ],
+    "id": "row-4-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      466,
+      148,
+      24,
+    ],
+    "id": "row-4-ticker",
+    "text": "WRONG3",
+  },
+  {
+    "box": [
+      286,
+      466,
+      194,
+      24,
+    ],
+    "id": "row-4-ca",
+    "text": "#5 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      466,
+      656,
+      24,
+    ],
+    "id": "row-4-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      490,
+      56,
+      24,
+    ],
+    "id": "row-5-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      490,
+      148,
+      24,
+    ],
+    "id": "row-5-ticker",
+    "text": "WRONG4",
+  },
+  {
+    "box": [
+      286,
+      490,
+      194,
+      24,
+    ],
+    "id": "row-5-ca",
+    "text": "#6 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      490,
+      656,
+      24,
+    ],
+    "id": "row-5-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      514,
+      56,
+      24,
+    ],
+    "id": "row-6-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      514,
+      148,
+      24,
+    ],
+    "id": "row-6-ticker",
+    "text": "WRONG5",
+  },
+  {
+    "box": [
+      286,
+      514,
+      194,
+      24,
+    ],
+    "id": "row-6-ca",
+    "text": "#7 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      514,
+      656,
+      24,
+    ],
+    "id": "row-6-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      538,
+      56,
+      24,
+    ],
+    "id": "row-7-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      538,
+      148,
+      24,
+    ],
+    "id": "row-7-ticker",
+    "text": "WRONG6",
+  },
+  {
+    "box": [
+      286,
+      538,
+      194,
+      24,
+    ],
+    "id": "row-7-ca",
+    "text": "#8 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      538,
+      656,
+      24,
+    ],
+    "id": "row-7-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      562,
+      56,
+      24,
+    ],
+    "id": "row-8-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      562,
+      148,
+      24,
+    ],
+    "id": "row-8-ticker",
+    "text": "WRONG7",
+  },
+  {
+    "box": [
+      286,
+      562,
+      194,
+      24,
+    ],
+    "id": "row-8-ca",
+    "text": "#9 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      562,
+      656,
+      24,
+    ],
+    "id": "row-8-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      586,
+      56,
+      24,
+    ],
+    "id": "row-9-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      586,
+      148,
+      24,
+    ],
+    "id": "row-9-ticker",
+    "text": "WRONG8",
+  },
+  {
+    "box": [
+      286,
+      586,
+      194,
+      24,
+    ],
+    "id": "row-9-ca",
+    "text": "#10 WWWWWW...WW...",
+  },
+  {
+    "box": [
+      496,
+      586,
+      656,
+      24,
+    ],
+    "id": "row-9-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`capacity and status cards > fits ten coins for unresolved without clipping or losing candidates 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  10 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "status-label",
+    "text": "RULING STATUS",
+  },
+  {
+    "box": [
+      72,
+      230,
+      1056,
+      39,
+    ],
+    "id": "status",
+    "text": "Unresolved",
+  },
+  {
+    "box": [
+      72,
+      278,
+      1056,
+      26,
+    ],
+    "id": "status-explanation",
+    "text": "More evidence or source review is needed before a winner can be named.",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      24,
+    ],
+    "id": "row-0-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      24,
+    ],
+    "id": "row-0-ticker",
+    "text": "WRONG9",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      24,
+    ],
+    "id": "row-0-ca",
+    "text": "#1 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      24,
+    ],
+    "id": "row-0-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      394,
+      56,
+      24,
+    ],
+    "id": "row-1-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      394,
+      148,
+      24,
+    ],
+    "id": "row-1-ticker",
+    "text": "ROBOTAXI",
+  },
+  {
+    "box": [
+      286,
+      394,
+      194,
+      24,
+    ],
+    "id": "row-1-ca",
+    "text": "#2 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      394,
+      656,
+      24,
+    ],
+    "id": "row-1-detail",
+    "text": "Unresolved: Coin has no resolved meme assignment",
+  },
+  {
+    "box": [
+      48,
+      418,
+      56,
+      24,
+    ],
+    "id": "row-2-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      418,
+      148,
+      24,
+    ],
+    "id": "row-2-ticker",
+    "text": "WRONG1",
+  },
+  {
+    "box": [
+      286,
+      418,
+      194,
+      24,
+    ],
+    "id": "row-2-ca",
+    "text": "#3 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      418,
+      656,
+      24,
+    ],
+    "id": "row-2-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      442,
+      56,
+      24,
+    ],
+    "id": "row-3-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      442,
+      148,
+      24,
+    ],
+    "id": "row-3-ticker",
+    "text": "WRONG2",
+  },
+  {
+    "box": [
+      286,
+      442,
+      194,
+      24,
+    ],
+    "id": "row-3-ca",
+    "text": "#4 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      442,
+      656,
+      24,
+    ],
+    "id": "row-3-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      466,
+      56,
+      24,
+    ],
+    "id": "row-4-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      466,
+      148,
+      24,
+    ],
+    "id": "row-4-ticker",
+    "text": "WRONG3",
+  },
+  {
+    "box": [
+      286,
+      466,
+      194,
+      24,
+    ],
+    "id": "row-4-ca",
+    "text": "#5 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      466,
+      656,
+      24,
+    ],
+    "id": "row-4-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      490,
+      56,
+      24,
+    ],
+    "id": "row-5-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      490,
+      148,
+      24,
+    ],
+    "id": "row-5-ticker",
+    "text": "WRONG4",
+  },
+  {
+    "box": [
+      286,
+      490,
+      194,
+      24,
+    ],
+    "id": "row-5-ca",
+    "text": "#6 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      490,
+      656,
+      24,
+    ],
+    "id": "row-5-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      514,
+      56,
+      24,
+    ],
+    "id": "row-6-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      514,
+      148,
+      24,
+    ],
+    "id": "row-6-ticker",
+    "text": "WRONG5",
+  },
+  {
+    "box": [
+      286,
+      514,
+      194,
+      24,
+    ],
+    "id": "row-6-ca",
+    "text": "#7 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      514,
+      656,
+      24,
+    ],
+    "id": "row-6-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      538,
+      56,
+      24,
+    ],
+    "id": "row-7-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      538,
+      148,
+      24,
+    ],
+    "id": "row-7-ticker",
+    "text": "WRONG6",
+  },
+  {
+    "box": [
+      286,
+      538,
+      194,
+      24,
+    ],
+    "id": "row-7-ca",
+    "text": "#8 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      538,
+      656,
+      24,
+    ],
+    "id": "row-7-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      562,
+      56,
+      24,
+    ],
+    "id": "row-8-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      562,
+      148,
+      24,
+    ],
+    "id": "row-8-ticker",
+    "text": "WRONG7",
+  },
+  {
+    "box": [
+      286,
+      562,
+      194,
+      24,
+    ],
+    "id": "row-8-ca",
+    "text": "#9 WWWWWW...WWW...",
+  },
+  {
+    "box": [
+      496,
+      562,
+      656,
+      24,
+    ],
+    "id": "row-8-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      586,
+      56,
+      24,
+    ],
+    "id": "row-9-state",
+    "text": "OPEN",
+  },
+  {
+    "box": [
+      120,
+      586,
+      148,
+      24,
+    ],
+    "id": "row-9-ticker",
+    "text": "WRONG8",
+  },
+  {
+    "box": [
+      286,
+      586,
+      194,
+      24,
+    ],
+    "id": "row-9-ca",
+    "text": "#10 WWWWWW...WW...",
+  },
+  {
+    "box": [
+      496,
+      586,
+      656,
+      24,
+    ],
+    "id": "row-9-detail",
+    "text": "Coin belongs to the resolved artifact meme synthetic:robotaxi",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots cz_bnb 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "cz_bnb",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  BNB",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "cz_bnb",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "CZ_BNB",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R4 Chain fit: Chain solana does not match source home chain bnb",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots invisible_cat 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "invisible_cat",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "invisible_cat",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "INVISIBLE_CAT",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R7 Participation snapshot: Later participation is a vamp of BBBBBBBBBB...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots kimchi 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "kimchi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "kimchi",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "KIMCHI",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R1 Subject endorsement: Another coin has the sole verified subject end...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots kimchi_qr 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  3 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "kimchi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "kimchi",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "KIMCHI",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R1 Subject endorsement: Another coin has a verified subject endorseme...",
+  },
+  {
+    "box": [
+      48,
+      427,
+      56,
+      57,
+    ],
+    "id": "row-1-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      427,
+      148,
+      57,
+    ],
+    "id": "row-1-ticker",
+    "text": "KIMCHI",
+  },
+  {
+    "box": [
+      286,
+      427,
+      194,
+      57,
+    ],
+    "id": "row-1-ca",
+    "text": "CCCCCC...CCCCCC",
+  },
+  {
+    "box": [
+      496,
+      427,
+      656,
+      57,
+    ],
+    "id": "row-1-detail",
+    "text": "R1 Subject endorsement: Endorsement conflict: 1% subject-held supply...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots kiongozi 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "Kiongozi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "Kiongozi",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "KIO",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "BBBBBB...BBBBBB",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R2 Identity: Ticker "KIO" does not match canonical "KIONGOZI" from su...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots robotaxi 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "ROBOTAXI",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "BBBBBB...BBBBBB",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R7 Participation snapshot: Later participation is a vamp of AAAAAAAAA...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots robotaxi_tsla 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "robotaxi",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "ROBOTAXI",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R5 Launchpad and pair: Pair SOL does not match required pair TSLA",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots solcat 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "solcat",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "solcat",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "SOLCAT",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R7 Participation snapshot: Not alive at 2026-10-02T10:00:00.000Z: $20...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots tilcayo 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "Tigrino",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "status-label",
+    "text": "RULING STATUS",
+  },
+  {
+    "box": [
+      72,
+      230,
+      1056,
+      39,
+    ],
+    "id": "status",
+    "text": "Separate memes",
+  },
+  {
+    "box": [
+      72,
+      278,
+      1056,
+      26,
+    ],
+    "id": "status-explanation",
+    "text": "These coins represent different memes. No comparative ruling applies.",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "TILCAYO",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      427,
+      56,
+      57,
+    ],
+    "id": "row-1-state",
+    "text": "N/A",
+  },
+  {
+    "box": [
+      120,
+      427,
+      148,
+      57,
+    ],
+    "id": "row-1-ticker",
+    "text": "TIGRINO",
+  },
+  {
+    "box": [
+      286,
+      427,
+      194,
+      57,
+    ],
+    "id": "row-1-ca",
+    "text": "BBBBBB...BBBBBB",
+  },
+  {
+    "box": [
+      496,
+      427,
+      656,
+      57,
+    ],
+    "id": "row-1-detail",
+    "text": "Different meme scope; no comparison",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
+
+exports[`public rule fixtures > renders and snapshots tilcayo_same_meme 1`] = `
+[
+  {
+    "box": [
+      68,
+      29,
+      400,
+      40,
+    ],
+    "id": "brand",
+    "text": "PvP Referee",
+  },
+  {
+    "box": [
+      839,
+      35,
+      313,
+      28,
+    ],
+    "id": "edition",
+    "text": "ON THE RECORD  /  2 COINS",
+  },
+  {
+    "box": [
+      48,
+      107,
+      1104,
+      63,
+    ],
+    "id": "meme",
+    "text": "Tigrino",
+  },
+  {
+    "box": [
+      72,
+      201,
+      1056,
+      25,
+    ],
+    "id": "winner-label",
+    "text": "WINNER  /  SOLANA",
+  },
+  {
+    "box": [
+      72,
+      228,
+      1056,
+      39,
+    ],
+    "id": "winner-name",
+    "text": "Tigrino",
+  },
+  {
+    "box": [
+      72,
+      275,
+      1056,
+      29,
+    ],
+    "id": "winner-ca",
+    "text": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  },
+  {
+    "box": [
+      48,
+      338,
+      400,
+      25,
+    ],
+    "id": "list-label",
+    "text": "OTHER CANDIDATES",
+  },
+  {
+    "box": [
+      496,
+      338,
+      656,
+      25,
+    ],
+    "id": "list-note",
+    "text": "RULE / REASON",
+  },
+  {
+    "box": [
+      48,
+      370,
+      56,
+      57,
+    ],
+    "id": "row-0-state",
+    "text": "FAIL",
+  },
+  {
+    "box": [
+      120,
+      370,
+      148,
+      57,
+    ],
+    "id": "row-0-ticker",
+    "text": "TIGRINO",
+  },
+  {
+    "box": [
+      286,
+      370,
+      194,
+      57,
+    ],
+    "id": "row-0-ca",
+    "text": "AAAAAA...AAAAAA",
+  },
+  {
+    "box": [
+      496,
+      370,
+      656,
+      57,
+    ],
+    "id": "row-0-detail",
+    "text": "R2 Identity: Name "Tilcayo" does not match canonical "Tigrino" from su...",
+  },
+  {
+    "box": [
+      48,
+      637,
+      440,
+      22,
+    ],
+    "id": "version",
+    "text": "RULEBOOK v1  /  7eb4b1e1f6b7",
+  },
+  {
+    "box": [
+      644,
+      637,
+      508,
+      22,
+    ],
+    "id": "footer",
+    "text": "Frozen facts. Published rules. Full evidence in ruling.",
+  },
+]
+`;
