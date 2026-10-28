@@ -1,0 +1,21 @@
+{
+  "synthetic": true,
+  "description": "Invented X v2 provider responses; not captured from X and not evidence of live accounts, posts, coins, uploads, or rulings.",
+  "me": { "data": { "id": "900", "username": "pvpreferee" } },
+  "page1": {
+    "data": [
+      { "id": "103", "author_id": "700", "text": "@pvpreferee compare these 11111111111111111111111111111111 So11111111111111111111111111111111111111112", "entities": { "mentions": [{ "username": "pvpreferee", "id": "900" }], "urls": [{ "url": "https://t.co/synthetic", "expanded_url": "https://example.org/meme-source" }] } },
+      { "id": "102", "author_id": "701", "text": "@pvpreferee please compare the parent", "entities": { "mentions": [{ "username": "pvpreferee", "id": "900" }] }, "referenced_tweets": [{ "type": "replied_to", "id": "90" }] }
+    ],
+    "meta": { "result_count": 2, "newest_id": "103", "oldest_id": "102", "next_token": "synthetic-next" }
+  },
+  "page2": {
+    "data": [{ "id": "101", "author_id": "702", "text": "@pvpreferee 11111111111111111111111111111111 So11111111111111111111111111111111111111112", "entities": { "mentions": [{ "username": "pvpreferee", "id": "900" }] } }],
+    "meta": { "result_count": 1, "newest_id": "101", "oldest_id": "101" }
+  },
+  "parent": { "data": { "id": "90", "author_id": "800", "text": "Synthetic comparison: 11111111111111111111111111111111 So11111111111111111111111111111111111111112", "entities": { "urls": [{ "expanded_url": "https://example.org/meme-source" }] } } },
+  "empty": { "meta": { "result_count": 0 } },
+  "upload": { "data": { "id": "500", "media_key": "3_500", "expires_after_secs": 86400 } },
+  "reply": { "data": { "id": "600", "text": "Synthetic reply" } },
+  "rateLimit": { "title": "Too Many Requests", "status": 429 }
+}

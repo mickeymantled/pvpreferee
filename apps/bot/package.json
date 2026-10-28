@@ -7,10 +7,20 @@
     ".": "./src/index.ts"
   },
   "scripts": {
+    "dev": "node --env-file-if-exists=../../.env --import tsx src/run.ts",
+    "start": "node --env-file-if-exists=../../.env --import tsx src/run.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "lint": "eslint src",
+    "test": "vitest run --root ../.. apps/bot"
   },
   "dependencies": {
-    "@pvp/shared": "workspace:*"
+    "@pvp/shared": "workspace:*",
+    "@pvp/config": "workspace:*",
+    "@pvp/pipeline": "workspace:*",
+    "@pvp/card": "workspace:*",
+    "tsx": "^4.20.0"
+  },
+  "devDependencies": {
+    "@pvp/rules": "workspace:*"
   }
 }
