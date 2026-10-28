@@ -2,6 +2,8 @@
 
 A published, versioned referee for competing memecoin contracts. Every ruling includes a per-rule evidence grid and frozen facts. It never produces a trading score. The rulebook and fixture acceptance cases are in [AGENTS.md](AGENTS.md).
 
+v0.1 is a tested pre-production implementation. Live historical acceptance is not complete: the production historical-ledger and chain-verification adapters, real fixture addresses and deployment credentials are still required. Missing evidence remains unknown; see the release limits in [STATUS.md](docs/STATUS.md).
+
 ## Development
 
 Requires Node.js 22.13+, pnpm 11.3.0, and Postgres. Install with `pnpm install`. Run `pnpm test`, `pnpm typecheck`, and `pnpm lint` for offline verification. Live integrations are opt-in and require credentials and actual fixture addresses.

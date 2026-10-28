@@ -36,9 +36,25 @@ importers:
 
   apps/bot:
     dependencies:
+      '@pvp/card':
+        specifier: workspace:*
+        version: link:../../packages/card
+      '@pvp/config':
+        specifier: workspace:*
+        version: link:../../config
+      '@pvp/pipeline':
+        specifier: workspace:*
+        version: link:../../packages/pipeline
       '@pvp/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      tsx:
+        specifier: ^4.20.0
+        version: 4.23.15
+    devDependencies:
+      '@pvp/rules':
+        specifier: workspace:*
+        version: link:../../packages/rules
 
   apps/web:
     dependencies:
@@ -54,6 +70,9 @@ importers:
       '@pvp/pipeline':
         specifier: workspace:*
         version: link:../../packages/pipeline
+      '@pvp/rules':
+        specifier: workspace:*
+        version: link:../../packages/rules
       '@pvp/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -63,6 +82,9 @@ importers:
       '@resvg/resvg-js':
         specifier: 2.6.2
         version: 2.6.2
+      '@solana/addresses':
+        specifier: ^8.5.0
+        version: 8.5.0(typescript@5.9.3)
       next:
         specifier: 15.5.28
         version: 15.5.28(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
