@@ -1,0 +1,8 @@
+{
+  "_fixture": { "synthetic": true, "description": "Invented third-party post with a badge and claimed subject handle; must not endorse." },
+  "data": {
+    "id": "1002", "author_id": "999", "created_at": "2026-10-20T13:00:00.000Z",
+    "text": "Name: Da Ctiy\nTicker: DACITY\nScope: artifact\nSubject: @synthetic_subject\nCA: 11111111111111111111111111111111"
+  },
+  "includes": { "users": [{ "id": "999", "username": "synthetic_subject", "verified": true }] }
+}

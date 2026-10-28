@@ -1,0 +1,13 @@
+{
+  "_fixture": { "synthetic": true, "description": "Invented pet video; metadata is illustrative and not a real YouTube response." },
+  "items": [{
+    "id": "SYNTHETIC01",
+    "snippet": {
+      "channelId": "UC_SYNTHETIC_SHELTER", "channelTitle": "Synthetic Shelter",
+      "title": "The cutest animal in the world — this title is NOT canonical",
+      "description": "Name: Tigrino\nTicker: TIGRINO\nScope: artifact",
+      "publishedAt": "2026-10-18T12:00:00Z",
+      "thumbnails": { "high": { "url": "https://images.example.com/tigrino.png", "width": 480, "height": 360 } }
+    }
+  }]
+}

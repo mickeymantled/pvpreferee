@@ -4,13 +4,18 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./image": "./src/image.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --root ../.. packages/source",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@pvp/shared": "workspace:*"
+    "@pvp/shared": "workspace:*",
+    "cheerio": "^1.1.2",
+    "ipaddr.js": "^2.2.0",
+    "sharp": "^0.34.5"
   }
 }
