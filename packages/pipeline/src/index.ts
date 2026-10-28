@@ -1,5 +1,5 @@
 import { randomUUID, createHash } from 'node:crypto';
-import { canonicalJson, type CoinFacts, type IngestProvider, type MemeRecord, type Ruling, type RulingRepository, type Rulebook, type SourceProvider, type SourceResolution } from '@pvp/shared';
+import { canonicalJson, type CoinFacts, type Endorsement, type IngestProvider, type MemeRecord, type Ruling, type RulingRepository, type Rulebook, type SourceProvider, type SourceResolution } from '@pvp/shared';
 import { loadRulebook } from '@pvp/config';
 
 export class NeedsResolutionError extends Error {
@@ -7,7 +7,7 @@ export class NeedsResolutionError extends Error {
 }
 export class InvalidInputError extends Error { override name = 'InvalidInputError'; }
 export interface RulingInput { cas: string[]; source_url: string; version?: string }
-export interface ResolvedRulingInput { cas: string[]; meme: MemeRecord; version?: string }
+export interface ResolvedRulingInput { cas: string[]; meme: MemeRecord; version?: string; endorsements?: Endorsement[] }
 export interface PipelineDependencies {
   ingest: IngestProvider; source: SourceProvider; repository: RulingRepository;
   judge: (coins: CoinFacts[], meme: MemeRecord, config: Rulebook) => Ruling;
@@ -56,7 +56,12 @@ export function createPipeline(deps: PipelineDependencies) {
     if (meme.resolved === false || !meme.canonical_name || !meme.canonical_ticker) {
       throw new NeedsResolutionError({ meme, endorsements: [], needs_review: true, reasons: ['A confirmed canonical name and ticker are required.'] });
     }
-    const coins = await parallelMap(cas, 5, async ca => structuredClone(await deps.ingest.coinFacts(ca, config)));
+    const coins = await parallelMap(cas, 5, async ca => {
+      const coin = structuredClone(await deps.ingest.coinFacts(ca, config));
+      if (coin.ca !== ca) throw new Error('Coin provider returned a mismatched CA.');
+      coin.endorsements.push(...structuredClone((input.endorsements ?? []).filter(e => e.coin_ca === ca)));
+      return coin;
+    });
     const times = [...new Set(coins.flatMap(coin => coin.first_real_buy_at ? [coin.first_real_buy_at] : []))];
     const tasks = coins.flatMap(coin => times.map(at => ({ coin, at })));
     await parallelMap(tasks, 6, async ({ coin, at }) => {
@@ -84,16 +89,7 @@ export function createPipeline(deps: PipelineDependencies) {
     validateCas(input.cas);
     const resolution = await resolveSource(input.source_url, input.version);
     if (!resolution.meme || resolution.needs_review) throw new NeedsResolutionError(resolution);
-    const originalIngest = deps.ingest;
-    // Endorsements discovered from the cited source become frozen evidence on the matching coin.
-    const enriched = createPipeline({ ...deps, ingest: {
-      snapshotAt: (ca, at, config) => originalIngest.snapshotAt(ca, at, config),
-      coinFacts: async (ca, config) => {
-        const coin = await originalIngest.coinFacts(ca, config);
-        return { ...coin, endorsements: [...coin.endorsements, ...resolution.endorsements.filter(e => e.coin_ca === ca)] };
-      },
-    } });
-    return enriched.runResolved({ cas: input.cas, meme: resolution.meme, version: input.version });
+    return runResolved({ cas: input.cas, meme: resolution.meme, version: input.version, endorsements: resolution.endorsements });
   }
   return { resolveSource, run, runResolved, findBySlug: (slug: string) => deps.repository.findBySlug(slug) };
 }
