@@ -4,7 +4,7 @@ import { config } from './helpers';
 
 // No fallback CAs, token-name lookup, or invented expected on-chain facts.
 describe.skipIf(process.env.RUN_INTEGRATION !== '1')('live provider integration (explicit acceptance CAs only)', () => {
-  for (const name of ['FIXTURE_KIMCHI_CA', 'FIXTURE_SOLCAT_CA', 'FIXTURE_ROBOTAXI_CA']) {
+  for (const name of ['FIXTURE_KIMCHI_CA', 'FIXTURE_INVISIBLE_CAT_CA', 'FIXTURE_SOLCAT_CA', 'FIXTURE_ROBOTAXI_CA']) {
     it(`reads documented evidence for ${name} and honestly reports unavailable history`, async () => {
       const ca = process.env[name];
       if (!ca) throw new Error(`Set ${name}; the specification supplies no acceptance contract addresses`);
