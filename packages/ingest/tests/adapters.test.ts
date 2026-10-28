@@ -58,6 +58,13 @@ describe('synthetic provider transports, never live default requests', () => {
     const launch = await new PumpFunAdapter(new JsonRpcClient('https://synthetic.invalid', transport), transport).launch(CA);
     expect(launch.launchpad).toBeNull(); expect(launch.pair_asset).toBeNull(); expect(transport.requests).toHaveLength(1);
   });
+  it('does not use the former bonding curve quote as the migrated pool pair', async () => {
+    const b = syntheticCurve(); b[48] = 1;
+    const transport = new SyntheticTransport(r => r.method === 'GET' ? { ...fixture.pump, mint: CA, creator: CREATOR } : { result: { value: { owner: PUMP_PROGRAM, data: [b.toString('base64'), 'base64'] } } });
+    const launch = await new PumpFunAdapter(new JsonRpcClient('https://synthetic.invalid', transport), transport).launch(CA);
+    expect(launch).toMatchObject({ launchpad: 'pump.fun', pair_asset: null });
+    expect(launch.warnings.join(' ')).toContain('does not establish the migrated pool pair');
+  });
   it('requests Birdeye historical checkpoint with timestamp, chain, auth and raw amount mode', async () => {
     const response = { ...fixture.birdeye, data: { ...fixture.birdeye.data, updateUnixTime: Date.parse(at(40)) / 1000 } };
     const transport = new SyntheticTransport(() => response), price = new BirdeyeHistoricalPrice('synthetic-key', transport);

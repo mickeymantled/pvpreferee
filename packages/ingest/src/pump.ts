@@ -36,7 +36,10 @@ export class PumpFunAdapter implements LaunchProvider {
     result.fee_wallet = decoded.fee_redirected ? null : decoded.creator;
     result.evidence.push(`https://solscan.io/account/${curve}`);
     if (decoded.fee_redirected) result.warnings.push('Pump fees use cashback/holder rewards; single beneficiary wallet is unknown.');
-    if (decoded.complete) result.warnings.push('Curve is complete; completion time and migrated pool pairing require historical/pool evidence.');
+    if (decoded.complete) {
+      result.pair_asset = null;
+      result.warnings.push('Curve is complete; its former quote does not establish the migrated pool pair. Completion time and current pairing require historical/pool evidence.');
+    }
     const url = `${this.baseUrl.replace(/\/$/, '')}/coins-v2/${ca}`;
     const response = await this.transport.request({ url, method: 'GET' });
     if (response.status === 404) { result.warnings.push('Pump public coin record unavailable; original creator and deployment time unknown.'); return result; }
