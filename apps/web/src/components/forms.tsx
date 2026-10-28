@@ -4,6 +4,7 @@ import React, { useActionState, useState } from "react";
 import type { MemeRecord } from "@pvp/shared";
 import { beginReview, issueRuling } from "../app/actions";
 import type { ActionState, Review } from "../lib/workflow";
+import { CaInputs } from "./ca-inputs";
 
 const INITIAL: ActionState = { status: "idle" };
 function FormNotice({ state }: { state: ActionState }) {
@@ -19,46 +20,13 @@ function FormNotice({ state }: { state: ActionState }) {
 
 export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
   const [state, action, pending] = useActionState(beginReview, INITIAL);
-  const [cas, setCas] = useState('');
-  const [sourceUrl, setSourceUrl] = useState('');
   const [version, setVersion] = useState(versions[0] ?? 'v1');
   return (
     <form action={action} className="comparison-form" aria-busy={pending}>
-      <label htmlFor="cas">Contract addresses</label>
-      <textarea
-        id="cas"
-        name="cas"
-        value={cas}
-        onChange={event => setCas(event.target.value)}
-        placeholder="Paste 2–10 Solana contract addresses"
-        required
-        rows={4}
-        maxLength={1024}
-        spellCheck={false}
-        autoCapitalize="none"
-        autoCorrect="off"
-        aria-describedby="cas-help"
-      />
-      <p id="cas-help" className="field-help">
-        Add 2–10 addresses, separated by a new line, space, or comma. Duplicates count once.
-      </p>
-      <label htmlFor="source_url">Original meme source</label>
-      <input
-        id="source_url"
-        name="source_url"
-        value={sourceUrl}
-        onChange={event => setSourceUrl(event.target.value)}
-        type="url"
-        required
-        maxLength={2048}
-        placeholder="https://x.com/… or a source page"
-        autoCapitalize="none"
-        spellCheck={false}
-        aria-describedby="source-help"
-      />
-      <p id="source-help" className="field-help">
-        A subject post, official asset, video, or source page. You’ll review its
-        assumptions next.
+      <CaInputs disabled={pending} />
+      <p id="origin-help" className="field-help">
+        PvP Referee looks up token-linked sources to find the meme origin. If the
+        origin cannot be verified, we stop and explain what is missing.
       </p>
       <div className="version-control">
         <label htmlFor="comparison-version">Rulebook</label>
@@ -66,8 +34,8 @@ export function ComparisonForm({ versions = ['v1'] }: { versions?: string[] }) {
         <a className="text-link" href={'/rulebook/' + version}>View rules</a>
       </div>
       <FormNotice state={state} />
-      <button type="submit" disabled={pending} className="button primary">
-        {pending ? "Opening source review…" : "Review the source"}{" "}
+      <button type="submit" disabled={pending} className="button primary" aria-describedby="origin-help">
+        {pending ? "Finding the meme origin…" : "Find the meme origin"}{" "}
         <span aria-hidden="true">→</span>
       </button>
       <p className="form-footnote">
