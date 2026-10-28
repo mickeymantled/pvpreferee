@@ -11,6 +11,7 @@ import { CARD_HEIGHT, CARD_WIDTH, colors, createDocument } from './document';
 import { loadFonts, textWidth } from './fonts';
 import { renderSvg } from './svg';
 import { scenario } from '../test/scenarios';
+import brand from '../assets/brand.json';
 
 function expectPng(png: Buffer): void {
   expect(Buffer.isBuffer(png)).toBe(true);
@@ -39,7 +40,22 @@ async function inspect(ruling: Ruling) {
     expect(line.height, line.id).toBeGreaterThanOrEqual(line.size * 1.15);
   }
   expect(svg).toContain('width="1200" height="675"');
-  expect(svg).not.toMatch(/<(?:image|text)\b/); // Font outlines only, no renderer/system fallback.
+  expect(svg).not.toMatch(/<text\b/); // Font outlines only, no renderer/system fallback.
+  const images = svg.match(/<image\b[^>]*>/g) ?? [];
+  expect(images).toHaveLength(1);
+  expect(images[0]).toContain(`href="data:${brand.mimeType};base64,${brand.base64}"`);
+  expect(images[0]).not.toMatch(/image-rendering="(?:optimizeSpeed|pixelated|crisp-edges)"/);
+  const logo = nodes.find(node => node.props['data-card-id'] === 'brand-logo')!;
+  const badge = nodes.find(node => node.props['data-card-id'] === 'brand-mark')!;
+  const brandText = nodes.find(node => node.props['data-card-id'] === 'brand')!;
+  const headerLine = nodes.find(node => node.props['data-card-id'] === 'header-line')!;
+  expect([logo.left, logo.top, logo.width, logo.height]).toEqual([48, 20, 58, 58]);
+  expect([badge.left, badge.top, badge.width, badge.height]).toEqual([48, 20, 58, 58]);
+  expect(logo.props.style).toMatchObject({ objectFit: 'contain' });
+  expect(badge.props.style).toMatchObject({ backgroundColor: '#000000' });
+  expect(logo.width / logo.height).toBe(brand.width / brand.height);
+  expect(brandText.left).toBeGreaterThan(logo.left + logo.width);
+  expect(headerLine.top).toBeGreaterThan(logo.top + logo.height);
   const rendered = new Resvg(svg, { font: { loadSystemFonts: false } });
   expect(rendered.imagesToResolve()).toEqual([]);
   const bounds = rendered.getBBox()!;
@@ -50,9 +66,10 @@ async function inspect(ruling: Ruling) {
   return {
     document, svg,
     // Compact, reviewable Satori geometry + visible text; no platform-specific PNG hashes.
-    snapshot: nodes.filter(node => node.textContent).map(node => ({
+    snapshot: nodes.filter(node => node.textContent || ['brand-mark', 'brand-logo'].includes(String(node.props['data-card-id']))).map(node => ({
       id: node.props['data-card-id'], text: node.textContent,
       box: [node.left, node.top, node.width, node.height].map(value => Math.round(value * 100) / 100),
+      ...(node.props['data-card-id'] === 'brand-logo' ? { asset: brand.sha256 } : {}),
     })),
   };
 }
@@ -71,7 +88,7 @@ describe('public rule fixtures', () => {
       expect(ruling.winner_ca).toBe(fixture.expected.winner_ca);
       const before = structuredClone(ruling);
       const { document, snapshot } = await inspect(ruling);
-      expect(snapshot.length).toBe(document.lines.length);
+      expect(snapshot.length).toBe(document.lines.length + 2);
       expect(snapshot).toMatchSnapshot();
       const winner = document.lines.find(line => line.id === 'winner-ca');
       expect(winner?.text ?? null).toBe(ruling.winner_ca);
@@ -120,6 +137,16 @@ describe('capacity and status cards', () => {
 });
 
 describe('determinism, safety and server boundary', () => {
+  it('renders the original logo with quality image scaling, not speed scaling', async () => {
+    const ruling = scenario('resolved');
+    const svg = await renderSvg(ruling);
+    const quality = new Resvg(svg, { font: { loadSystemFonts: false }, imageRendering: 0 }).render().asPng();
+    const speed = new Resvg(svg, { font: { loadSystemFonts: false }, imageRendering: 1 }).render().asPng();
+    const png = await renderRulingCard(ruling);
+    // Compare rendering modes in this environment, without platform-specific golden hashes.
+    expect(png.equals(quality)).toBe(true);
+    expect(png.equals(speed)).toBe(false);
+  });
   it('renders identical bytes for concurrent repeated requests with no clock or network dependence', async () => {
     const ruling = scenario('resolved');
     const [a, b, c] = await Promise.all([renderRulingCard(ruling), renderRulingCard(ruling), renderRulingCard(ruling)]);

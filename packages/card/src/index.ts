@@ -7,6 +7,7 @@ export async function renderRulingCard(ruling: Ruling): Promise<Buffer> {
   const svg = await renderSvg(ruling);
   const image = await renderAsync(svg, {
     font: { loadSystemFonts: false },
+    imageRendering: 0, // optimizeQuality: preserve normal image scaling, never optimizeSpeed.
     fitTo: { mode: 'original' },
   });
   return image.asPng();

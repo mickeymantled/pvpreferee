@@ -16,7 +16,8 @@
     "test": "vitest run --root ../.. packages/card",
     "lint": "eslint src scripts test",
     "samples": "tsx scripts/samples.ts",
-    "fonts:bundle": "tsx scripts/bundle-fonts.ts"
+    "fonts:bundle": "tsx scripts/bundle-fonts.ts",
+    "brand:bundle": "tsx scripts/bundle-brand.ts"
   },
   "dependencies": {
     "@pvp/shared": "workspace:*",
