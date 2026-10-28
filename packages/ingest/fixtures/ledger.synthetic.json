@@ -1,0 +1,45 @@
+{
+  "synthetic": true,
+  "description": "Invented ledger, not a real chain capture. Amounts are atomic; one pool owner and three buyers. Repeated Alice buys do not add distinct buyers. Bob burns his balance; later inflation must not affect an earlier snapshot.",
+  "decimals": 0,
+  "transactions": [
+    { "second": 0, "events": [
+      { "kind": "initialize", "decimals": 0 },
+      { "kind": "supply", "delta_atomic": "1000" },
+      { "kind": "balance", "account": "synthetic-pool-account", "owner": "synthetic-pool", "amount_atomic": "1000" }
+    ] },
+    { "second": 10, "events": [
+      { "kind": "balance", "account": "synthetic-pool-account", "owner": "synthetic-pool", "amount_atomic": "900" },
+      { "kind": "balance", "account": "synthetic-alice-account", "owner": "synthetic-alice", "amount_atomic": "100" },
+      { "kind": "trade", "side": "buy", "wallet": "synthetic-alice", "token_atomic": "100", "quote_atomic": "10" }
+    ] },
+    { "second": 20, "events": [
+      { "kind": "balance", "account": "synthetic-pool-account", "owner": "synthetic-pool", "amount_atomic": "800" },
+      { "kind": "balance", "account": "synthetic-alice-account", "owner": "synthetic-alice", "amount_atomic": "200" },
+      { "kind": "trade", "side": "buy", "wallet": "synthetic-alice", "token_atomic": "100", "quote_atomic": "10" }
+    ] },
+    { "second": 30, "events": [
+      { "kind": "balance", "account": "synthetic-pool-account", "owner": "synthetic-pool", "amount_atomic": "700" },
+      { "kind": "balance", "account": "synthetic-bob-account", "owner": "synthetic-bob", "amount_atomic": "100" },
+      { "kind": "trade", "side": "buy", "wallet": "synthetic-bob", "token_atomic": "100", "quote_atomic": "10" }
+    ] },
+    { "second": 40, "events": [
+      { "kind": "balance", "account": "synthetic-pool-account", "owner": "synthetic-pool", "amount_atomic": "600" },
+      { "kind": "balance", "account": "synthetic-carol-account", "owner": "synthetic-carol", "amount_atomic": "100" },
+      { "kind": "trade", "side": "buy", "wallet": "synthetic-carol", "token_atomic": "100", "quote_atomic": "10" }
+    ] },
+    { "second": 50, "events": [
+      { "kind": "balance", "account": "synthetic-alice-account", "owner": "synthetic-alice", "amount_atomic": "100" },
+      { "kind": "balance", "account": "synthetic-alice-second-account", "owner": "synthetic-alice", "amount_atomic": "100" },
+      { "kind": "balance", "account": "synthetic-bob-account", "owner": "synthetic-bob", "amount_atomic": "0" },
+      { "kind": "supply", "delta_atomic": "-100" },
+      { "kind": "close", "account": "synthetic-bob-account" }
+    ] },
+    { "second": 60, "events": [
+      { "kind": "supply", "delta_atomic": "1000000" },
+      { "kind": "balance", "account": "synthetic-later-account", "owner": "synthetic-later", "amount_atomic": "1000000" },
+      { "kind": "trade", "side": "buy", "wallet": "synthetic-later", "token_atomic": "1000000", "quote_atomic": "100000" }
+    ] }
+  ],
+  "prices": { "0": 1, "40": 2, "50": 3, "60": 999 }
+}

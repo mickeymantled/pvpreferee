@@ -1,0 +1,8 @@
+{
+  "synthetic": true,
+  "description": "Invented API-shaped payloads for contract tests only; identifiers are replaced with deterministic synthetic keys by the fixture transport. Not captured provider responses.",
+  "das": { "id": "SYNTHETIC_MINT", "content": { "metadata": { "name": "Synthetic Cat", "symbol": "SYNTH" }, "links": { "image": "https://example.invalid/synthetic.png" } }, "token_info": { "supply": 999999999999, "decimals": 0, "price_info": { "price_per_token": 999 } } },
+  "mint": { "context": { "slot": 100 }, "value": { "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "data": { "parsed": { "type": "mint", "info": { "mintAuthority": null, "freezeAuthority": null, "supply": "999999999999", "decimals": 0 } } } } },
+  "pump": { "mint": "SYNTHETIC_MINT", "creator": "SYNTHETIC_CREATOR", "name": "Synthetic Cat", "symbol": "SYNTH", "created_timestamp": 1700000000000, "usd_market_cap": 99999999, "complete": false },
+  "birdeye": { "success": true, "data": { "value": 2, "updateUnixTime": 1793145640, "priceChange24h": 0, "isScaledUiToken": false } }
+}

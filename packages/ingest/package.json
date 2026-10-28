@@ -4,13 +4,22 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./migrate": "./src/migrate.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --root ../.. packages/ingest",
+    "db:migrate": "tsx src/migrate.ts"
   },
   "dependencies": {
-    "@pvp/shared": "workspace:*"
+    "@pvp/shared": "workspace:*",
+    "@solana/web3.js": "^1.98.4",
+    "drizzle-orm": "^0.44.7",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.14",
+    "@types/pg": "^8.15.5"
   }
 }
