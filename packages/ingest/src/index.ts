@@ -8,4 +8,3 @@ export * from './ledger';
 export * from './provider';
 export * from './repository';
 export * as schema from './schema';
-export { migrateIngest } from './migrate';

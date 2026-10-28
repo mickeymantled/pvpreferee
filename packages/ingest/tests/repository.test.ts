@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { PGlite } from '@electric-sql/pglite';
 import { drizzle } from 'drizzle-orm/pglite';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { DrizzleRulingRepository, PostgresSnapshotCache } from '../src/repository';
+import { createRulingRepository, DrizzleRulingRepository, PostgresSnapshotCache } from '../src/repository';
 import * as schema from '../src/schema';
 import { hash } from '../src/common';
 import { IngestService } from '../src/provider';
@@ -88,6 +88,72 @@ describe('real PostgreSQL semantics via offline PGlite, synthetic records', () =
     const unaudited = structuredClone(current); unaudited.canonical_ticker = 'UNLOGGED';
     unaudited.overrides.push({ field: 'canonical_name', previous: current.canonical_name, value: current.canonical_name, actor: 'synthetic-brian', at: at(101), reason: 'Wrong audit field' });
     await expect(repository.applyMemeOverride(current, unaudited)).rejects.toThrow();
+  });
+  const manualMeme = (id: string) => ({ ...structuredClone(meme), id, slug: id, source_url: `https://example.invalid/${id}`, resolved: true,
+    press_candidates: [{ value: 'Synthetic Cat', articles: ['https://example.invalid/synthetic-article'] }],
+    overrides: ['canonical_name', 'canonical_ticker'].map(field => ({ field, previous: null, value: field === 'canonical_name' ? meme.canonical_name : meme.canonical_ticker,
+      actor: 'synthetic-brian', at: at(100), reason: 'Synthetic manual creation from missing source metadata' })),
+  });
+  it('creates from a null baseline with the existing audit and returns the exact raw meme from both lookups', async () => {
+    const current = manualMeme('synthetic-null-baseline');
+    await repository.applyMemeOverride(null, current);
+    expect(await repository.findMemeById(current.id)).toEqual(current);
+    expect(await repository.findMemeBySourceUrl(current.source_url)).toEqual(current);
+    expect(await repository.findMemeById('synthetic-missing')).toBeNull();
+    expect(await repository.findMemeBySourceUrl(`${current.source_url}?different-source`)).toBeNull();
+    const row = await pg.query<{ override_audit: unknown }>('SELECT override_audit FROM memes WHERE id=$1', [current.id]);
+    expect(row.rows[0]!.override_audit).toEqual(current.overrides);
+  });
+  it('rejects null-baseline ID and slug collisions without changing an existing record', async () => {
+    const current = manualMeme('synthetic-creation-collision');
+    await repository.applyMemeOverride(null, current);
+    await expect(repository.applyMemeOverride(null, current)).rejects.toMatchObject({ code: 'IMMUTABLE_CONFLICT' });
+    const sameId = { ...current, slug: 'synthetic-different-slug' };
+    await expect(repository.applyMemeOverride(null, sameId)).rejects.toMatchObject({ code: 'IMMUTABLE_CONFLICT' });
+    const sameSlug = { ...current, id: 'synthetic-different-id' };
+    await expect(repository.applyMemeOverride(null, sameSlug)).rejects.toMatchObject({ code: 'IMMUTABLE_CONFLICT' });
+    expect(await repository.findMemeById(current.id)).toEqual(current);
+    expect(await repository.findMemeById(sameSlug.id)).toBeNull();
+  });
+  it('allows only one concurrent null-baseline creation for the same identity', async () => {
+    const current = manualMeme('synthetic-concurrent-creation');
+    const results = await Promise.allSettled([repository.applyMemeOverride(null, current), repository.applyMemeOverride(null, current)]);
+    expect(results.filter(r => r.status === 'fulfilled')).toHaveLength(1);
+    expect(results.filter(r => r.status === 'rejected')).toMatchObject([{ reason: { code: 'IMMUTABLE_CONFLICT' } }]);
+    expect(await repository.findMemeById(current.id)).toEqual(current);
+  });
+  it('rejects absent or invalid creation audit atomically', async () => {
+    const missing = manualMeme('synthetic-missing-creation-audit'); missing.overrides = [];
+    await expect(repository.applyMemeOverride(null, missing)).rejects.toMatchObject({ code: 'INVALID_INPUT' });
+    expect(await repository.findMemeById(missing.id)).toBeNull();
+    const invalid = manualMeme('synthetic-invalid-creation-audit'); invalid.overrides[0]!.reason = '';
+    await expect(repository.applyMemeOverride(null, invalid)).rejects.toThrow();
+    expect(await repository.findMemeById(invalid.id)).toBeNull();
+  });
+  it('loads current audited facts for a later review and rejects a stale loaded version', async () => {
+    const current = manualMeme('synthetic-loaded-review'); await repository.applyMemeOverride(null, current);
+    const previous = (await repository.findMemeBySourceUrl(current.source_url))!;
+    const updated = structuredClone(previous); updated.canonical_name = 'Synthetic Later Review';
+    updated.overrides.push({ field: 'canonical_name', previous: previous.canonical_name, value: updated.canonical_name, actor: 'synthetic-brian', at: at(101), reason: 'Synthetic later review' });
+    await repository.applyMemeOverride(previous, updated);
+    expect(await repository.findMemeById(current.id)).toEqual(updated);
+    expect(await repository.findMemeBySourceUrl(current.source_url)).toEqual(updated);
+    await expect(repository.applyMemeOverride(previous, updated)).rejects.toMatchObject({ code: 'IMMUTABLE_CONFLICT' });
+  });
+  it('fails explicitly on an ambiguous source URL instead of choosing a review baseline', async () => {
+    const artifact = manualMeme('synthetic-shared-source-artifact');
+    const concept = { ...manualMeme('synthetic-shared-source-concept'), source_url: artifact.source_url, scope: 'concept' as const };
+    await repository.applyMemeOverride(null, artifact); await repository.applyMemeOverride(null, concept);
+    await expect(repository.findMemeBySourceUrl(artifact.source_url)).rejects.toMatchObject({ code: 'IMMUTABLE_CONFLICT' });
+    expect(await repository.findMemeById(artifact.id)).toEqual(artifact);
+    expect(await repository.findMemeById(concept.id)).toEqual(concept);
+  });
+  it('exposes the review methods through the public factory without connecting', async () => {
+    const publicRepository = createRulingRepository('postgresql://synthetic.invalid/synthetic');
+    expect(publicRepository.applyMemeOverride).toBeTypeOf('function');
+    expect(publicRepository.findMemeById).toBeTypeOf('function');
+    expect(publicRepository.findMemeBySourceUrl).toBeTypeOf('function');
+    await publicRepository.close();
   });
   it('freezes original meme versions on rulings after a later override and supports replaying an old version', async () => {
     const r = await makeRuling('synthetic-before-override'); await repository.save(r);

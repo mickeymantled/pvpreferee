@@ -9,8 +9,11 @@ import * as schema from './schema';
 
 export type IngestDatabase = PgDatabase<PgQueryResultHKT, typeof schema>;
 export interface IngestRulingRepository extends RulingRepository {
-  /** Caller authenticates/authorizes the actor. Equality of previous is checked under a row lock. */
-  applyMemeOverride(previous: MemeRecord, current: MemeRecord): Promise<void>;
+  /** Caller authenticates/authorizes the actor. Null creates; non-null uses optimistic concurrency under a row lock. */
+  applyMemeOverride(previous: MemeRecord | null, current: MemeRecord): Promise<void>;
+  findMemeById(id: string): Promise<MemeRecord | null>;
+  /** Exact URL match. Multiple distinct memes for one source require lookup by ID. */
+  findMemeBySourceUrl(url: string): Promise<MemeRecord | null>;
 }
 function immutableConflict(message: string): never { throw new IngestError('IMMUTABLE_CONFLICT', message); }
 function memeRow(m: MemeRecord) {
@@ -31,16 +34,33 @@ function validateRuling(r: Ruling): void {
 /** Database-injectable for offline tests; all normal writes use Drizzle. */
 export class DrizzleRulingRepository implements IngestRulingRepository {
   constructor(private readonly db: IngestDatabase) {}
-  async applyMemeOverride(previous: MemeRecord, current: MemeRecord): Promise<void> {
+  async applyMemeOverride(previous: MemeRecord | null, current: MemeRecord): Promise<void> {
     const before = structuredClone(previous), after = structuredClone(current);
-    if (before.id !== after.id || after.overrides.length <= before.overrides.length || hash(after.overrides.slice(0, before.overrides.length)) !== hash(before.overrides)) throw new IngestError('INVALID_INPUT', 'Override must preserve meme identity and append to the previous audit');
+    if (before === null) {
+      if (after.overrides.length === 0) throw new IngestError('INVALID_INPUT', 'Manual meme creation requires the supplied field audit');
+    } else if (before.id !== after.id || after.overrides.length <= before.overrides.length || hash(after.overrides.slice(0, before.overrides.length)) !== hash(before.overrides)) throw new IngestError('INVALID_INPUT', 'Override must preserve meme identity and append to the previous audit');
     await this.db.transaction(async tx => {
+      if (before === null) {
+        // Persist the source package's reviewed facts and audit verbatim; there is no inferred baseline.
+        const inserted = await tx.insert(schema.memes).values(memeRow(after)).onConflictDoNothing().returning({ id: schema.memes.id });
+        if (inserted.length !== 1) immutableConflict('Meme ID or slug already exists; load the audited record before reviewing it');
+        return;
+      }
       // The initial resolver record may not yet be saved when /resolve is reviewed.
       await tx.insert(schema.memes).values(memeRow(before)).onConflictDoNothing({ target: schema.memes.id });
       const [stored] = await tx.select().from(schema.memes).where(eq(schema.memes.id, before.id)).for('update');
       if (!stored || hash(stored.raw_record) !== hash(before)) immutableConflict('Meme changed since review; reload and reapply the override');
       await tx.update(schema.memes).set(memeRow(after)).where(eq(schema.memes.id, before.id));
     });
+  }
+  async findMemeById(id: string): Promise<MemeRecord | null> {
+    const [row] = await this.db.select({ raw: schema.memes.raw_record }).from(schema.memes).where(eq(schema.memes.id, id));
+    return row?.raw ?? null;
+  }
+  async findMemeBySourceUrl(url: string): Promise<MemeRecord | null> {
+    const rows = await this.db.select({ raw: schema.memes.raw_record }).from(schema.memes).where(eq(schema.memes.source_url, url)).limit(2);
+    if (rows.length > 1) immutableConflict('Source URL identifies multiple memes; load the intended audited record by ID');
+    return rows[0]?.raw ?? null;
   }
   async save(ruling: Ruling): Promise<void> {
     // Detach before the first await, retaining optional raw_ingest extensions in JSON.
@@ -105,7 +125,8 @@ function connection(databaseUrl: string) {
 }
 export function createRulingRepository(databaseUrl: string): IngestRulingRepository & { close(): Promise<void> } {
   const client = connection(databaseUrl), repository = new DrizzleRulingRepository(client.db);
-  return { save: repository.save.bind(repository), findBySlug: repository.findBySlug.bind(repository), applyMemeOverride: repository.applyMemeOverride.bind(repository), close: client.close };
+  return { save: repository.save.bind(repository), findBySlug: repository.findBySlug.bind(repository), applyMemeOverride: repository.applyMemeOverride.bind(repository),
+    findMemeById: repository.findMemeById.bind(repository), findMemeBySourceUrl: repository.findMemeBySourceUrl.bind(repository), close: client.close };
 }
 export function createPostgresSnapshotCache(databaseUrl: string): SnapshotCache & { close(): Promise<void> } {
   const client = connection(databaseUrl), cache = new PostgresSnapshotCache(client.db);

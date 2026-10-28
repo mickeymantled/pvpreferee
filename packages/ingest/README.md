@@ -17,13 +17,20 @@ await ingest.close();
 await repository.close();
 ```
 
-These factories do not connect or migrate on construction. `createIngestFromEnv()` implements the frozen `IngestProvider`; `createRulingRepository(url)` implements `RulingRepository` plus `applyMemeOverride(previous, current)` and `close()`. Run the migration explicitly before using persistence:
+These factories do not connect or migrate on construction. `createIngestFromEnv()` implements the frozen `IngestProvider`; `createRulingRepository(url)` implements `RulingRepository` plus `applyMemeOverride(previous, current)`, `findMemeById(id)`, `findMemeBySourceUrl(url)` and `close()`. These extensions belong to the package-local `IngestRulingRepository` interface. Run the migration explicitly before using persistence:
 
 ```sh
 DATABASE_URL=... pnpm --filter @pvp/ingest db:migrate
 ```
 
-`migrateIngest(url)` runs `migrations/0001_ingest.sql` atomically under an advisory lock. It records its version in a table comment, creates exactly five tables, and rejects an existing unrecognized/partial schema. It does not create an extra migration-history table. Use this migration rather than schema-push: SQL includes immutability and audit triggers that are not expressed in the Drizzle column definitions.
+Migration/verification tooling can import the separate migration entry point:
+
+```ts
+import { migrateIngest } from '@pvp/ingest/migrate';
+await migrateIngest(databaseUrl);
+```
+
+`migrateIngest` is intentionally absent from the root `@pvp/ingest` exports so normal web/bot imports do not pull in migration filesystem access, SQL-file tracing or the CLI's top-level await. The `db:migrate` CLI remains unchanged. `migrateIngest(url)` runs `migrations/0001_ingest.sql` atomically under an advisory lock. It records its version in a table comment, creates exactly five tables, and rejects an existing unrecognized/partial schema. It does not create an extra migration-history table. Use this migration rather than schema-push: SQL includes immutability and audit triggers that are not expressed in the Drizzle column definitions.
 
 ## What works live and what remains unknown
 
@@ -70,10 +77,19 @@ PostgreSQL triggers reject UPDATE, DELETE and TRUNCATE on coin facts, snapshots,
 ## Standalone source override review
 
 ```ts
+// Missing canonical data may yield no resolver meme at all.
+await repository.applyMemeOverride(null, manuallyCreatedMeme);
+
+const previousMeme = await repository.findMemeById(id);
+// Or findMemeBySourceUrl(sourceUrl), using an exact stored URL.
 await repository.applyMemeOverride(previousMeme, reviewedMeme);
 ```
 
-This works before any ingest or ruling exists. It creates the initial resolver meme if absent, locks the row, requires its complete JSON to equal `previousMeme`, then applies the new version. Every changed field needs a matching appended `{field, previous, value, actor, at, reason}` audit entry. A stale review fails with `IMMUTABLE_CONFLICT`; reload before retrying. Indexed columns must match audited JSON. SQL triggers prohibit editing/removing earlier audit entries and deleting/truncating memes. Old rulings keep their original source version. Saving an older ruling never rolls back the current meme.
+This works before any ingest or ruling exists. A null baseline atomically inserts the supplied current meme and its existing nonempty field audit, without inferring prior facts or rewriting audit entries. Existing IDs/slugs, including an identical retry or concurrent creation, fail with `IMMUTABLE_CONFLICT`; nothing is overwritten. SQL audit validation failures leave no partial record.
+
+For a non-null baseline, it creates the initial resolver meme if absent, locks the row, requires its complete JSON to equal `previousMeme`, then applies the new version. Every changed field needs a matching appended `{field, previous, value, actor, at, reason}` audit entry. A stale review fails with `IMMUTABLE_CONFLICT`; reload before retrying. Indexed columns must match audited JSON. SQL triggers prohibit editing/removing earlier audit entries and deleting/truncating memes. Old rulings keep their original source version. Saving an older ruling never rolls back the current meme.
+
+Both lookup methods return the stored raw `MemeRecord` (including its entire audit and optional fields), or null when absent. URLs match exactly without normalization. The schema permits multiple memes sourced from the same URL; an ambiguous URL raises `IMMUTABLE_CONFLICT` and the caller must load the intended meme by ID. No schema or shared-type change is needed.
 
 **The caller must authenticate and authorize Brian before calling this helper.** The persistence layer records the supplied actor and enforces concurrency/audit integrity; it does not implement sign-in or trust an actor string as authentication. No additional audit table is created.
 
@@ -101,4 +117,4 @@ Default `pnpm test`, `pnpm typecheck`, `pnpm lint` cover saved synthetic ledger/
 - [Pump program account layout](https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_PROGRAM_README.md), [official IDL](https://github.com/pump-fun/pump-public-docs/blob/main/idl/pump.json), [creator-fee semantics](https://github.com/pump-fun/pump-public-docs/blob/main/docs/PUMP_CREATOR_FEE_README.md)
 - [Birdeye historical Unix checkpoint](https://data.birdeye.so/docs/data-api/price-ohlcv/get-defi-historical-price-unix.md) (the response schema describes `updateUnixTime` as the matched nearby record; exact equality is enforced here)
 
-Public exports: env/provider factories; `IngestService`; `HeliusAdapter`, `PumpFunAdapter`, `BirdeyeHistoricalPrice`; `FetchTransport`, `JsonRpcClient`; `HistoricalLedger` and all package-local contracts; `replayLedger`, `firstRealBuyAt`, `historicalCap`, `UnavailableHistoricalLedger`; `DrizzleRulingRepository`, `PostgresSnapshotCache`, `createPostgresSnapshotCache`; `schema`; `migrateIngest`; `IngestError`; `decodePumpCurve`, `PUMP_PROGRAM`.
+Root public exports: env/provider factories; `IngestService`; `HeliusAdapter`, `PumpFunAdapter`, `BirdeyeHistoricalPrice`; `FetchTransport`, `JsonRpcClient`; `HistoricalLedger` and all package-local contracts; `replayLedger`, `firstRealBuyAt`, `historicalCap`, `UnavailableHistoricalLedger`; `DrizzleRulingRepository`, `PostgresSnapshotCache`, `createPostgresSnapshotCache`; `schema`; `IngestError`; `decodePumpCurve`, `PUMP_PROGRAM`. Migration-only export: `migrateIngest` from `@pvp/ingest/migrate`.
