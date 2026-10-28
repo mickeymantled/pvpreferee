@@ -4,13 +4,16 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./fixtures": "./fixtures/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --config vitest.config.ts --root ../.. packages/rules",
+    "lint": "eslint src fixtures"
   },
   "dependencies": {
+    "@pvp/config": "workspace:*",
     "@pvp/shared": "workspace:*"
   }
 }
