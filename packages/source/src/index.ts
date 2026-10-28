@@ -11,3 +11,5 @@ export type { PressResult } from './press.js';
 export { createManualOverrideService, createManualOverrideServiceFromEnv } from './overrides.js';
 export type { ManualOverrideService, ManualOverrideServiceOptions, ManualOverridePatch, OverrideRequest, OverrideCommit, CallerAuthContext } from './overrides.js';
 export type { SourceProvider, SourceResolution } from '@pvp/shared';
+export { discoverOrigin } from './discovery.js';
+export type { OriginCandidate, OriginDiscoveryResult, OriginDiscoveryOptions } from './discovery.js';

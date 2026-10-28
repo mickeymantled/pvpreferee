@@ -1,0 +1,19 @@
+{
+  "synthetic": true,
+  "description": "Invented DexScreener-shaped discovery data. Addresses identify requested keys only; no claim about these tokens or their actual origin.",
+  "pairs": [
+    {
+      "chainId": "solana",
+      "baseToken": { "address": "So11111111111111111111111111111111111111112", "name": "Do not use this name", "symbol": "NOT_AUTHORITY" },
+      "info": {
+        "websites": [{ "url": "https://coin-a.example.com/", "label": "Website" }],
+        "socials": [{ "url": "https://x.com/synthetic_token", "type": "twitter" }]
+      }
+    },
+    {
+      "chainId": "solana",
+      "baseToken": { "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "name": "Different token name", "symbol": "IGNORE" },
+      "info": { "websites": [{ "url": "https://coin-b.example.com/" }] }
+    }
+  ]
+}
